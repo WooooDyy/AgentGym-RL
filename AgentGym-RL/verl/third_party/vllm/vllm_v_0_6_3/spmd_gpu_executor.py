@@ -81,13 +81,13 @@ class SPMDGPUExecutor(ExecutorBase):
         # Lazy import the Worker to avoid importing torch.cuda/xformers
         # before CUDA_VISIBLE_DEVICES is set in the Worker
         from .worker import Worker  # pylint: disable=import-outside-toplevel
-
+        import os
         rank = int(os.getenv("RANK"))
         local_rank = int(os.getenv("LOCAL_RANK"))
         print(f"local rank {local_rank}")
 
         # see https://github.com/NVIDIA/nccl/issues/1234
-        os.environ["NCCL_CUMEM_ENABLE"] = "0"
+        # os.environ["NCCL_CUMEM_ENABLE"] = "0"
 
         self.worker = Worker(
             model,

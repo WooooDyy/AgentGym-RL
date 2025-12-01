@@ -25,7 +25,8 @@ from verl.single_controller.base.decorator import MAGIC_ATTR, Dispatch, get_pred
 
 class ResourcePool:
 
-    def __init__(self, process_on_nodes=None, max_collocate_count: int = 10, n_gpus_per_node=8) -> None:
+    # def __init__(self, process_on_nodes=None, max_collocate_count: int = 10, n_gpus_per_node=8) -> None:
+    def __init__(self, process_on_nodes: list | None, max_collocate_count: int, n_gpus_per_node: int) -> None:
         if process_on_nodes is None:
             process_on_nodes = []
         self._store = process_on_nodes
@@ -79,7 +80,6 @@ class ClassWithInitArgs:
 
 
 def check_workers_alive(workers: List, is_alive: Callable, gap_time: float = 1) -> None:
-    import time
     while True:
         for worker in workers:
             if not is_alive(worker):

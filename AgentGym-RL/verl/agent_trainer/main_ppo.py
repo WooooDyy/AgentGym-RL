@@ -14,10 +14,15 @@
 """
 Note that we don't combine the main with ray_trainer as ray_trainer is used by other main.
 """
-from verl.agent_trainer.ppo.ray_trainer import RayPPOTrainer
-
-import ray
+from pprint import pprint
+from omegaconf import OmegaConf
 import hydra
+import ray
+from verl.agent_trainer.ppo.ray_trainer import RayPPOTrainer, ResourcePoolManager, Role
+from verl.single_controller.ray import RayWorkerGroup
+from verl.workers.agent_fsdp_workers import ActorRolloutRefWorker, CriticWorker
+from verl.utils import hf_tokenizer
+from verl.utils.fs import copy_local_path_from_hdfs
 
 
 @hydra.main(config_path='config', config_name='ppo_trainer', version_base=None)
@@ -35,10 +40,7 @@ def run_ppo(config):
 
 @ray.remote(num_cpus=1)  # please make sure main_task is not scheduled on head
 def main_task(config):
-    from verl.utils.fs import copy_local_path_from_hdfs
     # print initial config
-    from pprint import pprint
-    from omegaconf import OmegaConf
     pprint(OmegaConf.to_container(config, resolve=True))  # resolve=True will eval symbol values
     OmegaConf.resolve(config)
 
@@ -46,20 +48,24 @@ def main_task(config):
     local_path = copy_local_path_from_hdfs(config.actor_rollout_ref.model.path)
 
     # instantiate tokenizer
-    from verl.utils import hf_tokenizer
     tokenizer = hf_tokenizer(local_path)
 
     # define worker classes
-    if config.actor_rollout_ref.actor.strategy == 'fsdp':
-        assert config.actor_rollout_ref.actor.strategy == config.critic.strategy
-        from verl.workers.agent_fsdp_workers import ActorRolloutRefWorker, CriticWorker
-        from verl.single_controller.ray import RayWorkerGroup
-        ray_worker_group_cls = RayWorkerGroup
+    strategy_actor = config.actor_rollout_ref.actor.strategy
+    if strategy_actor != 'fsdp':
+        raise NotImplementedError('Only FSDP is supported for PPO trainer now.')
+    assert strategy_actor == config.critic.strategy
+    # ray_worker_group_cls = RayWorkerGroup
 
-    else:
-        raise NotImplementedError
+    # if config.actor_rollout_ref.actor.strategy == 'fsdp':
+    #     assert config.actor_rollout_ref.actor.strategy == config.critic.strategy
+    #     from verl.workers.agent_fsdp_workers import ActorRolloutRefWorker, CriticWorker
+    #     from verl.single_controller.ray import RayWorkerGroup
+    #     ray_worker_group_cls = RayWorkerGroup
 
-    from verl.agent_trainer.ppo.ray_trainer import ResourcePoolManager, Role
+    # else:
+    #     raise NotImplementedError
+
 
     role_worker_mapping = {
         Role.ActorRollout: ray.remote(ActorRolloutRefWorker),
@@ -77,13 +83,13 @@ def main_task(config):
         Role.RefPolicy: global_pool_id,
     }
 
-    resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping)
+    resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping, n_gpus_per_node=config.trainer.n_gpus_per_node)
 
     trainer = RayPPOTrainer(config=config,
                             tokenizer=tokenizer,
                             role_worker_mapping=role_worker_mapping,
                             resource_pool_manager=resource_pool_manager,
-                            ray_worker_group_cls=ray_worker_group_cls)
+                            ray_worker_group_cls=RayWorkerGroup)
     trainer.init_workers()
     trainer.fit()
 

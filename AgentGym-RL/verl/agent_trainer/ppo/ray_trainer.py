@@ -15,27 +15,30 @@
 FSDP PPO Trainer with Ray-based single controller.
 This trainer supports model-agonistic model initialization with huggingface
 """
-
+from abc import ABC, abstractmethod
 import os
 import uuid
 from contextlib import contextmanager
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Type, Dict
-from copy import deepcopy
-
-import numpy as np
 from codetiming import Timer
+import dill
+import numpy as np
 from omegaconf import OmegaConf, open_dict
+import torch
+from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
 from verl import DataProto
+from verl.agent_trainer.ppo import core_algos
 from verl.single_controller.base import Worker
 from verl.single_controller.ray import RayResourcePool, RayWorkerGroup, RayClassWithInitArgs
 from verl.single_controller.ray.base import create_colocated_worker_cls
-from verl.agent_trainer.ppo import core_algos
-from verl.utils.seqlen_balancing import get_seqlen_balanced_partitions, log_seqlen_unbalance
-from verl.utils.checkpoint.checkpoint_manager import find_latest_ckpt_path
 from verl.utils.agent_dataset.rl_dataset import RLHFDataset, collate_fn
-from abc import ABC, abstractmethod
+from verl.utils.checkpoint.checkpoint_manager import find_latest_ckpt_path, get_checkpoint_tracker_filename
+from verl.utils.seqlen_balancing import get_seqlen_balanced_partitions, log_seqlen_unbalance
+from verl.utils.torch_functional import masked_mean
+from verl.utils.tracking import Tracking
+
 
 WorkerType = Type[Worker]
 
@@ -62,6 +65,7 @@ class ResourcePoolManager:
     resource_pool_spec: dict[str, list[int]]
     mapping: dict[Role, str]
     resource_pool_dict: dict[str, RayResourcePool] = field(default_factory=dict)
+    n_gpus_per_node: int = field(default_factory=int)
 
     def create_resource_pool(self):
         for resource_pool_name, process_on_nodes in self.resource_pool_spec.items():
@@ -70,8 +74,10 @@ class ResourcePoolManager:
             # For Megatron backend, we recommend using max_colocate_count>1 that can utilize different WorkerGroup for differnt models
             resource_pool = RayResourcePool(process_on_nodes=process_on_nodes,
                                             use_gpu=True,
+                                            n_gpus_per_node=self.n_gpus_per_node,
+                                            name_prefix=resource_pool_name,
                                             max_colocate_count=1,
-                                            name_prefix=resource_pool_name)
+                                            detached=False)
             self.resource_pool_dict[resource_pool_name] = resource_pool
 
     def get_resource_pool(self, role: Role) -> RayResourcePool:
@@ -79,15 +85,10 @@ class ResourcePoolManager:
         return self.resource_pool_dict[self.mapping[role]]
 
 
-import torch
-from verl.utils.torch_functional import masked_mean
-
-
 def find_latest_ckpt_path_aistudio(path, directory_format="global_step_{}"):
     if path is None:
         return None
 
-    from verl.utils.checkpoint.checkpoint_manager import get_checkpoint_tracker_filename
     tracker_file = get_checkpoint_tracker_filename(path)
     if not os.path.exists(tracker_file):
         print("Checkpoint tracker file does not exist: %s", tracker_file)
@@ -137,57 +138,36 @@ def apply_kl_penalty(data: DataProto, kl_ctrl: core_algos.AdaptiveKLController, 
 def compute_advantage(data: DataProto, adv_estimator, gamma=1.0, lam=1.0, num_repeat=1):
     # prepare response group
     # TODO: add other ways to estimate advantages
+    response_mask = data.batch['response_mask']
+    token_level_rewards = data.batch['token_level_rewards']
+    index = data.non_tensor_batch['uid']
     if adv_estimator == 'gae':
         values = data.batch['values']
-        response_mask = data.batch['response_mask']
-        token_level_rewards = data.batch['token_level_rewards']
         advantages, returns = core_algos.compute_gae_advantage_return(token_level_rewards=token_level_rewards,
                                                                       values=values,
                                                                       eos_mask=response_mask,
                                                                       gamma=gamma,
                                                                       lam=lam)
-        data.batch['advantages'] = advantages
-        data.batch['returns'] = returns
     elif adv_estimator == 'grpo':
-        token_level_rewards = data.batch['token_level_rewards']
-        index = data.non_tensor_batch['uid']
-        response_mask = data.batch['response_mask']
         advantages, returns = core_algos.compute_grpo_outcome_advantage(token_level_rewards=token_level_rewards,
                                                                         eos_mask=response_mask,
                                                                         index=index)
-        data.batch['advantages'] = advantages
-        data.batch['returns'] = returns
     elif adv_estimator == 'rloo':
-        token_level_rewards = data.batch['token_level_rewards']
-        index = data.non_tensor_batch['uid']
-        response_mask = data.batch['response_mask']
         advantages, returns = core_algos.compute_rloo_outcome_advantage(token_level_rewards=token_level_rewards,
                                                                         eos_mask=response_mask,
                                                                         index=index)
-        data.batch['advantages'] = advantages
-        data.batch['returns'] = returns
     elif adv_estimator == 'reinforce_plus_plus':
-        token_level_rewards = data.batch['token_level_rewards']
-        response_mask = data.batch['response_mask']
         advantages, returns = core_algos.compute_reinforce_plus_plus_outcome_advantage(
             token_level_rewards=token_level_rewards, eos_mask=response_mask, gamma=gamma)
-        data.batch['advantages'] = advantages
-        data.batch['returns'] = returns
     elif adv_estimator == 'remax':
-        token_level_rewards = data.batch['token_level_rewards']
-        index = data.non_tensor_batch['uid']
-        response_mask = data.batch['response_mask']
-
         reward_baselines = data.batch['reward_baselines']
-
         advantages, returns = core_algos.compute_remax_outcome_advantage(token_level_rewards=token_level_rewards,
                                                                          reward_baselines=reward_baselines,
                                                                          eos_mask=response_mask)
-
-        data.batch['advantages'] = advantages
-        data.batch['returns'] = returns
     else:
         raise NotImplementedError
+    data.batch['advantages'] = advantages
+    data.batch['returns'] = returns
     return data
 
 
@@ -195,7 +175,7 @@ class RoundsScheduler(ABC):
     @abstractmethod
     def step(self):
         raise NotImplementedError
-    
+
     @abstractmethod
     def set_global_steps(self, global_steps: int):
         raise NotImplementedError
@@ -203,7 +183,7 @@ class RoundsScheduler(ABC):
     @abstractmethod
     def get_rounds(self):
         raise NotImplementedError
-    
+
 
 class FixedRoundsScheduler(RoundsScheduler):
     def __init__(self, rounds: int):
@@ -234,7 +214,7 @@ class StepRoundsScheduler(RoundsScheduler):
         else:
             self.current_stage = len(self.rounds_ls) - 1
         self.max_rounds = self.rounds_ls[self.current_stage]
-    
+
     def step(self):
         if self.current_stage + 1 < len(self.rounds_ls) and self.global_steps % self.steps_scaling_inter == 0:
             self.current_stage += 1
@@ -251,6 +231,7 @@ def reduce_metrics(metrics: dict):
     return metrics
 
 
+@torch.no_grad()
 def compute_data_metrics(batch, use_critic=True):
     # TODO: add response length
     sequence_score = batch.batch['token_level_scores'].sum(-1)
@@ -277,47 +258,29 @@ def compute_data_metrics(batch, use_critic=True):
 
     metrics = {
         # score
-        'critic/score/mean':
-            torch.mean(sequence_score).detach().item(),
-        'critic/score/max':
-            torch.max(sequence_score).detach().item(),
-        'critic/score/min':
-            torch.min(sequence_score).detach().item(),
+        'critic/score/mean': torch.mean(sequence_score).detach().item(),
+        'critic/score/max': torch.max(sequence_score).detach().item(),
+        'critic/score/min': torch.min(sequence_score).detach().item(),
         # task score
-        'critic/task_score/mean':
-            torch.mean(task_scores).detach().item(),
-        'critic/task_score/max':
-            torch.max(task_scores).detach().item(),
-        'critic/task_score/min':
-            torch.min(task_scores).detach().item(),
+        'critic/task_score/mean': torch.mean(task_scores).detach().item(),
+        'critic/task_score/max': torch.max(task_scores).detach().item(),
+        'critic/task_score/min': torch.min(task_scores).detach().item(),
         # task round
-        'critic/task_round/mean':
-            torch.mean(task_rounds).detach().item(),
-        'critic/task_round/max':
-            torch.max(task_rounds).detach().item(),
-        'critic/task_round/min':
-            torch.min(task_rounds).detach().item(),
+        'critic/task_round/mean': torch.mean(task_rounds).detach().item(),
+        'critic/task_round/max': torch.max(task_rounds).detach().item(),
+        'critic/task_round/min': torch.min(task_rounds).detach().item(),
         # reward
-        'critic/rewards/mean':
-            torch.mean(sequence_reward).detach().item(),
-        'critic/rewards/max':
-            torch.max(sequence_reward).detach().item(),
-        'critic/rewards/min':
-            torch.min(sequence_reward).detach().item(),
+        'critic/rewards/mean': torch.mean(sequence_reward).detach().item(),
+        'critic/rewards/max': torch.max(sequence_reward).detach().item(),
+        'critic/rewards/min': torch.min(sequence_reward).detach().item(),
         # adv
-        'critic/advantages/mean':
-            torch.mean(valid_adv).detach().item(),
-        'critic/advantages/max':
-            torch.max(valid_adv).detach().item(),
-        'critic/advantages/min':
-            torch.min(valid_adv).detach().item(),
+        'critic/advantages/mean': torch.mean(valid_adv).detach().item(),
+        'critic/advantages/max': torch.max(valid_adv).detach().item(),
+        'critic/advantages/min': torch.min(valid_adv).detach().item(),
         # returns
-        'critic/returns/mean':
-            torch.mean(valid_returns).detach().item(),
-        'critic/returns/max':
-            torch.max(valid_returns).detach().item(),
-        'critic/returns/min':
-            torch.min(valid_returns).detach().item(),
+        'critic/returns/mean': torch.mean(valid_returns).detach().item(),
+        'critic/returns/max': torch.max(valid_returns).detach().item(),
+        'critic/returns/min': torch.min(valid_returns).detach().item(),
         **({
             # values
             'critic/values/mean': torch.mean(valid_values).detach().item(),
@@ -328,23 +291,18 @@ def compute_data_metrics(batch, use_critic=True):
         } if use_critic else {}),
 
         # response length
-        'response_length/mean':
-            torch.mean(response_length).detach().item(),
-        'response_length/max':
-            torch.max(response_length).detach().item(),
-        'response_length/min':
-            torch.min(response_length).detach().item(),
+        'response_length/mean': torch.mean(response_length).detach().item(),
+        'response_length/max': torch.max(response_length).detach().item(),
+        'response_length/min': torch.min(response_length).detach().item(),
         # prompt length
-        'prompt_length/mean':
-            torch.mean(prompt_length).detach().item(),
-        'prompt_length/max':
-            torch.max(prompt_length).detach().item(),
-        'prompt_length/min':
-            torch.min(prompt_length).detach().item(),
+        'prompt_length/mean': torch.mean(prompt_length).detach().item(),
+        'prompt_length/max': torch.max(prompt_length).detach().item(),
+        'prompt_length/min': torch.min(prompt_length).detach().item(),
     }
     return metrics
 
 
+@torch.no_grad()
 def compute_timing_metrics(batch, timing_raw):
     num_overall_tokens = torch.sum(batch.batch['attention_mask']).item()
     num_response_tokens = torch.sum(batch.batch['response_mask']).item()
@@ -374,7 +332,7 @@ def _timer(name: str, timing_raw: Dict[str, float]):
     timing_raw[name] = timer.last
 
 
-class RayPPOTrainer(object):
+class RayPPOTrainer:
     """
     Note that this trainer runs on the driver process on a single CPU/GPU node.
     """
@@ -436,6 +394,8 @@ class RayPPOTrainer(object):
         config = self.config
         # number of GPUs total
         n_gpus = config.trainer.n_gpus_per_node * config.trainer.nnodes
+
+        print(f'RayPPOTrainer._validate_config: total {n_gpus = }')
 
         # 1. Check total batch size for data correctness
         real_train_batch_size = config.data.train_batch_size * config.actor_rollout_ref.rollout.n
@@ -507,7 +467,6 @@ class RayPPOTrainer(object):
         print("[validate_config] All configuration checks passed successfully!")
 
     def _create_dataloader(self):
-        from torch.utils.data import DataLoader, RandomSampler, SequentialSampler
         # TODO: we have to make sure the batch size is divisible by the dp size
         self.train_dataset = RLHFDataset(
             data_file=self.config.data.train_file,
@@ -644,7 +603,6 @@ class RayPPOTrainer(object):
 
         # save dataloader
         dataloader_local_path = os.path.join(local_global_step_folder, 'data.pt')
-        import dill
         torch.save(self.train_dataloader, dataloader_local_path, pickle_module=dill)
 
         # latest checkpointed iteration tracker (for atomic usage)
@@ -664,18 +622,17 @@ class RayPPOTrainer(object):
 
         # load from hdfs
         if self.config.trainer.default_hdfs_dir is not None:
-            NotImplementedError('load from hdfs is not implemented yet')
+            raise NotImplementedError('load from hdfs is not implemented yet')
+        checkpoint_folder = self.config.trainer.default_local_dir  # TODO: check path
+        if not os.path.isabs(checkpoint_folder):
+            working_dir = os.getcwd()
+            checkpoint_folder = os.path.join(working_dir, checkpoint_folder)
+        if self.config.trainer.storage_mode == 'aistudio':
+            global_step_folder = find_latest_ckpt_path_aistudio(checkpoint_folder)  # None if no latest
+        elif self.config.trainer.storage_mode == 'local':
+            global_step_folder = find_latest_ckpt_path(checkpoint_folder)  # None if no latest
         else:
-            checkpoint_folder = self.config.trainer.default_local_dir  # TODO: check path
-            if not os.path.isabs(checkpoint_folder):
-                working_dir = os.getcwd()
-                checkpoint_folder = os.path.join(working_dir, checkpoint_folder)
-            if self.config.trainer.storage_mode == 'aistudio':
-                global_step_folder = find_latest_ckpt_path_aistudio(checkpoint_folder)  # None if no latest
-            elif self.config.trainer.storage_mode == 'local':
-                global_step_folder = find_latest_ckpt_path(checkpoint_folder)  # None if no latest
-            else:
-                raise NotImplementedError
+            raise NotImplementedError
 
         # find global_step_folder
         if self.config.trainer.resume_mode == 'auto':
@@ -738,8 +695,6 @@ class RayPPOTrainer(object):
         The driver process only need to call the compute functions of the worker group through RPC to construct the PPO dataflow.
         The light-weight advantage computation is done on the driver process.
         """
-        from verl.utils.tracking import Tracking
-        from omegaconf import OmegaConf
 
         logger = Tracking(project_name=self.config.trainer.project_name,
                           experiment_name=self.config.trainer.experiment_name,
@@ -757,6 +712,7 @@ class RayPPOTrainer(object):
         # we start from step 1
         self.global_steps += 1
 
+        assert self.config.algorithm.adv_estimator != 'remax'
         for epoch in range(self.config.trainer.total_epochs):
             for batch_dict in self.train_dataloader:
                 metrics = {}
@@ -777,21 +733,20 @@ class RayPPOTrainer(object):
                     with _timer('gen', timing_raw):
                         gen_batch_output = self.actor_rollout_wg.generate_sequences(gen_batch)
 
-                    if self.config.algorithm.adv_estimator == 'remax':
-                        with _timer('gen_max', timing_raw):
-                            gen_baseline_batch = deepcopy(gen_batch)
-                            gen_baseline_batch.meta_info['do_sample'] = False
-                            gen_baseline_output = self.actor_rollout_wg.generate_sequences(gen_baseline_batch)
+                        # with _timer('gen_max', timing_raw):
+                        #     gen_baseline_batch = deepcopy(gen_batch)
+                        #     gen_baseline_batch.meta_info['do_sample'] = False
+                        #     gen_baseline_output = self.actor_rollout_wg.generate_sequences(gen_baseline_batch)
 
-                            batch = batch.union(gen_baseline_output)
-                            reward_baseline_tensor = batch.batch['rewards']
-                            reward_baseline_tensor = reward_baseline_tensor.sum(dim=-1)
+                        #     batch = batch.union(gen_baseline_output)
+                        #     reward_baseline_tensor = batch.batch['rewards']
+                        #     reward_baseline_tensor = reward_baseline_tensor.sum(dim=-1)
 
-                            batch.pop(batch_keys=list(gen_baseline_output.batch.keys()))
+                        #     batch.pop(batch_keys=list(gen_baseline_output.batch.keys()))
 
-                            batch.batch['reward_baselines'] = reward_baseline_tensor
+                        #     batch.batch['reward_baselines'] = reward_baseline_tensor
 
-                            del gen_baseline_batch, gen_baseline_output
+                        #     del gen_baseline_batch, gen_baseline_output
 
                     batch.non_tensor_batch['uid'] = np.array([str(uuid.uuid4()) for _ in range(len(batch.batch))],
                                                              dtype=object)
@@ -866,8 +821,8 @@ class RayPPOTrainer(object):
                             self._save_checkpoint()
 
                 # collect metrics
-                metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic))
-                metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
+                metrics.update(compute_data_metrics(batch=batch, use_critic=self.use_critic) | compute_timing_metrics(batch=batch, timing_raw=timing_raw))
+                # metrics.update(compute_timing_metrics(batch=batch, timing_raw=timing_raw))
 
                 # TODO: make a canonical logger that supports various backend
                 logger.log(data=metrics, step=self.global_steps)
@@ -882,3 +837,8 @@ class RayPPOTrainer(object):
                         with _timer('save_checkpoint', timing_raw):
                             self._save_checkpoint()
                     return
+                                # Explicit cleanup at end of iteration
+                del batch, gen_batch, gen_batch_output, old_log_prob, metrics, timing_raw
+                if self.use_reference_policy:
+                    del ref_log_prob
+                torch.cuda.empty_cache()  # Force CUDA cache cleanup

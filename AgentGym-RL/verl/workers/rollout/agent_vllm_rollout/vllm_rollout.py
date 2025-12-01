@@ -26,30 +26,32 @@ When working with Megatron:
 """
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import contextmanager
+import json
+from logging import getLogger
+import os
+import time
 from typing import List
 from omegaconf import DictConfig
-import torch
-import torch.distributed
-from torch.nn.utils.rnn import pad_sequence
 from tensordict import TensorDict
+import torch
+from torch import int32 as torch_int32
+import torch.distributed
+from torch.distributed import get_rank, get_world_size
+from torch.nn.utils.rnn import pad_sequence
 from torch import nn
 from tqdm import tqdm
-
-from verl import DataProto
-from verl.workers.rollout.base import BaseRollout
-from verl.third_party.vllm import LLM, vllm_version
-from verl.third_party.vllm import parallel_state as vllm_ps
 from vllm import SamplingParams
-
-import os
-import json
-import time
-import requests
-from copy import deepcopy
+from verl import DataProto
+from verl.third_party.vllm import LLM, vllm_version, parallel_state as vllm_ps
 from verl.utils.model import compute_position_id_with_mask
-from verl.utils.torch_functional import get_eos_mask, pad_sequence_to_length
+from verl.utils.torch_functional import pad_sequence_to_length
 from verl.utils.agentgym.client import init_env_client
+from verl.workers.rollout.base import BaseRollout
 from verl.workers.rollout.schemas import RolloutHandler, Message, _pre_process_inputs
+
+
+LOGGER = getLogger(__name__)
+
 
 # TODO
 # 1. support pp in vllm
@@ -75,8 +77,7 @@ class vLLMRollout(BaseRollout):
             "disable CUDA graph (enforce_eager = False) if free cache engine"
 
         tensor_parallel_size = self.config.get('tensor_model_parallel_size', 1)
-        assert tensor_parallel_size <= torch.distributed.get_world_size(), \
-            "tensor parallel size should be less than or equal to the world size"
+        assert tensor_parallel_size <= (world_size := get_world_size()), f"{tensor_parallel_size = } should be less than or equal to {world_size = }"
         max_num_batched_tokens = self.config.get('max_num_batched_tokens', 8192)
 
         if kwargs.get('train_tp', None) is not None:
@@ -124,7 +125,7 @@ class vLLMRollout(BaseRollout):
                 kwargs[k] = rollout_config.get(k)
         kwargs["n"] = 1  # because we have repeated task n times
 
-        print(f"kwargs: {kwargs}")
+        LOGGER.info(f"kwargs: {kwargs}")
         self.sampling_params = SamplingParams(**kwargs)
 
         self.pad_token_id = tokenizer.pad_token_id
@@ -157,22 +158,26 @@ class vLLMRollout(BaseRollout):
                 input_ids = _pre_process_inputs(self.pad_token_id, prompts.batch['input_ids'][i])
                 attention_mask = _pre_process_inputs(0, prompts.batch['attention_mask'][i])
                 position_ids = compute_position_id_with_mask(torch.tensor(attention_mask)).tolist()
+                task_name_item_id_string = prompts.non_tensor_batch["item_id"][i].split("_")
+                input_ids_list = list(input_ids)
+                attention_mask_list = list(attention_mask)
+                position_ids_list = list(position_ids)
                 handler = RolloutHandler(
                     messages=[
                         Message(role=prompt["role"], content=prompt["content"]) for prompt in raw_prompt
                     ],
-                    task_name=prompts.non_tensor_batch["item_id"][i].split("_")[0],
-                    item_id=int(prompts.non_tensor_batch["item_id"][i].split("_")[-1]),
+                    task_name=task_name_item_id_string[0],
+                    item_id=int(task_name_item_id_string[-1]),
                     score=0,
                     done=False,
-                    input_ids=list(input_ids),
-                    prompt_ids=list(input_ids),
+                    input_ids=input_ids_list,
+                    prompt_ids=input_ids_list,
                     response_ids=[],
-                    attention_mask=list(attention_mask),
-                    prompt_attention_mask=list(attention_mask),
+                    attention_mask=attention_mask_list,
+                    prompt_attention_mask=attention_mask_list,
                     response_attention_mask=[],
-                    position_ids=list(position_ids),
-                    prompt_position_ids=list(position_ids),
+                    position_ids=position_ids_list,
+                    prompt_position_ids=position_ids_list,
                     response_position_ids=[],
                     loss_mask=[0] * len(input_ids),
                     prompt_loss_mask=[0] * len(input_ids),
@@ -219,7 +224,7 @@ class vLLMRollout(BaseRollout):
                 task = env_clients[idx].observe()
                 rollout_handler.add_user_message(self.tokenizer, task)
             except TimeoutError:
-                print(f"Reset Timeout: Webarena Env Timeout. item id = {rollout_handler.item_id}")
+                LOGGER.info(f"Reset Timeout: Webarena Env Timeout. item id = {rollout_handler.item_id}")
                 rollout_handler.done = True
                 rollout_handler.score = 0
 
@@ -242,7 +247,7 @@ class vLLMRollout(BaseRollout):
             except Exception as e:
                 rollout_handler_ls[idx].score = 0
                 rollout_handler_ls[idx].done = True
-                print(f"Rollou step Error: {e} item id = {rollout_handler_ls[idx].item_id}")
+                LOGGER.info(f"Rollou step Error: {e} item id = {rollout_handler_ls[idx].item_id}")
                 return True
         while rounds < max_rounds and not all_done_flag:
             # get generation prompt
@@ -272,26 +277,30 @@ class vLLMRollout(BaseRollout):
                     all_done_flag = all(step_dones)
             rounds += 1
             rollout_bar.update(1)
-        
+
         # process ids
         rollout_bar.close()
+        LOGGER.info(f'vLLMRollout.generate_sequences: Finished {rounds} rounds of rollout.')
+        # breakpoint()
         response_ids, response_attention_mask, response_position_ids, response_loss_mask = [], [], [], []
         scores, messages = [], []
-        
+
         for rollout_handler in rollout_handler_ls:
             # check length
             rollout_handler.truncate_output_ids()
-            assert len(rollout_handler.input_ids) == len(rollout_handler.attention_mask) == len(rollout_handler.position_ids) == len(rollout_handler.loss_mask), f"""Rollout Handler has different length of {len(rollout_handler.input_ids)=}, 
+            assert len(rollout_handler.input_ids) == len(rollout_handler.attention_mask) == len(rollout_handler.position_ids) == len(rollout_handler.loss_mask), f"""Rollout Handler has different length of {len(rollout_handler.input_ids)=},
             {len(rollout_handler.attention_mask)=}, {len(rollout_handler.position_ids)=}, {len(rollout_handler.loss_mask)=}"""
             assert len(rollout_handler.input_ids) <= self.config.max_model_len, f"Rollout Handler has sequence length {len(rollout_handler.input_ids)} > max_sequence_length {self.config.max_model_len}"
 
-            response_ids.append(torch.tensor(rollout_handler.response_ids, dtype=torch.int, device=cur_device))
-            response_attention_mask.append(torch.tensor(rollout_handler.response_attention_mask, dtype=torch.int, device=cur_device))
-            response_position_ids.append(torch.tensor(rollout_handler.response_position_ids, dtype=torch.int, device=cur_device))
-            response_loss_mask.append(torch.tensor(rollout_handler.response_loss_mask, dtype=torch.int, device=cur_device))
+            response_ids.append(torch.tensor(rollout_handler.response_ids, dtype=torch_int32, device=cur_device))
+            response_attention_mask.append(torch.tensor(rollout_handler.response_attention_mask, dtype=torch_int32, device=cur_device))
+            response_position_ids.append(torch.tensor(rollout_handler.response_position_ids, dtype=torch_int32, device=cur_device))
+            response_loss_mask.append(torch.tensor(rollout_handler.response_loss_mask, dtype=torch_int32, device=cur_device))
             scores.append(rollout_handler.score)
             messages.append(rollout_handler.messages)
-        
+        LOGGER.info(f'vLLMRollout.generate_sequences: Completed processing {len(rollout_handler_ls)} rollout handlers.')
+        # breakpoint()
+
         # pad to length
         response_ids = pad_sequence(response_ids, batch_first=True, padding_value=self.pad_token_id)
         if response_ids.shape[1] < self.config.response_length:
@@ -324,6 +333,8 @@ class vLLMRollout(BaseRollout):
         valid_response_length = attention_mask[:, prompt_length:].sum(dim=-1)
         for i in range(len(scores)):
             reward_tensor[i, valid_response_length[i].item() - 1] = scores[i]
+        LOGGER.info(f'vLLMRollout.generate_sequences: Prepared final tensors for output.')
+        # breakpoint() # here.
 
         if global_steps:
             try:
@@ -339,14 +350,20 @@ class vLLMRollout(BaseRollout):
                         json_msg.append(records)
                     json.dump(json_msg, f, ensure_ascii=True, indent=4)
             except Exception as e:
-                print(e)
+                LOGGER.info(e)
+        LOGGER.info(f'vLLMRollout.generate_sequences: Saved rollout logs at step {global_steps}.')
+        # breakpoint()
 
         # close clients
         for client in env_clients:
             try:
                 client.close()
             except Exception as e:
-                print(f"Error during closing env: {e}")
+                LOGGER.info(f"Error during closing env: {e}")
+                breakpoint()
+
+        LOGGER.info(f'vLLMRollout.generate_sequences: Closed all environment clients.')
+        # breakpoint()
 
         batch = TensorDict(
             {
@@ -357,13 +374,19 @@ class vLLMRollout(BaseRollout):
                 'position_ids': position_ids,
                 'response_mask': response_mask,
                 'scores': reward_tensor,
-                'task_rounds': torch.tensor(task_rounds, dtype=torch.float32).to(input_ids.device),
+                'task_rounds': torch.tensor(task_rounds, dtype=torch.float32, device=input_ids.device),
                 'task_scores': reward_tensor
             },
             batch_size=batch_size)
-        
+        LOGGER.info(f'vLLMRollout.generate_sequences: Constructed final output batch tensor dict.')
+        # breakpoint()
+
         # free vllm cache engine
         if self.config.free_cache_engine:
             self.inference_engine.free_cache_engine()
+            LOGGER.info(f'vLLMRollout.generate_sequences: Freed vLLM cache engine if applicable.')
+
+        LOGGER.info(f'vLLMRollout.generate_sequences: Completed rollout for all agents.')
+        # breakpoint()
 
         return DataProto(batch=batch)

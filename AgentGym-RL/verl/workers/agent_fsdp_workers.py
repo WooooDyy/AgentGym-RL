@@ -14,31 +14,31 @@
 """
 The main entry point to run the PPO algorithm
 """
-
+import datetime
 import logging
 import os
 import warnings
-
+from codetiming import Timer
+from omegaconf import DictConfig, open_dict
 import torch
 import torch.distributed
+from torch.distributed import barrier, get_world_size, init_process_group, is_initialized
 from torch.distributed.device_mesh import init_device_mesh
-from omegaconf import DictConfig, open_dict
+from torch.distributed.fsdp import CPUOffload, FullyShardedDataParallel as FSDP, MixedPrecision, ShardingStrategy
 from verl import DataProto
 from verl.single_controller.base import Worker
 from verl.single_controller.base.decorator import register, Dispatch
 from verl.utils import hf_tokenizer
 from verl.utils.debug import log_gpu_memory_usage
 from verl.utils.fs import copy_local_path_from_hdfs
-from verl.utils.fsdp_utils import get_fsdp_wrap_policy, offload_fsdp_grad, init_fn, get_init_weight_context_manager
-from verl.utils.fsdp_utils import offload_fsdp_optimizer, offload_fsdp_param_and_grad, load_fsdp_optimizer, \
-    load_fsdp_param_and_grad
+from verl.utils.fsdp_utils import get_fsdp_wrap_policy, offload_fsdp_grad, init_fn, get_init_weight_context_manager, offload_fsdp_optimizer, offload_fsdp_param_and_grad, load_fsdp_optimizer, load_fsdp_param_and_grad
 from verl.utils.import_utils import import_external_libs
 from verl.utils.flops_counter import FlopsCounter
 from verl.utils.checkpoint.fsdp_checkpoint_manager import FSDPCheckpointManager
+from verl.workers.rollout.agent_vllm_rollout import vLLMRollout
+from verl.workers.sharding_manager import FSDPVLLMShardingManager
 from verl.workers.sharding_manager.fsdp_ulysses import FSDPUlyssesShardingManager
-import datetime
 
-from codetiming import Timer
 
 logger = logging.getLogger(__file__)
 logger.setLevel(os.getenv('VERL_PPO_LOGGING_LEVEL', 'WARN'))
@@ -54,7 +54,6 @@ def create_device_mesh(world_size, fsdp_size):
 
 
 def get_sharding_strategy(device_mesh):
-    from torch.distributed.fsdp import ShardingStrategy
     if device_mesh.ndim == 1:
         sharding_strategy = ShardingStrategy.FULL_SHARD
     elif device_mesh.ndim == 2:
@@ -73,12 +72,11 @@ class ActorRolloutRefWorker(Worker):
     def __init__(self, config: DictConfig, role: str):
         super().__init__()
         self.config = config
-        import torch.distributed
-        if not torch.distributed.is_initialized():
-            torch.distributed.init_process_group(backend="nccl", timeout=datetime.timedelta(seconds=3600))
+        if not is_initialized():
+            init_process_group(backend="nccl", timeout=datetime.timedelta(seconds=3600))
 
         # build device mesh for FSDP
-        world_size = torch.distributed.get_world_size()
+        world_size = get_world_size()
         # TODO(sgm): support FSDP hybrid shard for larger model
         self.device_mesh = create_device_mesh(world_size=world_size, fsdp_size=self.config.actor.fsdp_config.fsdp_size)
 
@@ -145,7 +143,6 @@ class ActorRolloutRefWorker(Worker):
         from verl.utils.model import print_model_size, update_model_config, get_generation_config
         from verl.utils.torch_dtypes import PrecisionType
         from transformers import AutoModelForCausalLM, AutoConfig
-        from torch.distributed.fsdp import FullyShardedDataParallel as FSDP, MixedPrecision, CPUOffload
         from torch import optim
 
         assert role in ['actor', 'ref']
@@ -176,10 +173,11 @@ class ActorRolloutRefWorker(Worker):
             from verl.models.transformers.monkey_patch import apply_monkey_patch
             apply_monkey_patch(actor_model_config, verbose=True)
 
+        tokenizer = self.tokenizer
         override_config_kwargs = {
-            'bos_token_id': self.tokenizer.bos_token_id,
-            'eos_token_id': self.tokenizer.eos_token_id,
-            'pad_token_id': self.tokenizer.pad_token_id,
+            'bos_token_id': tokenizer.bos_token_id,
+            'eos_token_id': tokenizer.eos_token_id,
+            'pad_token_id': tokenizer.pad_token_id,
         }
         override_config_kwargs.update(override_model_config)
         update_model_config(actor_model_config, override_config_kwargs=override_config_kwargs)
@@ -189,10 +187,12 @@ class ActorRolloutRefWorker(Worker):
         # NOTE(fix me): tie_word_embedding causes meta_tensor init to hang
         init_context = get_init_weight_context_manager(use_meta_tensor=not actor_model_config.tie_word_embeddings)
 
-        with init_context(), warnings.catch_warnings():
-            warnings.simplefilter("ignore")
+        # with init_context(), warnings.catch_warnings():
+        with init_context():
+            # warnings.simplefilter("ignore")
             actor_module = AutoModelForCausalLM.from_pretrained(pretrained_model_name_or_path=local_path,
                                                                 torch_dtype=torch_dtype,
+                                                                # dtype=torch_dtype,
                                                                 config=actor_model_config,
                                                                 attn_implementation='flash_attention_2',
                                                                 trust_remote_code=trust_remote_code)
@@ -206,7 +206,7 @@ class ActorRolloutRefWorker(Worker):
 
             if enable_gradient_checkpointing:
                 actor_module.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})
-        torch.distributed.barrier()
+        barrier()
 
         if self.rank == 0:
             print_model_size(actor_module)
@@ -281,15 +281,14 @@ class ActorRolloutRefWorker(Worker):
         return actor_module_fsdp, actor_optimizer, actor_lr_scheduler, actor_model_config
 
     def _build_rollout(self):
-        from torch.distributed.device_mesh import init_device_mesh
         # TODO(sgm): support FSDP hybrid shard for larger model
         infer_tp = self.config.rollout.tensor_model_parallel_size
-        dp = self.world_size // infer_tp
-        assert self.world_size % infer_tp == 0, f'rollout world_size: {self.world_size} is not divisible by infer_tp: {infer_tp}'
+        world_size = self.world_size
+        dp = world_size // infer_tp
+        dp, remainder = divmod(world_size, infer_tp)
+        assert remainder == 0, f'rollout world_size: {world_size} is not divisible by infer_tp: {infer_tp}'
         rollout_device_mesh = init_device_mesh('cuda', mesh_shape=(dp, infer_tp), mesh_dim_names=['dp', 'infer_tp'])
 
-        from verl.workers.rollout.agent_vllm_rollout import vLLMRollout
-        from verl.workers.sharding_manager import FSDPVLLMShardingManager
         log_gpu_memory_usage('Before building vllm rollout', logger=None)
         rollout = vLLMRollout(actor_module=self.actor_module_fsdp,
                                                  rollout_config=self.config.rollout,
@@ -297,7 +296,7 @@ class ActorRolloutRefWorker(Worker):
                                                  tokenizer=self.tokenizer,
                                                  model_hf_config=self.actor_model_config)
         log_gpu_memory_usage('After building vllm rollout', logger=None)
-        if torch.distributed.get_world_size() == 1:
+        if get_world_size() == 1:
             self.config.rollout.load_format = 'dummy_hf'
         rollout_sharding_manager = FSDPVLLMShardingManager(module=self.actor_module_fsdp,
                                                            inference_engine=rollout.inference_engine,
@@ -433,6 +432,7 @@ class ActorRolloutRefWorker(Worker):
 
     @register(dispatch_mode=Dispatch.DP_COMPUTE_PROTO)
     def generate_sequences(self, prompts: DataProto):
+        log_gpu_memory_usage('Before moving prompts to CUDA', logger=logger)
         prompts = prompts.to('cuda')
 
         assert self._is_rollout
@@ -462,6 +462,7 @@ class ActorRolloutRefWorker(Worker):
             output = self.rollout_sharding_manager.postprocess_data(output)
 
         output = output.to('cpu')
+        log_gpu_memory_usage('After moving output to cpu', logger=logger)
 
         if self._is_offload_param:
             # NOTE(sgm): the grad is already in CPU, only offload param here
@@ -550,7 +551,7 @@ class ActorRolloutRefWorker(Worker):
                                                 global_step=global_step,
                                                 remove_previous_ckpt=remove_previous_ckpt)
 
-        torch.distributed.barrier()
+        barrier()
         if self._is_offload_param:
             offload_fsdp_param_and_grad(module=self.actor_module_fsdp, offload_grad=self._is_offload_grad)
 
@@ -827,7 +828,7 @@ class CriticWorker(Worker):
                                                 global_step=global_step,
                                                 remove_previous_ckpt=remove_previous_ckpt)
 
-        torch.distributed.barrier()
+        barrier()
         if self._is_offload_param:
             offload_fsdp_param_and_grad(module=self.critic_module, offload_grad=self._is_offload_grad)
 
@@ -841,6 +842,6 @@ class CriticWorker(Worker):
 
         self.checkpoint_manager.load_checkpoint(path=path, del_local_after_load=del_local_after_load)
 
-        torch.distributed.barrier()
+        barrier()
         if self._is_offload_param:
             offload_fsdp_param_and_grad(module=self.critic_module, offload_grad=self._is_offload_grad)

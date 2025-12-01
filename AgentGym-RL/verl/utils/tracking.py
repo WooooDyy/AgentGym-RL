@@ -19,9 +19,11 @@ from enum import Enum
 from functools import partial
 from pathlib import Path
 from typing import List, Union, Dict, Any
+import weave
+import wandb
 
 
-class Tracking(object):
+class Tracking:
     supported_backend = ["wandb", "mlflow", "swanlab", "console"]
 
     def __init__(self, project_name, experiment_name, default_backend: Union[str, List[str]] = 'console', config=None):
@@ -37,7 +39,6 @@ class Tracking(object):
         self.logger = {}
 
         if 'tracking' in default_backend or 'wandb' in default_backend:
-            import wandb
             wandb.init(project=project_name, name=experiment_name, config=config)
             self.logger['wandb'] = wandb
 

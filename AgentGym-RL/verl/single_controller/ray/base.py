@@ -12,23 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import random
+import string
 import time
 from typing import Dict, List, Any, Tuple
-
+from venv import logger
 import ray
 from ray.util import list_named_actors
 from ray.util.placement_group import placement_group, PlacementGroup
 from ray.util.scheduling_strategies import PlacementGroupSchedulingStrategy, NodeAffinitySchedulingStrategy
 from ray.experimental.state.api import get_actor
-
 from verl.single_controller.base import WorkerGroup, ResourcePool, ClassWithInitArgs, Worker
+
 
 __all__ = ['Worker']
 
 
 def get_random_string(length: int) -> str:
-    import random
-    import string
     letters_digits = string.ascii_letters + string.digits
     return ''.join(random.choice(letters_digits) for _ in range(length))
 
@@ -49,12 +49,18 @@ def func_generator(self, method_name, dispatch_fn, collect_fn, execute_fn, block
 class RayResourcePool(ResourcePool):
 
     def __init__(self,
-                 process_on_nodes: List[int] = None,
-                 use_gpu: bool = True,
-                 name_prefix: str = "",
-                 max_colocate_count: int = 5,
-                 detached=False) -> None:
-        super().__init__(process_on_nodes, max_colocate_count)
+                #  process_on_nodes: List[int] = None,
+                 process_on_nodes: list[int] | None,
+                #  use_gpu: bool = True,
+                 use_gpu: bool,
+                 n_gpus_per_node: int,
+                #  name_prefix: str = "",
+                 name_prefix: str,
+                #  max_colocate_count: int = 5,
+                 max_colocate_count: int,
+                #  detached=False) -> None:
+                 detached: bool) -> None:
+        super().__init__(process_on_nodes, max_colocate_count, n_gpus_per_node)
         self.use_gpu = use_gpu
         # print(f"in RayProcessDispatchConfiguration: name_prefix = {name_prefix}")
         self.name_prefix = name_prefix
@@ -145,6 +151,7 @@ class RayClassWithInitArgs(ClassWithInitArgs):
                  use_gpu: bool = True,
                  num_gpus=1,
                  sharing_with=None) -> Any:
+        logger.error(f'{use_gpu = }, {num_gpus = }, {sharing_with = }')
         if sharing_with is not None:
             target_node_id = ray.get(sharing_with.get_node_id.remote())
             cuda_visible_devices = ray.get(sharing_with.get_cuda_visible_devices.remote())
@@ -368,7 +375,7 @@ class RayWorkerGroup(WorkerGroup):
 
 
 """
-Utilities that enables creating workers inside the same ray.Actor, 
+Utilities that enables creating workers inside the same ray.Actor,
 with code written in separate ray.Actors.
 """
 
@@ -379,7 +386,7 @@ import os
 
 def _bind_workers_method_to_parent(cls, key, user_defined_cls):
     """
-    Binds the methods of each worker to the WorkerDict. 
+    Binds the methods of each worker to the WorkerDict.
     Note that we only bind public methods that are decorated by register
     """
     for method_name in dir(user_defined_cls):
@@ -419,7 +426,7 @@ def _unwrap_ray_remote(cls):
 
 def create_colocated_worker_cls(class_dict: dict[str, RayClassWithInitArgs]):
     """
-    This function should return a class instance that delegates the calls to every 
+    This function should return a class instance that delegates the calls to every
     cls in cls_dict
     """
     cls_dict = {}

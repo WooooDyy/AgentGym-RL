@@ -16,18 +16,16 @@ import os
 import logging
 import numpy as np
 import torch
+from torch.distributed import all_gather_object, get_rank
 from torch.distributed.fsdp.fully_sharded_data_parallel import FullyShardedDataParallel as FSDP
 from torch.distributed.fsdp.api import ShardingStrategy, ShardedStateDictConfig, StateDictType, FullStateDictConfig
 from torch.distributed.device_mesh import DeviceMesh
-
-from verl.third_party.vllm import LLM
-from verl.third_party.vllm import parallel_state as vllm_ps
 from verl import DataProto
+from verl.third_party.vllm import LLM, parallel_state as vllm_ps, vllm_version
 from verl.utils.torch_functional import (broadcast_dict_tensor, allgather_dict_tensors)
 from verl.utils.debug import log_gpu_memory_usage
-from verl.third_party.vllm import vllm_version
-
 from .base import BaseShardingManager
+
 
 logger = logging.getLogger(__file__)
 logger.setLevel(os.getenv('VERL_PPO_LOGGING_LEVEL', 'WARN'))
@@ -94,7 +92,7 @@ class FSDPVLLMShardingManager(BaseShardingManager):
         # TODO: offload FSDP model weights
         # self.module.cpu()
         # torch.cuda.empty_cache()
-        # if torch.distributed.get_rank() == 0:
+        # if get_rank() == 0:
         # print(f'after model to cpu in sharding manager memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB')
 
         # important: need to manually set the random states of each tp to be identical.
@@ -112,7 +110,7 @@ class FSDPVLLMShardingManager(BaseShardingManager):
         log_gpu_memory_usage('After vllm offload in sharding manager', logger=logger)
 
         # self.module.to('cuda')
-        # if torch.distributed.get_rank() == 0:
+        # if get_rank() == 0:
         #     print(f'after actor module to cuda in sharding manager memory allocated: {torch.cuda.memory_allocated() / 1e9}GB, reserved: {torch.cuda.memory_reserved() / 1e9}GB')
 
         self.module.train()
@@ -126,7 +124,6 @@ class FSDPVLLMShardingManager(BaseShardingManager):
             torch.cuda.set_rng_state(self.torch_random_states)
 
     def preprocess_data(self, data: DataProto) -> DataProto:
-        # TODO: Current impl doesn't consider FSDP with torch micro-dp
         tp_size = vllm_ps.get_tensor_model_parallel_world_size()
         if vllm_version in ('0.3.1', '0.4.2', '0.5.4', '0.6.3'):
             group = vllm_ps.get_tensor_model_parallel_group()
@@ -139,22 +136,20 @@ class FSDPVLLMShardingManager(BaseShardingManager):
         data.batch = data.batch.to(prev_device)
         # all gather non_tensor_batch
         all_non_tensor_batch = [None for _ in range(tp_size)]
-        torch.distributed.all_gather_object(all_non_tensor_batch, data.non_tensor_batch, group=group)
+        all_gather_object(all_non_tensor_batch, data.non_tensor_batch, group=group)
         data.non_tensor_batch = {k: np.concatenate([d[k] for d in all_non_tensor_batch]) for k in data.non_tensor_batch}
         return data
 
     def postprocess_data(self, data: DataProto) -> DataProto:
-        # TODO: Current impl doesn't consider FSDP with torch micro-dp
         local_world_size = vllm_ps.get_tensor_model_parallel_world_size()
-        src_rank = (torch.distributed.get_rank() // local_world_size) * local_world_size
+        src_rank = (get_rank() // local_world_size) * local_world_size
         if vllm_version in ('0.3.1', '0.4.2', '0.5.4', '0.6.3'):
             broadcast_dict_tensor(data.batch, src=src_rank, group=vllm_ps.get_tensor_model_parallel_group())
         else:
             broadcast_dict_tensor(data.batch,
                                   src=src_rank,
                                   group=vllm_ps.get_tensor_model_parallel_group().device_group)
-        dp_rank = torch.distributed.get_rank()
-        dp_size = torch.distributed.get_world_size()  # not consider torch micro-dp
+        dp_rank = get_rank()
         tp_size = vllm_ps.get_tensor_model_parallel_world_size()
         if tp_size > 1:
             # TODO: shall we build a micro_dp group for vllm when integrating with vLLM?

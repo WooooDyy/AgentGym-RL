@@ -10,19 +10,19 @@ source activate
 conda activate agentgym-rl
 export VLLM_ATTENTION_BACKEND=XFORMERS
 
-env_server_url="http://127.0.0.1:36005"
+env_server_url="http://localhost:36001"
 
 sample_num=1
 max_rounds=30
 
-ckpt_path="global_step_150/actor"
+# ckpt_path="global_step_150/actor"
+ckpt_path="${HOME}/agentgym_rl/AgentGym-RL/saves/3b_n8/global_step_125/actor"
 model_path=${ckpt_path}/huggingface
 
 cd AgentGym-RL/scripts
-python model_merger.py \
-    --local_dir ${ckpt_path}
+python model_merger.py --local_dir ${ckpt_path}
 
-HYDRA_FULL_ERROR=1 python3 -m verl.agent_trainer.main_generation  \
+HYDRA_FULL_ERROR=1 python -m verl.agent_trainer.main_generation  \
     data.path=AgentEval/${task_name} \
     data.max_prompt_length=1024 \
     data.max_response_length=8192 \
@@ -41,3 +41,5 @@ HYDRA_FULL_ERROR=1 python3 -m verl.agent_trainer.main_generation  \
     rollout.rollout_log_dir=executer_logs
 status=$?
 exit $status
+
+# bash examples/eval/AgentGym-RL/sciworld_eval.sh |& tee log_eval_512gb_80gb_3b_n8.log

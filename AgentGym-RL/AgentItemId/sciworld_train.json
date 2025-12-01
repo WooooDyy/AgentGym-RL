@@ -1,0 +1,6362 @@
+[
+  {
+    "item_id": "sciworld_0"
+  },
+  {
+    "item_id": "sciworld_1"
+  },
+  {
+    "item_id": "sciworld_10"
+  },
+  {
+    "item_id": "sciworld_2"
+  },
+  {
+    "item_id": "sciworld_3"
+  },
+  {
+    "item_id": "sciworld_4"
+  },
+  {
+    "item_id": "sciworld_5"
+  },
+  {
+    "item_id": "sciworld_6"
+  },
+  {
+    "item_id": "sciworld_7"
+  },
+  {
+    "item_id": "sciworld_8"
+  },
+  {
+    "item_id": "sciworld_9"
+  },
+  {
+    "item_id": "sciworld_90"
+  },
+  {
+    "item_id": "sciworld_91"
+  },
+  {
+    "item_id": "sciworld_100"
+  },
+  {
+    "item_id": "sciworld_101"
+  },
+  {
+    "item_id": "sciworld_102"
+  },
+  {
+    "item_id": "sciworld_103"
+  },
+  {
+    "item_id": "sciworld_92"
+  },
+  {
+    "item_id": "sciworld_93"
+  },
+  {
+    "item_id": "sciworld_94"
+  },
+  {
+    "item_id": "sciworld_95"
+  },
+  {
+    "item_id": "sciworld_96"
+  },
+  {
+    "item_id": "sciworld_97"
+  },
+  {
+    "item_id": "sciworld_98"
+  },
+  {
+    "item_id": "sciworld_99"
+  },
+  {
+    "item_id": "sciworld_60"
+  },
+  {
+    "item_id": "sciworld_61"
+  },
+  {
+    "item_id": "sciworld_70"
+  },
+  {
+    "item_id": "sciworld_71"
+  },
+  {
+    "item_id": "sciworld_72"
+  },
+  {
+    "item_id": "sciworld_73"
+  },
+  {
+    "item_id": "sciworld_62"
+  },
+  {
+    "item_id": "sciworld_63"
+  },
+  {
+    "item_id": "sciworld_64"
+  },
+  {
+    "item_id": "sciworld_66"
+  },
+  {
+    "item_id": "sciworld_67"
+  },
+  {
+    "item_id": "sciworld_68"
+  },
+  {
+    "item_id": "sciworld_69"
+  },
+  {
+    "item_id": "sciworld_30"
+  },
+  {
+    "item_id": "sciworld_31"
+  },
+  {
+    "item_id": "sciworld_40"
+  },
+  {
+    "item_id": "sciworld_41"
+  },
+  {
+    "item_id": "sciworld_42"
+  },
+  {
+    "item_id": "sciworld_43"
+  },
+  {
+    "item_id": "sciworld_32"
+  },
+  {
+    "item_id": "sciworld_33"
+  },
+  {
+    "item_id": "sciworld_34"
+  },
+  {
+    "item_id": "sciworld_35"
+  },
+  {
+    "item_id": "sciworld_36"
+  },
+  {
+    "item_id": "sciworld_37"
+  },
+  {
+    "item_id": "sciworld_38"
+  },
+  {
+    "item_id": "sciworld_39"
+  },
+  {
+    "item_id": "sciworld_660"
+  },
+  {
+    "item_id": "sciworld_661"
+  },
+  {
+    "item_id": "sciworld_670"
+  },
+  {
+    "item_id": "sciworld_760"
+  },
+  {
+    "item_id": "sciworld_761"
+  },
+  {
+    "item_id": "sciworld_762"
+  },
+  {
+    "item_id": "sciworld_764"
+  },
+  {
+    "item_id": "sciworld_765"
+  },
+  {
+    "item_id": "sciworld_766"
+  },
+  {
+    "item_id": "sciworld_767"
+  },
+  {
+    "item_id": "sciworld_768"
+  },
+  {
+    "item_id": "sciworld_769"
+  },
+  {
+    "item_id": "sciworld_772"
+  },
+  {
+    "item_id": "sciworld_773"
+  },
+  {
+    "item_id": "sciworld_774"
+  },
+  {
+    "item_id": "sciworld_775"
+  },
+  {
+    "item_id": "sciworld_776"
+  },
+  {
+    "item_id": "sciworld_777"
+  },
+  {
+    "item_id": "sciworld_779"
+  },
+  {
+    "item_id": "sciworld_3961"
+  },
+  {
+    "item_id": "sciworld_780"
+  },
+  {
+    "item_id": "sciworld_781"
+  },
+  {
+    "item_id": "sciworld_782"
+  },
+  {
+    "item_id": "sciworld_783"
+  },
+  {
+    "item_id": "sciworld_784"
+  },
+  {
+    "item_id": "sciworld_785"
+  },
+  {
+    "item_id": "sciworld_786"
+  },
+  {
+    "item_id": "sciworld_788"
+  },
+  {
+    "item_id": "sciworld_673"
+  },
+  {
+    "item_id": "sciworld_790"
+  },
+  {
+    "item_id": "sciworld_791"
+  },
+  {
+    "item_id": "sciworld_792"
+  },
+  {
+    "item_id": "sciworld_793"
+  },
+  {
+    "item_id": "sciworld_794"
+  },
+  {
+    "item_id": "sciworld_795"
+  },
+  {
+    "item_id": "sciworld_796"
+  },
+  {
+    "item_id": "sciworld_798"
+  },
+  {
+    "item_id": "sciworld_799"
+  },
+  {
+    "item_id": "sciworld_674"
+  },
+  {
+    "item_id": "sciworld_800"
+  },
+  {
+    "item_id": "sciworld_801"
+  },
+  {
+    "item_id": "sciworld_802"
+  },
+  {
+    "item_id": "sciworld_804"
+  },
+  {
+    "item_id": "sciworld_805"
+  },
+  {
+    "item_id": "sciworld_806"
+  },
+  {
+    "item_id": "sciworld_807"
+  },
+  {
+    "item_id": "sciworld_808"
+  },
+  {
+    "item_id": "sciworld_809"
+  },
+  {
+    "item_id": "sciworld_810"
+  },
+  {
+    "item_id": "sciworld_811"
+  },
+  {
+    "item_id": "sciworld_812"
+  },
+  {
+    "item_id": "sciworld_813"
+  },
+  {
+    "item_id": "sciworld_814"
+  },
+  {
+    "item_id": "sciworld_815"
+  },
+  {
+    "item_id": "sciworld_816"
+  },
+  {
+    "item_id": "sciworld_818"
+  },
+  {
+    "item_id": "sciworld_819"
+  },
+  {
+    "item_id": "sciworld_676"
+  },
+  {
+    "item_id": "sciworld_820"
+  },
+  {
+    "item_id": "sciworld_821"
+  },
+  {
+    "item_id": "sciworld_822"
+  },
+  {
+    "item_id": "sciworld_823"
+  },
+  {
+    "item_id": "sciworld_824"
+  },
+  {
+    "item_id": "sciworld_826"
+  },
+  {
+    "item_id": "sciworld_827"
+  },
+  {
+    "item_id": "sciworld_828"
+  },
+  {
+    "item_id": "sciworld_829"
+  },
+  {
+    "item_id": "sciworld_677"
+  },
+  {
+    "item_id": "sciworld_830"
+  },
+  {
+    "item_id": "sciworld_831"
+  },
+  {
+    "item_id": "sciworld_832"
+  },
+  {
+    "item_id": "sciworld_833"
+  },
+  {
+    "item_id": "sciworld_834"
+  },
+  {
+    "item_id": "sciworld_835"
+  },
+  {
+    "item_id": "sciworld_836"
+  },
+  {
+    "item_id": "sciworld_837"
+  },
+  {
+    "item_id": "sciworld_838"
+  },
+  {
+    "item_id": "sciworld_839"
+  },
+  {
+    "item_id": "sciworld_678"
+  },
+  {
+    "item_id": "sciworld_840"
+  },
+  {
+    "item_id": "sciworld_841"
+  },
+  {
+    "item_id": "sciworld_844"
+  },
+  {
+    "item_id": "sciworld_846"
+  },
+  {
+    "item_id": "sciworld_847"
+  },
+  {
+    "item_id": "sciworld_849"
+  },
+  {
+    "item_id": "sciworld_850"
+  },
+  {
+    "item_id": "sciworld_851"
+  },
+  {
+    "item_id": "sciworld_853"
+  },
+  {
+    "item_id": "sciworld_854"
+  },
+  {
+    "item_id": "sciworld_855"
+  },
+  {
+    "item_id": "sciworld_856"
+  },
+  {
+    "item_id": "sciworld_857"
+  },
+  {
+    "item_id": "sciworld_858"
+  },
+  {
+    "item_id": "sciworld_859"
+  },
+  {
+    "item_id": "sciworld_662"
+  },
+  {
+    "item_id": "sciworld_680"
+  },
+  {
+    "item_id": "sciworld_860"
+  },
+  {
+    "item_id": "sciworld_861"
+  },
+  {
+    "item_id": "sciworld_862"
+  },
+  {
+    "item_id": "sciworld_864"
+  },
+  {
+    "item_id": "sciworld_865"
+  },
+  {
+    "item_id": "sciworld_866"
+  },
+  {
+    "item_id": "sciworld_867"
+  },
+  {
+    "item_id": "sciworld_868"
+  },
+  {
+    "item_id": "sciworld_869"
+  },
+  {
+    "item_id": "sciworld_681"
+  },
+  {
+    "item_id": "sciworld_870"
+  },
+  {
+    "item_id": "sciworld_872"
+  },
+  {
+    "item_id": "sciworld_873"
+  },
+  {
+    "item_id": "sciworld_874"
+  },
+  {
+    "item_id": "sciworld_875"
+  },
+  {
+    "item_id": "sciworld_876"
+  },
+  {
+    "item_id": "sciworld_877"
+  },
+  {
+    "item_id": "sciworld_682"
+  },
+  {
+    "item_id": "sciworld_683"
+  },
+  {
+    "item_id": "sciworld_684"
+  },
+  {
+    "item_id": "sciworld_685"
+  },
+  {
+    "item_id": "sciworld_686"
+  },
+  {
+    "item_id": "sciworld_688"
+  },
+  {
+    "item_id": "sciworld_689"
+  },
+  {
+    "item_id": "sciworld_663"
+  },
+  {
+    "item_id": "sciworld_690"
+  },
+  {
+    "item_id": "sciworld_692"
+  },
+  {
+    "item_id": "sciworld_693"
+  },
+  {
+    "item_id": "sciworld_694"
+  },
+  {
+    "item_id": "sciworld_695"
+  },
+  {
+    "item_id": "sciworld_696"
+  },
+  {
+    "item_id": "sciworld_697"
+  },
+  {
+    "item_id": "sciworld_698"
+  },
+  {
+    "item_id": "sciworld_699"
+  },
+  {
+    "item_id": "sciworld_664"
+  },
+  {
+    "item_id": "sciworld_700"
+  },
+  {
+    "item_id": "sciworld_701"
+  },
+  {
+    "item_id": "sciworld_703"
+  },
+  {
+    "item_id": "sciworld_704"
+  },
+  {
+    "item_id": "sciworld_705"
+  },
+  {
+    "item_id": "sciworld_706"
+  },
+  {
+    "item_id": "sciworld_707"
+  },
+  {
+    "item_id": "sciworld_708"
+  },
+  {
+    "item_id": "sciworld_665"
+  },
+  {
+    "item_id": "sciworld_710"
+  },
+  {
+    "item_id": "sciworld_711"
+  },
+  {
+    "item_id": "sciworld_712"
+  },
+  {
+    "item_id": "sciworld_713"
+  },
+  {
+    "item_id": "sciworld_714"
+  },
+  {
+    "item_id": "sciworld_715"
+  },
+  {
+    "item_id": "sciworld_716"
+  },
+  {
+    "item_id": "sciworld_717"
+  },
+  {
+    "item_id": "sciworld_718"
+  },
+  {
+    "item_id": "sciworld_719"
+  },
+  {
+    "item_id": "sciworld_666"
+  },
+  {
+    "item_id": "sciworld_720"
+  },
+  {
+    "item_id": "sciworld_721"
+  },
+  {
+    "item_id": "sciworld_722"
+  },
+  {
+    "item_id": "sciworld_723"
+  },
+  {
+    "item_id": "sciworld_726"
+  },
+  {
+    "item_id": "sciworld_727"
+  },
+  {
+    "item_id": "sciworld_728"
+  },
+  {
+    "item_id": "sciworld_729"
+  },
+  {
+    "item_id": "sciworld_667"
+  },
+  {
+    "item_id": "sciworld_730"
+  },
+  {
+    "item_id": "sciworld_731"
+  },
+  {
+    "item_id": "sciworld_732"
+  },
+  {
+    "item_id": "sciworld_733"
+  },
+  {
+    "item_id": "sciworld_734"
+  },
+  {
+    "item_id": "sciworld_735"
+  },
+  {
+    "item_id": "sciworld_736"
+  },
+  {
+    "item_id": "sciworld_737"
+  },
+  {
+    "item_id": "sciworld_738"
+  },
+  {
+    "item_id": "sciworld_668"
+  },
+  {
+    "item_id": "sciworld_740"
+  },
+  {
+    "item_id": "sciworld_741"
+  },
+  {
+    "item_id": "sciworld_742"
+  },
+  {
+    "item_id": "sciworld_743"
+  },
+  {
+    "item_id": "sciworld_744"
+  },
+  {
+    "item_id": "sciworld_746"
+  },
+  {
+    "item_id": "sciworld_748"
+  },
+  {
+    "item_id": "sciworld_669"
+  },
+  {
+    "item_id": "sciworld_750"
+  },
+  {
+    "item_id": "sciworld_754"
+  },
+  {
+    "item_id": "sciworld_755"
+  },
+  {
+    "item_id": "sciworld_756"
+  },
+  {
+    "item_id": "sciworld_757"
+  },
+  {
+    "item_id": "sciworld_758"
+  },
+  {
+    "item_id": "sciworld_120"
+  },
+  {
+    "item_id": "sciworld_121"
+  },
+  {
+    "item_id": "sciworld_130"
+  },
+  {
+    "item_id": "sciworld_220"
+  },
+  {
+    "item_id": "sciworld_221"
+  },
+  {
+    "item_id": "sciworld_222"
+  },
+  {
+    "item_id": "sciworld_223"
+  },
+  {
+    "item_id": "sciworld_224"
+  },
+  {
+    "item_id": "sciworld_225"
+  },
+  {
+    "item_id": "sciworld_226"
+  },
+  {
+    "item_id": "sciworld_227"
+  },
+  {
+    "item_id": "sciworld_228"
+  },
+  {
+    "item_id": "sciworld_229"
+  },
+  {
+    "item_id": "sciworld_131"
+  },
+  {
+    "item_id": "sciworld_230"
+  },
+  {
+    "item_id": "sciworld_231"
+  },
+  {
+    "item_id": "sciworld_232"
+  },
+  {
+    "item_id": "sciworld_233"
+  },
+  {
+    "item_id": "sciworld_234"
+  },
+  {
+    "item_id": "sciworld_235"
+  },
+  {
+    "item_id": "sciworld_236"
+  },
+  {
+    "item_id": "sciworld_237"
+  },
+  {
+    "item_id": "sciworld_238"
+  },
+  {
+    "item_id": "sciworld_239"
+  },
+  {
+    "item_id": "sciworld_132"
+  },
+  {
+    "item_id": "sciworld_240"
+  },
+  {
+    "item_id": "sciworld_241"
+  },
+  {
+    "item_id": "sciworld_242"
+  },
+  {
+    "item_id": "sciworld_243"
+  },
+  {
+    "item_id": "sciworld_244"
+  },
+  {
+    "item_id": "sciworld_245"
+  },
+  {
+    "item_id": "sciworld_246"
+  },
+  {
+    "item_id": "sciworld_247"
+  },
+  {
+    "item_id": "sciworld_248"
+  },
+  {
+    "item_id": "sciworld_249"
+  },
+  {
+    "item_id": "sciworld_133"
+  },
+  {
+    "item_id": "sciworld_250"
+  },
+  {
+    "item_id": "sciworld_251"
+  },
+  {
+    "item_id": "sciworld_252"
+  },
+  {
+    "item_id": "sciworld_253"
+  },
+  {
+    "item_id": "sciworld_254"
+  },
+  {
+    "item_id": "sciworld_255"
+  },
+  {
+    "item_id": "sciworld_256"
+  },
+  {
+    "item_id": "sciworld_257"
+  },
+  {
+    "item_id": "sciworld_258"
+  },
+  {
+    "item_id": "sciworld_259"
+  },
+  {
+    "item_id": "sciworld_134"
+  },
+  {
+    "item_id": "sciworld_260"
+  },
+  {
+    "item_id": "sciworld_261"
+  },
+  {
+    "item_id": "sciworld_262"
+  },
+  {
+    "item_id": "sciworld_263"
+  },
+  {
+    "item_id": "sciworld_264"
+  },
+  {
+    "item_id": "sciworld_265"
+  },
+  {
+    "item_id": "sciworld_266"
+  },
+  {
+    "item_id": "sciworld_267"
+  },
+  {
+    "item_id": "sciworld_268"
+  },
+  {
+    "item_id": "sciworld_269"
+  },
+  {
+    "item_id": "sciworld_135"
+  },
+  {
+    "item_id": "sciworld_270"
+  },
+  {
+    "item_id": "sciworld_271"
+  },
+  {
+    "item_id": "sciworld_272"
+  },
+  {
+    "item_id": "sciworld_273"
+  },
+  {
+    "item_id": "sciworld_274"
+  },
+  {
+    "item_id": "sciworld_275"
+  },
+  {
+    "item_id": "sciworld_276"
+  },
+  {
+    "item_id": "sciworld_277"
+  },
+  {
+    "item_id": "sciworld_278"
+  },
+  {
+    "item_id": "sciworld_279"
+  },
+  {
+    "item_id": "sciworld_136"
+  },
+  {
+    "item_id": "sciworld_280"
+  },
+  {
+    "item_id": "sciworld_281"
+  },
+  {
+    "item_id": "sciworld_282"
+  },
+  {
+    "item_id": "sciworld_283"
+  },
+  {
+    "item_id": "sciworld_284"
+  },
+  {
+    "item_id": "sciworld_285"
+  },
+  {
+    "item_id": "sciworld_286"
+  },
+  {
+    "item_id": "sciworld_287"
+  },
+  {
+    "item_id": "sciworld_288"
+  },
+  {
+    "item_id": "sciworld_289"
+  },
+  {
+    "item_id": "sciworld_137"
+  },
+  {
+    "item_id": "sciworld_290"
+  },
+  {
+    "item_id": "sciworld_291"
+  },
+  {
+    "item_id": "sciworld_292"
+  },
+  {
+    "item_id": "sciworld_293"
+  },
+  {
+    "item_id": "sciworld_294"
+  },
+  {
+    "item_id": "sciworld_295"
+  },
+  {
+    "item_id": "sciworld_296"
+  },
+  {
+    "item_id": "sciworld_297"
+  },
+  {
+    "item_id": "sciworld_298"
+  },
+  {
+    "item_id": "sciworld_299"
+  },
+  {
+    "item_id": "sciworld_138"
+  },
+  {
+    "item_id": "sciworld_300"
+  },
+  {
+    "item_id": "sciworld_301"
+  },
+  {
+    "item_id": "sciworld_302"
+  },
+  {
+    "item_id": "sciworld_303"
+  },
+  {
+    "item_id": "sciworld_304"
+  },
+  {
+    "item_id": "sciworld_305"
+  },
+  {
+    "item_id": "sciworld_306"
+  },
+  {
+    "item_id": "sciworld_307"
+  },
+  {
+    "item_id": "sciworld_308"
+  },
+  {
+    "item_id": "sciworld_309"
+  },
+  {
+    "item_id": "sciworld_139"
+  },
+  {
+    "item_id": "sciworld_310"
+  },
+  {
+    "item_id": "sciworld_311"
+  },
+  {
+    "item_id": "sciworld_312"
+  },
+  {
+    "item_id": "sciworld_313"
+  },
+  {
+    "item_id": "sciworld_314"
+  },
+  {
+    "item_id": "sciworld_315"
+  },
+  {
+    "item_id": "sciworld_316"
+  },
+  {
+    "item_id": "sciworld_317"
+  },
+  {
+    "item_id": "sciworld_318"
+  },
+  {
+    "item_id": "sciworld_319"
+  },
+  {
+    "item_id": "sciworld_122"
+  },
+  {
+    "item_id": "sciworld_140"
+  },
+  {
+    "item_id": "sciworld_320"
+  },
+  {
+    "item_id": "sciworld_321"
+  },
+  {
+    "item_id": "sciworld_322"
+  },
+  {
+    "item_id": "sciworld_323"
+  },
+  {
+    "item_id": "sciworld_324"
+  },
+  {
+    "item_id": "sciworld_325"
+  },
+  {
+    "item_id": "sciworld_326"
+  },
+  {
+    "item_id": "sciworld_327"
+  },
+  {
+    "item_id": "sciworld_328"
+  },
+  {
+    "item_id": "sciworld_329"
+  },
+  {
+    "item_id": "sciworld_141"
+  },
+  {
+    "item_id": "sciworld_330"
+  },
+  {
+    "item_id": "sciworld_331"
+  },
+  {
+    "item_id": "sciworld_332"
+  },
+  {
+    "item_id": "sciworld_333"
+  },
+  {
+    "item_id": "sciworld_334"
+  },
+  {
+    "item_id": "sciworld_335"
+  },
+  {
+    "item_id": "sciworld_336"
+  },
+  {
+    "item_id": "sciworld_337"
+  },
+  {
+    "item_id": "sciworld_338"
+  },
+  {
+    "item_id": "sciworld_339"
+  },
+  {
+    "item_id": "sciworld_142"
+  },
+  {
+    "item_id": "sciworld_340"
+  },
+  {
+    "item_id": "sciworld_341"
+  },
+  {
+    "item_id": "sciworld_342"
+  },
+  {
+    "item_id": "sciworld_343"
+  },
+  {
+    "item_id": "sciworld_344"
+  },
+  {
+    "item_id": "sciworld_345"
+  },
+  {
+    "item_id": "sciworld_346"
+  },
+  {
+    "item_id": "sciworld_347"
+  },
+  {
+    "item_id": "sciworld_348"
+  },
+  {
+    "item_id": "sciworld_349"
+  },
+  {
+    "item_id": "sciworld_143"
+  },
+  {
+    "item_id": "sciworld_350"
+  },
+  {
+    "item_id": "sciworld_351"
+  },
+  {
+    "item_id": "sciworld_352"
+  },
+  {
+    "item_id": "sciworld_353"
+  },
+  {
+    "item_id": "sciworld_354"
+  },
+  {
+    "item_id": "sciworld_355"
+  },
+  {
+    "item_id": "sciworld_356"
+  },
+  {
+    "item_id": "sciworld_357"
+  },
+  {
+    "item_id": "sciworld_358"
+  },
+  {
+    "item_id": "sciworld_359"
+  },
+  {
+    "item_id": "sciworld_144"
+  },
+  {
+    "item_id": "sciworld_360"
+  },
+  {
+    "item_id": "sciworld_361"
+  },
+  {
+    "item_id": "sciworld_362"
+  },
+  {
+    "item_id": "sciworld_363"
+  },
+  {
+    "item_id": "sciworld_364"
+  },
+  {
+    "item_id": "sciworld_365"
+  },
+  {
+    "item_id": "sciworld_366"
+  },
+  {
+    "item_id": "sciworld_367"
+  },
+  {
+    "item_id": "sciworld_368"
+  },
+  {
+    "item_id": "sciworld_369"
+  },
+  {
+    "item_id": "sciworld_145"
+  },
+  {
+    "item_id": "sciworld_370"
+  },
+  {
+    "item_id": "sciworld_371"
+  },
+  {
+    "item_id": "sciworld_372"
+  },
+  {
+    "item_id": "sciworld_373"
+  },
+  {
+    "item_id": "sciworld_374"
+  },
+  {
+    "item_id": "sciworld_375"
+  },
+  {
+    "item_id": "sciworld_376"
+  },
+  {
+    "item_id": "sciworld_377"
+  },
+  {
+    "item_id": "sciworld_378"
+  },
+  {
+    "item_id": "sciworld_379"
+  },
+  {
+    "item_id": "sciworld_146"
+  },
+  {
+    "item_id": "sciworld_380"
+  },
+  {
+    "item_id": "sciworld_381"
+  },
+  {
+    "item_id": "sciworld_382"
+  },
+  {
+    "item_id": "sciworld_383"
+  },
+  {
+    "item_id": "sciworld_384"
+  },
+  {
+    "item_id": "sciworld_385"
+  },
+  {
+    "item_id": "sciworld_386"
+  },
+  {
+    "item_id": "sciworld_387"
+  },
+  {
+    "item_id": "sciworld_388"
+  },
+  {
+    "item_id": "sciworld_389"
+  },
+  {
+    "item_id": "sciworld_147"
+  },
+  {
+    "item_id": "sciworld_148"
+  },
+  {
+    "item_id": "sciworld_149"
+  },
+  {
+    "item_id": "sciworld_123"
+  },
+  {
+    "item_id": "sciworld_150"
+  },
+  {
+    "item_id": "sciworld_151"
+  },
+  {
+    "item_id": "sciworld_152"
+  },
+  {
+    "item_id": "sciworld_153"
+  },
+  {
+    "item_id": "sciworld_154"
+  },
+  {
+    "item_id": "sciworld_155"
+  },
+  {
+    "item_id": "sciworld_156"
+  },
+  {
+    "item_id": "sciworld_157"
+  },
+  {
+    "item_id": "sciworld_158"
+  },
+  {
+    "item_id": "sciworld_159"
+  },
+  {
+    "item_id": "sciworld_124"
+  },
+  {
+    "item_id": "sciworld_160"
+  },
+  {
+    "item_id": "sciworld_161"
+  },
+  {
+    "item_id": "sciworld_162"
+  },
+  {
+    "item_id": "sciworld_163"
+  },
+  {
+    "item_id": "sciworld_164"
+  },
+  {
+    "item_id": "sciworld_165"
+  },
+  {
+    "item_id": "sciworld_166"
+  },
+  {
+    "item_id": "sciworld_167"
+  },
+  {
+    "item_id": "sciworld_168"
+  },
+  {
+    "item_id": "sciworld_169"
+  },
+  {
+    "item_id": "sciworld_125"
+  },
+  {
+    "item_id": "sciworld_170"
+  },
+  {
+    "item_id": "sciworld_171"
+  },
+  {
+    "item_id": "sciworld_172"
+  },
+  {
+    "item_id": "sciworld_173"
+  },
+  {
+    "item_id": "sciworld_174"
+  },
+  {
+    "item_id": "sciworld_175"
+  },
+  {
+    "item_id": "sciworld_176"
+  },
+  {
+    "item_id": "sciworld_177"
+  },
+  {
+    "item_id": "sciworld_178"
+  },
+  {
+    "item_id": "sciworld_179"
+  },
+  {
+    "item_id": "sciworld_126"
+  },
+  {
+    "item_id": "sciworld_180"
+  },
+  {
+    "item_id": "sciworld_181"
+  },
+  {
+    "item_id": "sciworld_182"
+  },
+  {
+    "item_id": "sciworld_183"
+  },
+  {
+    "item_id": "sciworld_184"
+  },
+  {
+    "item_id": "sciworld_185"
+  },
+  {
+    "item_id": "sciworld_186"
+  },
+  {
+    "item_id": "sciworld_187"
+  },
+  {
+    "item_id": "sciworld_188"
+  },
+  {
+    "item_id": "sciworld_189"
+  },
+  {
+    "item_id": "sciworld_127"
+  },
+  {
+    "item_id": "sciworld_190"
+  },
+  {
+    "item_id": "sciworld_191"
+  },
+  {
+    "item_id": "sciworld_192"
+  },
+  {
+    "item_id": "sciworld_193"
+  },
+  {
+    "item_id": "sciworld_194"
+  },
+  {
+    "item_id": "sciworld_195"
+  },
+  {
+    "item_id": "sciworld_196"
+  },
+  {
+    "item_id": "sciworld_197"
+  },
+  {
+    "item_id": "sciworld_198"
+  },
+  {
+    "item_id": "sciworld_199"
+  },
+  {
+    "item_id": "sciworld_128"
+  },
+  {
+    "item_id": "sciworld_200"
+  },
+  {
+    "item_id": "sciworld_201"
+  },
+  {
+    "item_id": "sciworld_202"
+  },
+  {
+    "item_id": "sciworld_203"
+  },
+  {
+    "item_id": "sciworld_204"
+  },
+  {
+    "item_id": "sciworld_205"
+  },
+  {
+    "item_id": "sciworld_206"
+  },
+  {
+    "item_id": "sciworld_207"
+  },
+  {
+    "item_id": "sciworld_208"
+  },
+  {
+    "item_id": "sciworld_209"
+  },
+  {
+    "item_id": "sciworld_129"
+  },
+  {
+    "item_id": "sciworld_210"
+  },
+  {
+    "item_id": "sciworld_211"
+  },
+  {
+    "item_id": "sciworld_212"
+  },
+  {
+    "item_id": "sciworld_213"
+  },
+  {
+    "item_id": "sciworld_214"
+  },
+  {
+    "item_id": "sciworld_215"
+  },
+  {
+    "item_id": "sciworld_216"
+  },
+  {
+    "item_id": "sciworld_217"
+  },
+  {
+    "item_id": "sciworld_218"
+  },
+  {
+    "item_id": "sciworld_219"
+  },
+  {
+    "item_id": "sciworld_1416"
+  },
+  {
+    "item_id": "sciworld_1417"
+  },
+  {
+    "item_id": "sciworld_1418"
+  },
+  {
+    "item_id": "sciworld_1419"
+  },
+  {
+    "item_id": "sciworld_1420"
+  },
+  {
+    "item_id": "sciworld_1421"
+  },
+  {
+    "item_id": "sciworld_1422"
+  },
+  {
+    "item_id": "sciworld_1423"
+  },
+  {
+    "item_id": "sciworld_1424"
+  },
+  {
+    "item_id": "sciworld_1425"
+  },
+  {
+    "item_id": "sciworld_1396"
+  },
+  {
+    "item_id": "sciworld_1397"
+  },
+  {
+    "item_id": "sciworld_1398"
+  },
+  {
+    "item_id": "sciworld_1399"
+  },
+  {
+    "item_id": "sciworld_1400"
+  },
+  {
+    "item_id": "sciworld_1401"
+  },
+  {
+    "item_id": "sciworld_1402"
+  },
+  {
+    "item_id": "sciworld_1403"
+  },
+  {
+    "item_id": "sciworld_1404"
+  },
+  {
+    "item_id": "sciworld_1405"
+  },
+  {
+    "item_id": "sciworld_1583"
+  },
+  {
+    "item_id": "sciworld_2336"
+  },
+  {
+    "item_id": "sciworld_2337"
+  },
+  {
+    "item_id": "sciworld_2346"
+  },
+  {
+    "item_id": "sciworld_2436"
+  },
+  {
+    "item_id": "sciworld_2437"
+  },
+  {
+    "item_id": "sciworld_2438"
+  },
+  {
+    "item_id": "sciworld_2439"
+  },
+  {
+    "item_id": "sciworld_2440"
+  },
+  {
+    "item_id": "sciworld_2441"
+  },
+  {
+    "item_id": "sciworld_2442"
+  },
+  {
+    "item_id": "sciworld_2443"
+  },
+  {
+    "item_id": "sciworld_2444"
+  },
+  {
+    "item_id": "sciworld_2445"
+  },
+  {
+    "item_id": "sciworld_2347"
+  },
+  {
+    "item_id": "sciworld_2446"
+  },
+  {
+    "item_id": "sciworld_2447"
+  },
+  {
+    "item_id": "sciworld_2448"
+  },
+  {
+    "item_id": "sciworld_2449"
+  },
+  {
+    "item_id": "sciworld_2450"
+  },
+  {
+    "item_id": "sciworld_2451"
+  },
+  {
+    "item_id": "sciworld_2452"
+  },
+  {
+    "item_id": "sciworld_2453"
+  },
+  {
+    "item_id": "sciworld_2454"
+  },
+  {
+    "item_id": "sciworld_2455"
+  },
+  {
+    "item_id": "sciworld_2348"
+  },
+  {
+    "item_id": "sciworld_2456"
+  },
+  {
+    "item_id": "sciworld_2457"
+  },
+  {
+    "item_id": "sciworld_2458"
+  },
+  {
+    "item_id": "sciworld_2459"
+  },
+  {
+    "item_id": "sciworld_2460"
+  },
+  {
+    "item_id": "sciworld_2461"
+  },
+  {
+    "item_id": "sciworld_2462"
+  },
+  {
+    "item_id": "sciworld_2463"
+  },
+  {
+    "item_id": "sciworld_2464"
+  },
+  {
+    "item_id": "sciworld_2465"
+  },
+  {
+    "item_id": "sciworld_2349"
+  },
+  {
+    "item_id": "sciworld_2466"
+  },
+  {
+    "item_id": "sciworld_2467"
+  },
+  {
+    "item_id": "sciworld_2468"
+  },
+  {
+    "item_id": "sciworld_2469"
+  },
+  {
+    "item_id": "sciworld_2470"
+  },
+  {
+    "item_id": "sciworld_2471"
+  },
+  {
+    "item_id": "sciworld_2472"
+  },
+  {
+    "item_id": "sciworld_2473"
+  },
+  {
+    "item_id": "sciworld_2474"
+  },
+  {
+    "item_id": "sciworld_2475"
+  },
+  {
+    "item_id": "sciworld_2350"
+  },
+  {
+    "item_id": "sciworld_2476"
+  },
+  {
+    "item_id": "sciworld_2477"
+  },
+  {
+    "item_id": "sciworld_2478"
+  },
+  {
+    "item_id": "sciworld_2479"
+  },
+  {
+    "item_id": "sciworld_2480"
+  },
+  {
+    "item_id": "sciworld_2481"
+  },
+  {
+    "item_id": "sciworld_2482"
+  },
+  {
+    "item_id": "sciworld_2483"
+  },
+  {
+    "item_id": "sciworld_2484"
+  },
+  {
+    "item_id": "sciworld_2485"
+  },
+  {
+    "item_id": "sciworld_2351"
+  },
+  {
+    "item_id": "sciworld_2486"
+  },
+  {
+    "item_id": "sciworld_2487"
+  },
+  {
+    "item_id": "sciworld_2488"
+  },
+  {
+    "item_id": "sciworld_2489"
+  },
+  {
+    "item_id": "sciworld_2490"
+  },
+  {
+    "item_id": "sciworld_2491"
+  },
+  {
+    "item_id": "sciworld_2492"
+  },
+  {
+    "item_id": "sciworld_2493"
+  },
+  {
+    "item_id": "sciworld_2494"
+  },
+  {
+    "item_id": "sciworld_2495"
+  },
+  {
+    "item_id": "sciworld_2352"
+  },
+  {
+    "item_id": "sciworld_2496"
+  },
+  {
+    "item_id": "sciworld_2497"
+  },
+  {
+    "item_id": "sciworld_2498"
+  },
+  {
+    "item_id": "sciworld_2499"
+  },
+  {
+    "item_id": "sciworld_2500"
+  },
+  {
+    "item_id": "sciworld_2501"
+  },
+  {
+    "item_id": "sciworld_2502"
+  },
+  {
+    "item_id": "sciworld_2503"
+  },
+  {
+    "item_id": "sciworld_2504"
+  },
+  {
+    "item_id": "sciworld_2505"
+  },
+  {
+    "item_id": "sciworld_2353"
+  },
+  {
+    "item_id": "sciworld_2506"
+  },
+  {
+    "item_id": "sciworld_2507"
+  },
+  {
+    "item_id": "sciworld_2508"
+  },
+  {
+    "item_id": "sciworld_2509"
+  },
+  {
+    "item_id": "sciworld_2510"
+  },
+  {
+    "item_id": "sciworld_2511"
+  },
+  {
+    "item_id": "sciworld_2512"
+  },
+  {
+    "item_id": "sciworld_2513"
+  },
+  {
+    "item_id": "sciworld_2514"
+  },
+  {
+    "item_id": "sciworld_2515"
+  },
+  {
+    "item_id": "sciworld_2354"
+  },
+  {
+    "item_id": "sciworld_2516"
+  },
+  {
+    "item_id": "sciworld_2517"
+  },
+  {
+    "item_id": "sciworld_2518"
+  },
+  {
+    "item_id": "sciworld_2519"
+  },
+  {
+    "item_id": "sciworld_2520"
+  },
+  {
+    "item_id": "sciworld_2521"
+  },
+  {
+    "item_id": "sciworld_2522"
+  },
+  {
+    "item_id": "sciworld_2523"
+  },
+  {
+    "item_id": "sciworld_2524"
+  },
+  {
+    "item_id": "sciworld_2525"
+  },
+  {
+    "item_id": "sciworld_2355"
+  },
+  {
+    "item_id": "sciworld_2526"
+  },
+  {
+    "item_id": "sciworld_2527"
+  },
+  {
+    "item_id": "sciworld_2528"
+  },
+  {
+    "item_id": "sciworld_2529"
+  },
+  {
+    "item_id": "sciworld_2530"
+  },
+  {
+    "item_id": "sciworld_2531"
+  },
+  {
+    "item_id": "sciworld_2532"
+  },
+  {
+    "item_id": "sciworld_2533"
+  },
+  {
+    "item_id": "sciworld_2534"
+  },
+  {
+    "item_id": "sciworld_2535"
+  },
+  {
+    "item_id": "sciworld_2338"
+  },
+  {
+    "item_id": "sciworld_2356"
+  },
+  {
+    "item_id": "sciworld_2536"
+  },
+  {
+    "item_id": "sciworld_2537"
+  },
+  {
+    "item_id": "sciworld_2538"
+  },
+  {
+    "item_id": "sciworld_2539"
+  },
+  {
+    "item_id": "sciworld_2540"
+  },
+  {
+    "item_id": "sciworld_2541"
+  },
+  {
+    "item_id": "sciworld_2542"
+  },
+  {
+    "item_id": "sciworld_2543"
+  },
+  {
+    "item_id": "sciworld_2544"
+  },
+  {
+    "item_id": "sciworld_2545"
+  },
+  {
+    "item_id": "sciworld_2357"
+  },
+  {
+    "item_id": "sciworld_2546"
+  },
+  {
+    "item_id": "sciworld_2547"
+  },
+  {
+    "item_id": "sciworld_2548"
+  },
+  {
+    "item_id": "sciworld_2549"
+  },
+  {
+    "item_id": "sciworld_2550"
+  },
+  {
+    "item_id": "sciworld_2551"
+  },
+  {
+    "item_id": "sciworld_2552"
+  },
+  {
+    "item_id": "sciworld_2553"
+  },
+  {
+    "item_id": "sciworld_2554"
+  },
+  {
+    "item_id": "sciworld_2555"
+  },
+  {
+    "item_id": "sciworld_2358"
+  },
+  {
+    "item_id": "sciworld_2556"
+  },
+  {
+    "item_id": "sciworld_2557"
+  },
+  {
+    "item_id": "sciworld_2558"
+  },
+  {
+    "item_id": "sciworld_2559"
+  },
+  {
+    "item_id": "sciworld_2560"
+  },
+  {
+    "item_id": "sciworld_2561"
+  },
+  {
+    "item_id": "sciworld_2562"
+  },
+  {
+    "item_id": "sciworld_2563"
+  },
+  {
+    "item_id": "sciworld_2564"
+  },
+  {
+    "item_id": "sciworld_2565"
+  },
+  {
+    "item_id": "sciworld_2359"
+  },
+  {
+    "item_id": "sciworld_2566"
+  },
+  {
+    "item_id": "sciworld_2567"
+  },
+  {
+    "item_id": "sciworld_2568"
+  },
+  {
+    "item_id": "sciworld_2569"
+  },
+  {
+    "item_id": "sciworld_2570"
+  },
+  {
+    "item_id": "sciworld_2571"
+  },
+  {
+    "item_id": "sciworld_2572"
+  },
+  {
+    "item_id": "sciworld_2573"
+  },
+  {
+    "item_id": "sciworld_2574"
+  },
+  {
+    "item_id": "sciworld_2575"
+  },
+  {
+    "item_id": "sciworld_2360"
+  },
+  {
+    "item_id": "sciworld_2576"
+  },
+  {
+    "item_id": "sciworld_2577"
+  },
+  {
+    "item_id": "sciworld_2578"
+  },
+  {
+    "item_id": "sciworld_2579"
+  },
+  {
+    "item_id": "sciworld_2580"
+  },
+  {
+    "item_id": "sciworld_2581"
+  },
+  {
+    "item_id": "sciworld_2582"
+  },
+  {
+    "item_id": "sciworld_2583"
+  },
+  {
+    "item_id": "sciworld_2584"
+  },
+  {
+    "item_id": "sciworld_2585"
+  },
+  {
+    "item_id": "sciworld_2361"
+  },
+  {
+    "item_id": "sciworld_2586"
+  },
+  {
+    "item_id": "sciworld_2587"
+  },
+  {
+    "item_id": "sciworld_2588"
+  },
+  {
+    "item_id": "sciworld_2589"
+  },
+  {
+    "item_id": "sciworld_2590"
+  },
+  {
+    "item_id": "sciworld_2591"
+  },
+  {
+    "item_id": "sciworld_2592"
+  },
+  {
+    "item_id": "sciworld_2593"
+  },
+  {
+    "item_id": "sciworld_2594"
+  },
+  {
+    "item_id": "sciworld_2595"
+  },
+  {
+    "item_id": "sciworld_2362"
+  },
+  {
+    "item_id": "sciworld_2596"
+  },
+  {
+    "item_id": "sciworld_2597"
+  },
+  {
+    "item_id": "sciworld_2598"
+  },
+  {
+    "item_id": "sciworld_2599"
+  },
+  {
+    "item_id": "sciworld_2600"
+  },
+  {
+    "item_id": "sciworld_2601"
+  },
+  {
+    "item_id": "sciworld_2602"
+  },
+  {
+    "item_id": "sciworld_2603"
+  },
+  {
+    "item_id": "sciworld_2604"
+  },
+  {
+    "item_id": "sciworld_2605"
+  },
+  {
+    "item_id": "sciworld_2363"
+  },
+  {
+    "item_id": "sciworld_2606"
+  },
+  {
+    "item_id": "sciworld_2607"
+  },
+  {
+    "item_id": "sciworld_2608"
+  },
+  {
+    "item_id": "sciworld_2609"
+  },
+  {
+    "item_id": "sciworld_2610"
+  },
+  {
+    "item_id": "sciworld_2611"
+  },
+  {
+    "item_id": "sciworld_2612"
+  },
+  {
+    "item_id": "sciworld_2613"
+  },
+  {
+    "item_id": "sciworld_2614"
+  },
+  {
+    "item_id": "sciworld_2615"
+  },
+  {
+    "item_id": "sciworld_2364"
+  },
+  {
+    "item_id": "sciworld_2616"
+  },
+  {
+    "item_id": "sciworld_2617"
+  },
+  {
+    "item_id": "sciworld_2618"
+  },
+  {
+    "item_id": "sciworld_2619"
+  },
+  {
+    "item_id": "sciworld_2620"
+  },
+  {
+    "item_id": "sciworld_2621"
+  },
+  {
+    "item_id": "sciworld_2622"
+  },
+  {
+    "item_id": "sciworld_2623"
+  },
+  {
+    "item_id": "sciworld_2624"
+  },
+  {
+    "item_id": "sciworld_2625"
+  },
+  {
+    "item_id": "sciworld_2365"
+  },
+  {
+    "item_id": "sciworld_2626"
+  },
+  {
+    "item_id": "sciworld_2627"
+  },
+  {
+    "item_id": "sciworld_2628"
+  },
+  {
+    "item_id": "sciworld_2629"
+  },
+  {
+    "item_id": "sciworld_2630"
+  },
+  {
+    "item_id": "sciworld_2631"
+  },
+  {
+    "item_id": "sciworld_2632"
+  },
+  {
+    "item_id": "sciworld_2633"
+  },
+  {
+    "item_id": "sciworld_2634"
+  },
+  {
+    "item_id": "sciworld_2635"
+  },
+  {
+    "item_id": "sciworld_2339"
+  },
+  {
+    "item_id": "sciworld_2366"
+  },
+  {
+    "item_id": "sciworld_2367"
+  },
+  {
+    "item_id": "sciworld_2368"
+  },
+  {
+    "item_id": "sciworld_2369"
+  },
+  {
+    "item_id": "sciworld_2370"
+  },
+  {
+    "item_id": "sciworld_2371"
+  },
+  {
+    "item_id": "sciworld_2372"
+  },
+  {
+    "item_id": "sciworld_2373"
+  },
+  {
+    "item_id": "sciworld_2374"
+  },
+  {
+    "item_id": "sciworld_2375"
+  },
+  {
+    "item_id": "sciworld_2340"
+  },
+  {
+    "item_id": "sciworld_2376"
+  },
+  {
+    "item_id": "sciworld_2377"
+  },
+  {
+    "item_id": "sciworld_2378"
+  },
+  {
+    "item_id": "sciworld_2379"
+  },
+  {
+    "item_id": "sciworld_2380"
+  },
+  {
+    "item_id": "sciworld_2381"
+  },
+  {
+    "item_id": "sciworld_2382"
+  },
+  {
+    "item_id": "sciworld_2383"
+  },
+  {
+    "item_id": "sciworld_2384"
+  },
+  {
+    "item_id": "sciworld_2385"
+  },
+  {
+    "item_id": "sciworld_2341"
+  },
+  {
+    "item_id": "sciworld_2386"
+  },
+  {
+    "item_id": "sciworld_2387"
+  },
+  {
+    "item_id": "sciworld_2388"
+  },
+  {
+    "item_id": "sciworld_2389"
+  },
+  {
+    "item_id": "sciworld_2390"
+  },
+  {
+    "item_id": "sciworld_2391"
+  },
+  {
+    "item_id": "sciworld_2392"
+  },
+  {
+    "item_id": "sciworld_2393"
+  },
+  {
+    "item_id": "sciworld_2394"
+  },
+  {
+    "item_id": "sciworld_2395"
+  },
+  {
+    "item_id": "sciworld_2342"
+  },
+  {
+    "item_id": "sciworld_2396"
+  },
+  {
+    "item_id": "sciworld_2397"
+  },
+  {
+    "item_id": "sciworld_2398"
+  },
+  {
+    "item_id": "sciworld_2399"
+  },
+  {
+    "item_id": "sciworld_2400"
+  },
+  {
+    "item_id": "sciworld_2401"
+  },
+  {
+    "item_id": "sciworld_2402"
+  },
+  {
+    "item_id": "sciworld_2403"
+  },
+  {
+    "item_id": "sciworld_2404"
+  },
+  {
+    "item_id": "sciworld_2405"
+  },
+  {
+    "item_id": "sciworld_2343"
+  },
+  {
+    "item_id": "sciworld_2406"
+  },
+  {
+    "item_id": "sciworld_2407"
+  },
+  {
+    "item_id": "sciworld_2408"
+  },
+  {
+    "item_id": "sciworld_2409"
+  },
+  {
+    "item_id": "sciworld_2410"
+  },
+  {
+    "item_id": "sciworld_2411"
+  },
+  {
+    "item_id": "sciworld_2412"
+  },
+  {
+    "item_id": "sciworld_2413"
+  },
+  {
+    "item_id": "sciworld_2414"
+  },
+  {
+    "item_id": "sciworld_2415"
+  },
+  {
+    "item_id": "sciworld_2344"
+  },
+  {
+    "item_id": "sciworld_2416"
+  },
+  {
+    "item_id": "sciworld_2417"
+  },
+  {
+    "item_id": "sciworld_2418"
+  },
+  {
+    "item_id": "sciworld_2419"
+  },
+  {
+    "item_id": "sciworld_2420"
+  },
+  {
+    "item_id": "sciworld_2421"
+  },
+  {
+    "item_id": "sciworld_2422"
+  },
+  {
+    "item_id": "sciworld_2423"
+  },
+  {
+    "item_id": "sciworld_2424"
+  },
+  {
+    "item_id": "sciworld_2425"
+  },
+  {
+    "item_id": "sciworld_2345"
+  },
+  {
+    "item_id": "sciworld_2426"
+  },
+  {
+    "item_id": "sciworld_2427"
+  },
+  {
+    "item_id": "sciworld_2428"
+  },
+  {
+    "item_id": "sciworld_2429"
+  },
+  {
+    "item_id": "sciworld_2430"
+  },
+  {
+    "item_id": "sciworld_2431"
+  },
+  {
+    "item_id": "sciworld_2432"
+  },
+  {
+    "item_id": "sciworld_2433"
+  },
+  {
+    "item_id": "sciworld_2434"
+  },
+  {
+    "item_id": "sciworld_2435"
+  },
+  {
+    "item_id": "sciworld_1436"
+  },
+  {
+    "item_id": "sciworld_1437"
+  },
+  {
+    "item_id": "sciworld_1446"
+  },
+  {
+    "item_id": "sciworld_1536"
+  },
+  {
+    "item_id": "sciworld_1537"
+  },
+  {
+    "item_id": "sciworld_1538"
+  },
+  {
+    "item_id": "sciworld_1539"
+  },
+  {
+    "item_id": "sciworld_1540"
+  },
+  {
+    "item_id": "sciworld_1541"
+  },
+  {
+    "item_id": "sciworld_1542"
+  },
+  {
+    "item_id": "sciworld_1543"
+  },
+  {
+    "item_id": "sciworld_1544"
+  },
+  {
+    "item_id": "sciworld_1545"
+  },
+  {
+    "item_id": "sciworld_1447"
+  },
+  {
+    "item_id": "sciworld_1546"
+  },
+  {
+    "item_id": "sciworld_1547"
+  },
+  {
+    "item_id": "sciworld_1548"
+  },
+  {
+    "item_id": "sciworld_1549"
+  },
+  {
+    "item_id": "sciworld_1550"
+  },
+  {
+    "item_id": "sciworld_1551"
+  },
+  {
+    "item_id": "sciworld_1552"
+  },
+  {
+    "item_id": "sciworld_1553"
+  },
+  {
+    "item_id": "sciworld_1554"
+  },
+  {
+    "item_id": "sciworld_1555"
+  },
+  {
+    "item_id": "sciworld_1448"
+  },
+  {
+    "item_id": "sciworld_1556"
+  },
+  {
+    "item_id": "sciworld_1557"
+  },
+  {
+    "item_id": "sciworld_1558"
+  },
+  {
+    "item_id": "sciworld_1559"
+  },
+  {
+    "item_id": "sciworld_1560"
+  },
+  {
+    "item_id": "sciworld_1561"
+  },
+  {
+    "item_id": "sciworld_1562"
+  },
+  {
+    "item_id": "sciworld_1563"
+  },
+  {
+    "item_id": "sciworld_1564"
+  },
+  {
+    "item_id": "sciworld_1565"
+  },
+  {
+    "item_id": "sciworld_1449"
+  },
+  {
+    "item_id": "sciworld_1566"
+  },
+  {
+    "item_id": "sciworld_1567"
+  },
+  {
+    "item_id": "sciworld_1568"
+  },
+  {
+    "item_id": "sciworld_1569"
+  },
+  {
+    "item_id": "sciworld_1570"
+  },
+  {
+    "item_id": "sciworld_1571"
+  },
+  {
+    "item_id": "sciworld_1572"
+  },
+  {
+    "item_id": "sciworld_1573"
+  },
+  {
+    "item_id": "sciworld_1574"
+  },
+  {
+    "item_id": "sciworld_1575"
+  },
+  {
+    "item_id": "sciworld_1450"
+  },
+  {
+    "item_id": "sciworld_1576"
+  },
+  {
+    "item_id": "sciworld_1577"
+  },
+  {
+    "item_id": "sciworld_1578"
+  },
+  {
+    "item_id": "sciworld_1579"
+  },
+  {
+    "item_id": "sciworld_1580"
+  },
+  {
+    "item_id": "sciworld_1581"
+  },
+  {
+    "item_id": "sciworld_1582"
+  },
+  {
+    "item_id": "sciworld_1584"
+  },
+  {
+    "item_id": "sciworld_1585"
+  },
+  {
+    "item_id": "sciworld_1451"
+  },
+  {
+    "item_id": "sciworld_1586"
+  },
+  {
+    "item_id": "sciworld_1587"
+  },
+  {
+    "item_id": "sciworld_1588"
+  },
+  {
+    "item_id": "sciworld_1589"
+  },
+  {
+    "item_id": "sciworld_1590"
+  },
+  {
+    "item_id": "sciworld_1591"
+  },
+  {
+    "item_id": "sciworld_1592"
+  },
+  {
+    "item_id": "sciworld_1593"
+  },
+  {
+    "item_id": "sciworld_1594"
+  },
+  {
+    "item_id": "sciworld_1595"
+  },
+  {
+    "item_id": "sciworld_1452"
+  },
+  {
+    "item_id": "sciworld_1596"
+  },
+  {
+    "item_id": "sciworld_1597"
+  },
+  {
+    "item_id": "sciworld_1598"
+  },
+  {
+    "item_id": "sciworld_1599"
+  },
+  {
+    "item_id": "sciworld_1600"
+  },
+  {
+    "item_id": "sciworld_1601"
+  },
+  {
+    "item_id": "sciworld_1602"
+  },
+  {
+    "item_id": "sciworld_1603"
+  },
+  {
+    "item_id": "sciworld_1604"
+  },
+  {
+    "item_id": "sciworld_1605"
+  },
+  {
+    "item_id": "sciworld_1453"
+  },
+  {
+    "item_id": "sciworld_1606"
+  },
+  {
+    "item_id": "sciworld_1607"
+  },
+  {
+    "item_id": "sciworld_1608"
+  },
+  {
+    "item_id": "sciworld_1609"
+  },
+  {
+    "item_id": "sciworld_1610"
+  },
+  {
+    "item_id": "sciworld_1611"
+  },
+  {
+    "item_id": "sciworld_1612"
+  },
+  {
+    "item_id": "sciworld_1613"
+  },
+  {
+    "item_id": "sciworld_1614"
+  },
+  {
+    "item_id": "sciworld_1615"
+  },
+  {
+    "item_id": "sciworld_1454"
+  },
+  {
+    "item_id": "sciworld_1616"
+  },
+  {
+    "item_id": "sciworld_1617"
+  },
+  {
+    "item_id": "sciworld_1618"
+  },
+  {
+    "item_id": "sciworld_1619"
+  },
+  {
+    "item_id": "sciworld_1620"
+  },
+  {
+    "item_id": "sciworld_1621"
+  },
+  {
+    "item_id": "sciworld_1622"
+  },
+  {
+    "item_id": "sciworld_1623"
+  },
+  {
+    "item_id": "sciworld_1624"
+  },
+  {
+    "item_id": "sciworld_1625"
+  },
+  {
+    "item_id": "sciworld_1455"
+  },
+  {
+    "item_id": "sciworld_1626"
+  },
+  {
+    "item_id": "sciworld_1627"
+  },
+  {
+    "item_id": "sciworld_1628"
+  },
+  {
+    "item_id": "sciworld_1629"
+  },
+  {
+    "item_id": "sciworld_1630"
+  },
+  {
+    "item_id": "sciworld_1631"
+  },
+  {
+    "item_id": "sciworld_1632"
+  },
+  {
+    "item_id": "sciworld_1633"
+  },
+  {
+    "item_id": "sciworld_1634"
+  },
+  {
+    "item_id": "sciworld_1635"
+  },
+  {
+    "item_id": "sciworld_1438"
+  },
+  {
+    "item_id": "sciworld_1456"
+  },
+  {
+    "item_id": "sciworld_1636"
+  },
+  {
+    "item_id": "sciworld_1637"
+  },
+  {
+    "item_id": "sciworld_1638"
+  },
+  {
+    "item_id": "sciworld_1639"
+  },
+  {
+    "item_id": "sciworld_1640"
+  },
+  {
+    "item_id": "sciworld_1641"
+  },
+  {
+    "item_id": "sciworld_1642"
+  },
+  {
+    "item_id": "sciworld_1643"
+  },
+  {
+    "item_id": "sciworld_1644"
+  },
+  {
+    "item_id": "sciworld_1645"
+  },
+  {
+    "item_id": "sciworld_1457"
+  },
+  {
+    "item_id": "sciworld_1646"
+  },
+  {
+    "item_id": "sciworld_1647"
+  },
+  {
+    "item_id": "sciworld_1648"
+  },
+  {
+    "item_id": "sciworld_1649"
+  },
+  {
+    "item_id": "sciworld_1650"
+  },
+  {
+    "item_id": "sciworld_1651"
+  },
+  {
+    "item_id": "sciworld_1652"
+  },
+  {
+    "item_id": "sciworld_1653"
+  },
+  {
+    "item_id": "sciworld_1654"
+  },
+  {
+    "item_id": "sciworld_1655"
+  },
+  {
+    "item_id": "sciworld_1458"
+  },
+  {
+    "item_id": "sciworld_1656"
+  },
+  {
+    "item_id": "sciworld_1657"
+  },
+  {
+    "item_id": "sciworld_1658"
+  },
+  {
+    "item_id": "sciworld_1659"
+  },
+  {
+    "item_id": "sciworld_1660"
+  },
+  {
+    "item_id": "sciworld_1661"
+  },
+  {
+    "item_id": "sciworld_1662"
+  },
+  {
+    "item_id": "sciworld_1663"
+  },
+  {
+    "item_id": "sciworld_1664"
+  },
+  {
+    "item_id": "sciworld_1665"
+  },
+  {
+    "item_id": "sciworld_1459"
+  },
+  {
+    "item_id": "sciworld_1666"
+  },
+  {
+    "item_id": "sciworld_1667"
+  },
+  {
+    "item_id": "sciworld_1668"
+  },
+  {
+    "item_id": "sciworld_1669"
+  },
+  {
+    "item_id": "sciworld_1670"
+  },
+  {
+    "item_id": "sciworld_1671"
+  },
+  {
+    "item_id": "sciworld_1672"
+  },
+  {
+    "item_id": "sciworld_1673"
+  },
+  {
+    "item_id": "sciworld_1674"
+  },
+  {
+    "item_id": "sciworld_1675"
+  },
+  {
+    "item_id": "sciworld_1460"
+  },
+  {
+    "item_id": "sciworld_1676"
+  },
+  {
+    "item_id": "sciworld_1677"
+  },
+  {
+    "item_id": "sciworld_1678"
+  },
+  {
+    "item_id": "sciworld_1679"
+  },
+  {
+    "item_id": "sciworld_1680"
+  },
+  {
+    "item_id": "sciworld_1681"
+  },
+  {
+    "item_id": "sciworld_1682"
+  },
+  {
+    "item_id": "sciworld_1683"
+  },
+  {
+    "item_id": "sciworld_1684"
+  },
+  {
+    "item_id": "sciworld_1685"
+  },
+  {
+    "item_id": "sciworld_1461"
+  },
+  {
+    "item_id": "sciworld_1686"
+  },
+  {
+    "item_id": "sciworld_1687"
+  },
+  {
+    "item_id": "sciworld_1688"
+  },
+  {
+    "item_id": "sciworld_1689"
+  },
+  {
+    "item_id": "sciworld_1690"
+  },
+  {
+    "item_id": "sciworld_1691"
+  },
+  {
+    "item_id": "sciworld_1692"
+  },
+  {
+    "item_id": "sciworld_1693"
+  },
+  {
+    "item_id": "sciworld_1694"
+  },
+  {
+    "item_id": "sciworld_1695"
+  },
+  {
+    "item_id": "sciworld_1462"
+  },
+  {
+    "item_id": "sciworld_1696"
+  },
+  {
+    "item_id": "sciworld_1697"
+  },
+  {
+    "item_id": "sciworld_1698"
+  },
+  {
+    "item_id": "sciworld_1699"
+  },
+  {
+    "item_id": "sciworld_1700"
+  },
+  {
+    "item_id": "sciworld_1701"
+  },
+  {
+    "item_id": "sciworld_1702"
+  },
+  {
+    "item_id": "sciworld_1703"
+  },
+  {
+    "item_id": "sciworld_1704"
+  },
+  {
+    "item_id": "sciworld_1705"
+  },
+  {
+    "item_id": "sciworld_1463"
+  },
+  {
+    "item_id": "sciworld_1706"
+  },
+  {
+    "item_id": "sciworld_1707"
+  },
+  {
+    "item_id": "sciworld_1708"
+  },
+  {
+    "item_id": "sciworld_1709"
+  },
+  {
+    "item_id": "sciworld_1710"
+  },
+  {
+    "item_id": "sciworld_1711"
+  },
+  {
+    "item_id": "sciworld_1712"
+  },
+  {
+    "item_id": "sciworld_1713"
+  },
+  {
+    "item_id": "sciworld_1714"
+  },
+  {
+    "item_id": "sciworld_1715"
+  },
+  {
+    "item_id": "sciworld_1464"
+  },
+  {
+    "item_id": "sciworld_1716"
+  },
+  {
+    "item_id": "sciworld_1717"
+  },
+  {
+    "item_id": "sciworld_1718"
+  },
+  {
+    "item_id": "sciworld_1719"
+  },
+  {
+    "item_id": "sciworld_1720"
+  },
+  {
+    "item_id": "sciworld_1721"
+  },
+  {
+    "item_id": "sciworld_1722"
+  },
+  {
+    "item_id": "sciworld_1723"
+  },
+  {
+    "item_id": "sciworld_1724"
+  },
+  {
+    "item_id": "sciworld_1725"
+  },
+  {
+    "item_id": "sciworld_1465"
+  },
+  {
+    "item_id": "sciworld_1726"
+  },
+  {
+    "item_id": "sciworld_1727"
+  },
+  {
+    "item_id": "sciworld_1728"
+  },
+  {
+    "item_id": "sciworld_1729"
+  },
+  {
+    "item_id": "sciworld_1730"
+  },
+  {
+    "item_id": "sciworld_1731"
+  },
+  {
+    "item_id": "sciworld_1732"
+  },
+  {
+    "item_id": "sciworld_1733"
+  },
+  {
+    "item_id": "sciworld_1734"
+  },
+  {
+    "item_id": "sciworld_1735"
+  },
+  {
+    "item_id": "sciworld_1439"
+  },
+  {
+    "item_id": "sciworld_1466"
+  },
+  {
+    "item_id": "sciworld_1736"
+  },
+  {
+    "item_id": "sciworld_1737"
+  },
+  {
+    "item_id": "sciworld_1738"
+  },
+  {
+    "item_id": "sciworld_1739"
+  },
+  {
+    "item_id": "sciworld_1740"
+  },
+  {
+    "item_id": "sciworld_1741"
+  },
+  {
+    "item_id": "sciworld_1742"
+  },
+  {
+    "item_id": "sciworld_1743"
+  },
+  {
+    "item_id": "sciworld_1744"
+  },
+  {
+    "item_id": "sciworld_1745"
+  },
+  {
+    "item_id": "sciworld_1467"
+  },
+  {
+    "item_id": "sciworld_1746"
+  },
+  {
+    "item_id": "sciworld_1747"
+  },
+  {
+    "item_id": "sciworld_1748"
+  },
+  {
+    "item_id": "sciworld_1749"
+  },
+  {
+    "item_id": "sciworld_1750"
+  },
+  {
+    "item_id": "sciworld_1751"
+  },
+  {
+    "item_id": "sciworld_1752"
+  },
+  {
+    "item_id": "sciworld_1753"
+  },
+  {
+    "item_id": "sciworld_1754"
+  },
+  {
+    "item_id": "sciworld_1755"
+  },
+  {
+    "item_id": "sciworld_1468"
+  },
+  {
+    "item_id": "sciworld_1756"
+  },
+  {
+    "item_id": "sciworld_1757"
+  },
+  {
+    "item_id": "sciworld_1758"
+  },
+  {
+    "item_id": "sciworld_1759"
+  },
+  {
+    "item_id": "sciworld_1760"
+  },
+  {
+    "item_id": "sciworld_1761"
+  },
+  {
+    "item_id": "sciworld_1762"
+  },
+  {
+    "item_id": "sciworld_1763"
+  },
+  {
+    "item_id": "sciworld_1764"
+  },
+  {
+    "item_id": "sciworld_1765"
+  },
+  {
+    "item_id": "sciworld_1469"
+  },
+  {
+    "item_id": "sciworld_1766"
+  },
+  {
+    "item_id": "sciworld_1767"
+  },
+  {
+    "item_id": "sciworld_1768"
+  },
+  {
+    "item_id": "sciworld_1769"
+  },
+  {
+    "item_id": "sciworld_1770"
+  },
+  {
+    "item_id": "sciworld_1771"
+  },
+  {
+    "item_id": "sciworld_1772"
+  },
+  {
+    "item_id": "sciworld_1773"
+  },
+  {
+    "item_id": "sciworld_1774"
+  },
+  {
+    "item_id": "sciworld_1775"
+  },
+  {
+    "item_id": "sciworld_1470"
+  },
+  {
+    "item_id": "sciworld_1776"
+  },
+  {
+    "item_id": "sciworld_1777"
+  },
+  {
+    "item_id": "sciworld_1778"
+  },
+  {
+    "item_id": "sciworld_1779"
+  },
+  {
+    "item_id": "sciworld_1780"
+  },
+  {
+    "item_id": "sciworld_1781"
+  },
+  {
+    "item_id": "sciworld_1782"
+  },
+  {
+    "item_id": "sciworld_1783"
+  },
+  {
+    "item_id": "sciworld_1784"
+  },
+  {
+    "item_id": "sciworld_1785"
+  },
+  {
+    "item_id": "sciworld_1471"
+  },
+  {
+    "item_id": "sciworld_1786"
+  },
+  {
+    "item_id": "sciworld_1787"
+  },
+  {
+    "item_id": "sciworld_1788"
+  },
+  {
+    "item_id": "sciworld_1789"
+  },
+  {
+    "item_id": "sciworld_1790"
+  },
+  {
+    "item_id": "sciworld_1791"
+  },
+  {
+    "item_id": "sciworld_1792"
+  },
+  {
+    "item_id": "sciworld_1793"
+  },
+  {
+    "item_id": "sciworld_1794"
+  },
+  {
+    "item_id": "sciworld_1795"
+  },
+  {
+    "item_id": "sciworld_1472"
+  },
+  {
+    "item_id": "sciworld_1796"
+  },
+  {
+    "item_id": "sciworld_1797"
+  },
+  {
+    "item_id": "sciworld_1798"
+  },
+  {
+    "item_id": "sciworld_1799"
+  },
+  {
+    "item_id": "sciworld_1800"
+  },
+  {
+    "item_id": "sciworld_1801"
+  },
+  {
+    "item_id": "sciworld_1802"
+  },
+  {
+    "item_id": "sciworld_1803"
+  },
+  {
+    "item_id": "sciworld_1804"
+  },
+  {
+    "item_id": "sciworld_1805"
+  },
+  {
+    "item_id": "sciworld_1473"
+  },
+  {
+    "item_id": "sciworld_1806"
+  },
+  {
+    "item_id": "sciworld_1807"
+  },
+  {
+    "item_id": "sciworld_1808"
+  },
+  {
+    "item_id": "sciworld_1809"
+  },
+  {
+    "item_id": "sciworld_1810"
+  },
+  {
+    "item_id": "sciworld_1811"
+  },
+  {
+    "item_id": "sciworld_1812"
+  },
+  {
+    "item_id": "sciworld_1813"
+  },
+  {
+    "item_id": "sciworld_1814"
+  },
+  {
+    "item_id": "sciworld_1815"
+  },
+  {
+    "item_id": "sciworld_1474"
+  },
+  {
+    "item_id": "sciworld_1816"
+  },
+  {
+    "item_id": "sciworld_1817"
+  },
+  {
+    "item_id": "sciworld_1818"
+  },
+  {
+    "item_id": "sciworld_1819"
+  },
+  {
+    "item_id": "sciworld_1820"
+  },
+  {
+    "item_id": "sciworld_1821"
+  },
+  {
+    "item_id": "sciworld_1822"
+  },
+  {
+    "item_id": "sciworld_1823"
+  },
+  {
+    "item_id": "sciworld_1824"
+  },
+  {
+    "item_id": "sciworld_1825"
+  },
+  {
+    "item_id": "sciworld_1475"
+  },
+  {
+    "item_id": "sciworld_1826"
+  },
+  {
+    "item_id": "sciworld_1827"
+  },
+  {
+    "item_id": "sciworld_1828"
+  },
+  {
+    "item_id": "sciworld_1829"
+  },
+  {
+    "item_id": "sciworld_1830"
+  },
+  {
+    "item_id": "sciworld_1831"
+  },
+  {
+    "item_id": "sciworld_1832"
+  },
+  {
+    "item_id": "sciworld_1833"
+  },
+  {
+    "item_id": "sciworld_1834"
+  },
+  {
+    "item_id": "sciworld_1835"
+  },
+  {
+    "item_id": "sciworld_1440"
+  },
+  {
+    "item_id": "sciworld_1476"
+  },
+  {
+    "item_id": "sciworld_1836"
+  },
+  {
+    "item_id": "sciworld_1837"
+  },
+  {
+    "item_id": "sciworld_1838"
+  },
+  {
+    "item_id": "sciworld_1839"
+  },
+  {
+    "item_id": "sciworld_1840"
+  },
+  {
+    "item_id": "sciworld_1841"
+  },
+  {
+    "item_id": "sciworld_1842"
+  },
+  {
+    "item_id": "sciworld_1843"
+  },
+  {
+    "item_id": "sciworld_1844"
+  },
+  {
+    "item_id": "sciworld_1845"
+  },
+  {
+    "item_id": "sciworld_1477"
+  },
+  {
+    "item_id": "sciworld_1846"
+  },
+  {
+    "item_id": "sciworld_1847"
+  },
+  {
+    "item_id": "sciworld_1848"
+  },
+  {
+    "item_id": "sciworld_1849"
+  },
+  {
+    "item_id": "sciworld_1850"
+  },
+  {
+    "item_id": "sciworld_1851"
+  },
+  {
+    "item_id": "sciworld_1852"
+  },
+  {
+    "item_id": "sciworld_1853"
+  },
+  {
+    "item_id": "sciworld_1854"
+  },
+  {
+    "item_id": "sciworld_1855"
+  },
+  {
+    "item_id": "sciworld_1478"
+  },
+  {
+    "item_id": "sciworld_1856"
+  },
+  {
+    "item_id": "sciworld_1857"
+  },
+  {
+    "item_id": "sciworld_1858"
+  },
+  {
+    "item_id": "sciworld_1859"
+  },
+  {
+    "item_id": "sciworld_1860"
+  },
+  {
+    "item_id": "sciworld_1861"
+  },
+  {
+    "item_id": "sciworld_1862"
+  },
+  {
+    "item_id": "sciworld_1863"
+  },
+  {
+    "item_id": "sciworld_1864"
+  },
+  {
+    "item_id": "sciworld_1865"
+  },
+  {
+    "item_id": "sciworld_1479"
+  },
+  {
+    "item_id": "sciworld_1866"
+  },
+  {
+    "item_id": "sciworld_1867"
+  },
+  {
+    "item_id": "sciworld_1868"
+  },
+  {
+    "item_id": "sciworld_1869"
+  },
+  {
+    "item_id": "sciworld_1870"
+  },
+  {
+    "item_id": "sciworld_1871"
+  },
+  {
+    "item_id": "sciworld_1872"
+  },
+  {
+    "item_id": "sciworld_1873"
+  },
+  {
+    "item_id": "sciworld_1874"
+  },
+  {
+    "item_id": "sciworld_1875"
+  },
+  {
+    "item_id": "sciworld_1480"
+  },
+  {
+    "item_id": "sciworld_1876"
+  },
+  {
+    "item_id": "sciworld_1877"
+  },
+  {
+    "item_id": "sciworld_1878"
+  },
+  {
+    "item_id": "sciworld_1879"
+  },
+  {
+    "item_id": "sciworld_1880"
+  },
+  {
+    "item_id": "sciworld_1881"
+  },
+  {
+    "item_id": "sciworld_1882"
+  },
+  {
+    "item_id": "sciworld_1883"
+  },
+  {
+    "item_id": "sciworld_1884"
+  },
+  {
+    "item_id": "sciworld_1885"
+  },
+  {
+    "item_id": "sciworld_1481"
+  },
+  {
+    "item_id": "sciworld_1482"
+  },
+  {
+    "item_id": "sciworld_1483"
+  },
+  {
+    "item_id": "sciworld_1484"
+  },
+  {
+    "item_id": "sciworld_1485"
+  },
+  {
+    "item_id": "sciworld_1441"
+  },
+  {
+    "item_id": "sciworld_1486"
+  },
+  {
+    "item_id": "sciworld_1487"
+  },
+  {
+    "item_id": "sciworld_1488"
+  },
+  {
+    "item_id": "sciworld_1489"
+  },
+  {
+    "item_id": "sciworld_1490"
+  },
+  {
+    "item_id": "sciworld_1491"
+  },
+  {
+    "item_id": "sciworld_1492"
+  },
+  {
+    "item_id": "sciworld_1493"
+  },
+  {
+    "item_id": "sciworld_1494"
+  },
+  {
+    "item_id": "sciworld_1495"
+  },
+  {
+    "item_id": "sciworld_1442"
+  },
+  {
+    "item_id": "sciworld_1496"
+  },
+  {
+    "item_id": "sciworld_1497"
+  },
+  {
+    "item_id": "sciworld_1498"
+  },
+  {
+    "item_id": "sciworld_1499"
+  },
+  {
+    "item_id": "sciworld_1500"
+  },
+  {
+    "item_id": "sciworld_1501"
+  },
+  {
+    "item_id": "sciworld_1502"
+  },
+  {
+    "item_id": "sciworld_1503"
+  },
+  {
+    "item_id": "sciworld_1504"
+  },
+  {
+    "item_id": "sciworld_1505"
+  },
+  {
+    "item_id": "sciworld_1443"
+  },
+  {
+    "item_id": "sciworld_1506"
+  },
+  {
+    "item_id": "sciworld_1507"
+  },
+  {
+    "item_id": "sciworld_1508"
+  },
+  {
+    "item_id": "sciworld_1509"
+  },
+  {
+    "item_id": "sciworld_1510"
+  },
+  {
+    "item_id": "sciworld_1511"
+  },
+  {
+    "item_id": "sciworld_1512"
+  },
+  {
+    "item_id": "sciworld_1513"
+  },
+  {
+    "item_id": "sciworld_1514"
+  },
+  {
+    "item_id": "sciworld_1515"
+  },
+  {
+    "item_id": "sciworld_1444"
+  },
+  {
+    "item_id": "sciworld_1516"
+  },
+  {
+    "item_id": "sciworld_1517"
+  },
+  {
+    "item_id": "sciworld_1518"
+  },
+  {
+    "item_id": "sciworld_1519"
+  },
+  {
+    "item_id": "sciworld_1520"
+  },
+  {
+    "item_id": "sciworld_1521"
+  },
+  {
+    "item_id": "sciworld_1522"
+  },
+  {
+    "item_id": "sciworld_1523"
+  },
+  {
+    "item_id": "sciworld_1524"
+  },
+  {
+    "item_id": "sciworld_1525"
+  },
+  {
+    "item_id": "sciworld_1445"
+  },
+  {
+    "item_id": "sciworld_1526"
+  },
+  {
+    "item_id": "sciworld_1527"
+  },
+  {
+    "item_id": "sciworld_1528"
+  },
+  {
+    "item_id": "sciworld_1529"
+  },
+  {
+    "item_id": "sciworld_1530"
+  },
+  {
+    "item_id": "sciworld_1531"
+  },
+  {
+    "item_id": "sciworld_1532"
+  },
+  {
+    "item_id": "sciworld_1533"
+  },
+  {
+    "item_id": "sciworld_1534"
+  },
+  {
+    "item_id": "sciworld_1535"
+  },
+  {
+    "item_id": "sciworld_3836"
+  },
+  {
+    "item_id": "sciworld_3837"
+  },
+  {
+    "item_id": "sciworld_3846"
+  },
+  {
+    "item_id": "sciworld_3936"
+  },
+  {
+    "item_id": "sciworld_3937"
+  },
+  {
+    "item_id": "sciworld_3938"
+  },
+  {
+    "item_id": "sciworld_3939"
+  },
+  {
+    "item_id": "sciworld_3940"
+  },
+  {
+    "item_id": "sciworld_3941"
+  },
+  {
+    "item_id": "sciworld_3942"
+  },
+  {
+    "item_id": "sciworld_3943"
+  },
+  {
+    "item_id": "sciworld_3944"
+  },
+  {
+    "item_id": "sciworld_3945"
+  },
+  {
+    "item_id": "sciworld_3847"
+  },
+  {
+    "item_id": "sciworld_3946"
+  },
+  {
+    "item_id": "sciworld_3947"
+  },
+  {
+    "item_id": "sciworld_3948"
+  },
+  {
+    "item_id": "sciworld_3949"
+  },
+  {
+    "item_id": "sciworld_3950"
+  },
+  {
+    "item_id": "sciworld_3951"
+  },
+  {
+    "item_id": "sciworld_3952"
+  },
+  {
+    "item_id": "sciworld_3953"
+  },
+  {
+    "item_id": "sciworld_3954"
+  },
+  {
+    "item_id": "sciworld_3955"
+  },
+  {
+    "item_id": "sciworld_3848"
+  },
+  {
+    "item_id": "sciworld_3956"
+  },
+  {
+    "item_id": "sciworld_3957"
+  },
+  {
+    "item_id": "sciworld_3958"
+  },
+  {
+    "item_id": "sciworld_3959"
+  },
+  {
+    "item_id": "sciworld_3960"
+  },
+  {
+    "item_id": "sciworld_3962"
+  },
+  {
+    "item_id": "sciworld_3963"
+  },
+  {
+    "item_id": "sciworld_3964"
+  },
+  {
+    "item_id": "sciworld_3965"
+  },
+  {
+    "item_id": "sciworld_3849"
+  },
+  {
+    "item_id": "sciworld_3966"
+  },
+  {
+    "item_id": "sciworld_3967"
+  },
+  {
+    "item_id": "sciworld_3968"
+  },
+  {
+    "item_id": "sciworld_3969"
+  },
+  {
+    "item_id": "sciworld_3970"
+  },
+  {
+    "item_id": "sciworld_3971"
+  },
+  {
+    "item_id": "sciworld_3972"
+  },
+  {
+    "item_id": "sciworld_3973"
+  },
+  {
+    "item_id": "sciworld_3974"
+  },
+  {
+    "item_id": "sciworld_3975"
+  },
+  {
+    "item_id": "sciworld_3850"
+  },
+  {
+    "item_id": "sciworld_3976"
+  },
+  {
+    "item_id": "sciworld_3977"
+  },
+  {
+    "item_id": "sciworld_3978"
+  },
+  {
+    "item_id": "sciworld_3979"
+  },
+  {
+    "item_id": "sciworld_3980"
+  },
+  {
+    "item_id": "sciworld_3981"
+  },
+  {
+    "item_id": "sciworld_3982"
+  },
+  {
+    "item_id": "sciworld_3983"
+  },
+  {
+    "item_id": "sciworld_3984"
+  },
+  {
+    "item_id": "sciworld_3985"
+  },
+  {
+    "item_id": "sciworld_3851"
+  },
+  {
+    "item_id": "sciworld_3852"
+  },
+  {
+    "item_id": "sciworld_3853"
+  },
+  {
+    "item_id": "sciworld_3854"
+  },
+  {
+    "item_id": "sciworld_3855"
+  },
+  {
+    "item_id": "sciworld_3838"
+  },
+  {
+    "item_id": "sciworld_3856"
+  },
+  {
+    "item_id": "sciworld_3857"
+  },
+  {
+    "item_id": "sciworld_3858"
+  },
+  {
+    "item_id": "sciworld_3859"
+  },
+  {
+    "item_id": "sciworld_3860"
+  },
+  {
+    "item_id": "sciworld_3861"
+  },
+  {
+    "item_id": "sciworld_3862"
+  },
+  {
+    "item_id": "sciworld_3863"
+  },
+  {
+    "item_id": "sciworld_3864"
+  },
+  {
+    "item_id": "sciworld_3865"
+  },
+  {
+    "item_id": "sciworld_3839"
+  },
+  {
+    "item_id": "sciworld_3866"
+  },
+  {
+    "item_id": "sciworld_3867"
+  },
+  {
+    "item_id": "sciworld_3868"
+  },
+  {
+    "item_id": "sciworld_3869"
+  },
+  {
+    "item_id": "sciworld_3870"
+  },
+  {
+    "item_id": "sciworld_3871"
+  },
+  {
+    "item_id": "sciworld_3872"
+  },
+  {
+    "item_id": "sciworld_3873"
+  },
+  {
+    "item_id": "sciworld_3874"
+  },
+  {
+    "item_id": "sciworld_3875"
+  },
+  {
+    "item_id": "sciworld_3840"
+  },
+  {
+    "item_id": "sciworld_3876"
+  },
+  {
+    "item_id": "sciworld_3877"
+  },
+  {
+    "item_id": "sciworld_3878"
+  },
+  {
+    "item_id": "sciworld_3879"
+  },
+  {
+    "item_id": "sciworld_3880"
+  },
+  {
+    "item_id": "sciworld_3881"
+  },
+  {
+    "item_id": "sciworld_3882"
+  },
+  {
+    "item_id": "sciworld_3883"
+  },
+  {
+    "item_id": "sciworld_3884"
+  },
+  {
+    "item_id": "sciworld_3885"
+  },
+  {
+    "item_id": "sciworld_3841"
+  },
+  {
+    "item_id": "sciworld_3886"
+  },
+  {
+    "item_id": "sciworld_3887"
+  },
+  {
+    "item_id": "sciworld_3888"
+  },
+  {
+    "item_id": "sciworld_3889"
+  },
+  {
+    "item_id": "sciworld_3890"
+  },
+  {
+    "item_id": "sciworld_3891"
+  },
+  {
+    "item_id": "sciworld_3892"
+  },
+  {
+    "item_id": "sciworld_3893"
+  },
+  {
+    "item_id": "sciworld_3894"
+  },
+  {
+    "item_id": "sciworld_3895"
+  },
+  {
+    "item_id": "sciworld_3842"
+  },
+  {
+    "item_id": "sciworld_3896"
+  },
+  {
+    "item_id": "sciworld_3897"
+  },
+  {
+    "item_id": "sciworld_3898"
+  },
+  {
+    "item_id": "sciworld_3899"
+  },
+  {
+    "item_id": "sciworld_3900"
+  },
+  {
+    "item_id": "sciworld_3901"
+  },
+  {
+    "item_id": "sciworld_3902"
+  },
+  {
+    "item_id": "sciworld_3903"
+  },
+  {
+    "item_id": "sciworld_3904"
+  },
+  {
+    "item_id": "sciworld_3905"
+  },
+  {
+    "item_id": "sciworld_3843"
+  },
+  {
+    "item_id": "sciworld_3906"
+  },
+  {
+    "item_id": "sciworld_3907"
+  },
+  {
+    "item_id": "sciworld_3908"
+  },
+  {
+    "item_id": "sciworld_3909"
+  },
+  {
+    "item_id": "sciworld_3910"
+  },
+  {
+    "item_id": "sciworld_3911"
+  },
+  {
+    "item_id": "sciworld_3912"
+  },
+  {
+    "item_id": "sciworld_3913"
+  },
+  {
+    "item_id": "sciworld_3914"
+  },
+  {
+    "item_id": "sciworld_3915"
+  },
+  {
+    "item_id": "sciworld_3844"
+  },
+  {
+    "item_id": "sciworld_3916"
+  },
+  {
+    "item_id": "sciworld_3917"
+  },
+  {
+    "item_id": "sciworld_3918"
+  },
+  {
+    "item_id": "sciworld_3919"
+  },
+  {
+    "item_id": "sciworld_3920"
+  },
+  {
+    "item_id": "sciworld_3921"
+  },
+  {
+    "item_id": "sciworld_3922"
+  },
+  {
+    "item_id": "sciworld_3923"
+  },
+  {
+    "item_id": "sciworld_3924"
+  },
+  {
+    "item_id": "sciworld_3925"
+  },
+  {
+    "item_id": "sciworld_3845"
+  },
+  {
+    "item_id": "sciworld_3926"
+  },
+  {
+    "item_id": "sciworld_3927"
+  },
+  {
+    "item_id": "sciworld_3928"
+  },
+  {
+    "item_id": "sciworld_3929"
+  },
+  {
+    "item_id": "sciworld_3930"
+  },
+  {
+    "item_id": "sciworld_3931"
+  },
+  {
+    "item_id": "sciworld_3932"
+  },
+  {
+    "item_id": "sciworld_3933"
+  },
+  {
+    "item_id": "sciworld_3934"
+  },
+  {
+    "item_id": "sciworld_3935"
+  },
+  {
+    "item_id": "sciworld_2936"
+  },
+  {
+    "item_id": "sciworld_2937"
+  },
+  {
+    "item_id": "sciworld_2946"
+  },
+  {
+    "item_id": "sciworld_3036"
+  },
+  {
+    "item_id": "sciworld_3037"
+  },
+  {
+    "item_id": "sciworld_3038"
+  },
+  {
+    "item_id": "sciworld_3039"
+  },
+  {
+    "item_id": "sciworld_3040"
+  },
+  {
+    "item_id": "sciworld_3041"
+  },
+  {
+    "item_id": "sciworld_3042"
+  },
+  {
+    "item_id": "sciworld_3043"
+  },
+  {
+    "item_id": "sciworld_3044"
+  },
+  {
+    "item_id": "sciworld_3045"
+  },
+  {
+    "item_id": "sciworld_2947"
+  },
+  {
+    "item_id": "sciworld_3046"
+  },
+  {
+    "item_id": "sciworld_3047"
+  },
+  {
+    "item_id": "sciworld_3048"
+  },
+  {
+    "item_id": "sciworld_3049"
+  },
+  {
+    "item_id": "sciworld_3050"
+  },
+  {
+    "item_id": "sciworld_3051"
+  },
+  {
+    "item_id": "sciworld_3052"
+  },
+  {
+    "item_id": "sciworld_3053"
+  },
+  {
+    "item_id": "sciworld_3054"
+  },
+  {
+    "item_id": "sciworld_3055"
+  },
+  {
+    "item_id": "sciworld_2948"
+  },
+  {
+    "item_id": "sciworld_3056"
+  },
+  {
+    "item_id": "sciworld_3057"
+  },
+  {
+    "item_id": "sciworld_3058"
+  },
+  {
+    "item_id": "sciworld_3059"
+  },
+  {
+    "item_id": "sciworld_3060"
+  },
+  {
+    "item_id": "sciworld_3061"
+  },
+  {
+    "item_id": "sciworld_3062"
+  },
+  {
+    "item_id": "sciworld_3063"
+  },
+  {
+    "item_id": "sciworld_3064"
+  },
+  {
+    "item_id": "sciworld_3065"
+  },
+  {
+    "item_id": "sciworld_2949"
+  },
+  {
+    "item_id": "sciworld_3066"
+  },
+  {
+    "item_id": "sciworld_3067"
+  },
+  {
+    "item_id": "sciworld_3068"
+  },
+  {
+    "item_id": "sciworld_3069"
+  },
+  {
+    "item_id": "sciworld_3070"
+  },
+  {
+    "item_id": "sciworld_3071"
+  },
+  {
+    "item_id": "sciworld_3072"
+  },
+  {
+    "item_id": "sciworld_3073"
+  },
+  {
+    "item_id": "sciworld_3074"
+  },
+  {
+    "item_id": "sciworld_3075"
+  },
+  {
+    "item_id": "sciworld_2950"
+  },
+  {
+    "item_id": "sciworld_3076"
+  },
+  {
+    "item_id": "sciworld_3077"
+  },
+  {
+    "item_id": "sciworld_3078"
+  },
+  {
+    "item_id": "sciworld_3079"
+  },
+  {
+    "item_id": "sciworld_3080"
+  },
+  {
+    "item_id": "sciworld_3081"
+  },
+  {
+    "item_id": "sciworld_3082"
+  },
+  {
+    "item_id": "sciworld_3083"
+  },
+  {
+    "item_id": "sciworld_3084"
+  },
+  {
+    "item_id": "sciworld_3085"
+  },
+  {
+    "item_id": "sciworld_2951"
+  },
+  {
+    "item_id": "sciworld_2952"
+  },
+  {
+    "item_id": "sciworld_2953"
+  },
+  {
+    "item_id": "sciworld_2954"
+  },
+  {
+    "item_id": "sciworld_2955"
+  },
+  {
+    "item_id": "sciworld_2938"
+  },
+  {
+    "item_id": "sciworld_2956"
+  },
+  {
+    "item_id": "sciworld_2957"
+  },
+  {
+    "item_id": "sciworld_2958"
+  },
+  {
+    "item_id": "sciworld_2959"
+  },
+  {
+    "item_id": "sciworld_2960"
+  },
+  {
+    "item_id": "sciworld_2961"
+  },
+  {
+    "item_id": "sciworld_2962"
+  },
+  {
+    "item_id": "sciworld_2963"
+  },
+  {
+    "item_id": "sciworld_2964"
+  },
+  {
+    "item_id": "sciworld_2965"
+  },
+  {
+    "item_id": "sciworld_2939"
+  },
+  {
+    "item_id": "sciworld_2966"
+  },
+  {
+    "item_id": "sciworld_2967"
+  },
+  {
+    "item_id": "sciworld_2968"
+  },
+  {
+    "item_id": "sciworld_2969"
+  },
+  {
+    "item_id": "sciworld_2970"
+  },
+  {
+    "item_id": "sciworld_2971"
+  },
+  {
+    "item_id": "sciworld_2972"
+  },
+  {
+    "item_id": "sciworld_2973"
+  },
+  {
+    "item_id": "sciworld_2974"
+  },
+  {
+    "item_id": "sciworld_2975"
+  },
+  {
+    "item_id": "sciworld_2940"
+  },
+  {
+    "item_id": "sciworld_2976"
+  },
+  {
+    "item_id": "sciworld_2977"
+  },
+  {
+    "item_id": "sciworld_2978"
+  },
+  {
+    "item_id": "sciworld_2979"
+  },
+  {
+    "item_id": "sciworld_2980"
+  },
+  {
+    "item_id": "sciworld_2981"
+  },
+  {
+    "item_id": "sciworld_2982"
+  },
+  {
+    "item_id": "sciworld_2983"
+  },
+  {
+    "item_id": "sciworld_2984"
+  },
+  {
+    "item_id": "sciworld_2985"
+  },
+  {
+    "item_id": "sciworld_2941"
+  },
+  {
+    "item_id": "sciworld_2986"
+  },
+  {
+    "item_id": "sciworld_2987"
+  },
+  {
+    "item_id": "sciworld_2988"
+  },
+  {
+    "item_id": "sciworld_2989"
+  },
+  {
+    "item_id": "sciworld_2990"
+  },
+  {
+    "item_id": "sciworld_2991"
+  },
+  {
+    "item_id": "sciworld_2992"
+  },
+  {
+    "item_id": "sciworld_2993"
+  },
+  {
+    "item_id": "sciworld_2994"
+  },
+  {
+    "item_id": "sciworld_2995"
+  },
+  {
+    "item_id": "sciworld_2942"
+  },
+  {
+    "item_id": "sciworld_2996"
+  },
+  {
+    "item_id": "sciworld_2997"
+  },
+  {
+    "item_id": "sciworld_2998"
+  },
+  {
+    "item_id": "sciworld_2999"
+  },
+  {
+    "item_id": "sciworld_3000"
+  },
+  {
+    "item_id": "sciworld_3001"
+  },
+  {
+    "item_id": "sciworld_3002"
+  },
+  {
+    "item_id": "sciworld_3003"
+  },
+  {
+    "item_id": "sciworld_3004"
+  },
+  {
+    "item_id": "sciworld_3005"
+  },
+  {
+    "item_id": "sciworld_2943"
+  },
+  {
+    "item_id": "sciworld_3006"
+  },
+  {
+    "item_id": "sciworld_3007"
+  },
+  {
+    "item_id": "sciworld_3008"
+  },
+  {
+    "item_id": "sciworld_3009"
+  },
+  {
+    "item_id": "sciworld_3010"
+  },
+  {
+    "item_id": "sciworld_3011"
+  },
+  {
+    "item_id": "sciworld_3012"
+  },
+  {
+    "item_id": "sciworld_3013"
+  },
+  {
+    "item_id": "sciworld_3014"
+  },
+  {
+    "item_id": "sciworld_3015"
+  },
+  {
+    "item_id": "sciworld_2944"
+  },
+  {
+    "item_id": "sciworld_3016"
+  },
+  {
+    "item_id": "sciworld_3017"
+  },
+  {
+    "item_id": "sciworld_3018"
+  },
+  {
+    "item_id": "sciworld_3019"
+  },
+  {
+    "item_id": "sciworld_3020"
+  },
+  {
+    "item_id": "sciworld_3021"
+  },
+  {
+    "item_id": "sciworld_3022"
+  },
+  {
+    "item_id": "sciworld_3023"
+  },
+  {
+    "item_id": "sciworld_3024"
+  },
+  {
+    "item_id": "sciworld_3025"
+  },
+  {
+    "item_id": "sciworld_2945"
+  },
+  {
+    "item_id": "sciworld_3026"
+  },
+  {
+    "item_id": "sciworld_3027"
+  },
+  {
+    "item_id": "sciworld_3028"
+  },
+  {
+    "item_id": "sciworld_3029"
+  },
+  {
+    "item_id": "sciworld_3030"
+  },
+  {
+    "item_id": "sciworld_3031"
+  },
+  {
+    "item_id": "sciworld_3032"
+  },
+  {
+    "item_id": "sciworld_3033"
+  },
+  {
+    "item_id": "sciworld_3034"
+  },
+  {
+    "item_id": "sciworld_3035"
+  },
+  {
+    "item_id": "sciworld_3236"
+  },
+  {
+    "item_id": "sciworld_3237"
+  },
+  {
+    "item_id": "sciworld_3246"
+  },
+  {
+    "item_id": "sciworld_3336"
+  },
+  {
+    "item_id": "sciworld_3337"
+  },
+  {
+    "item_id": "sciworld_3338"
+  },
+  {
+    "item_id": "sciworld_3339"
+  },
+  {
+    "item_id": "sciworld_3340"
+  },
+  {
+    "item_id": "sciworld_3341"
+  },
+  {
+    "item_id": "sciworld_3342"
+  },
+  {
+    "item_id": "sciworld_3343"
+  },
+  {
+    "item_id": "sciworld_3344"
+  },
+  {
+    "item_id": "sciworld_3345"
+  },
+  {
+    "item_id": "sciworld_3247"
+  },
+  {
+    "item_id": "sciworld_3346"
+  },
+  {
+    "item_id": "sciworld_3347"
+  },
+  {
+    "item_id": "sciworld_3348"
+  },
+  {
+    "item_id": "sciworld_3349"
+  },
+  {
+    "item_id": "sciworld_3350"
+  },
+  {
+    "item_id": "sciworld_3351"
+  },
+  {
+    "item_id": "sciworld_3352"
+  },
+  {
+    "item_id": "sciworld_3353"
+  },
+  {
+    "item_id": "sciworld_3354"
+  },
+  {
+    "item_id": "sciworld_3355"
+  },
+  {
+    "item_id": "sciworld_3248"
+  },
+  {
+    "item_id": "sciworld_3356"
+  },
+  {
+    "item_id": "sciworld_3357"
+  },
+  {
+    "item_id": "sciworld_3358"
+  },
+  {
+    "item_id": "sciworld_3359"
+  },
+  {
+    "item_id": "sciworld_3360"
+  },
+  {
+    "item_id": "sciworld_3361"
+  },
+  {
+    "item_id": "sciworld_3362"
+  },
+  {
+    "item_id": "sciworld_3363"
+  },
+  {
+    "item_id": "sciworld_3364"
+  },
+  {
+    "item_id": "sciworld_3365"
+  },
+  {
+    "item_id": "sciworld_3249"
+  },
+  {
+    "item_id": "sciworld_3366"
+  },
+  {
+    "item_id": "sciworld_3367"
+  },
+  {
+    "item_id": "sciworld_3368"
+  },
+  {
+    "item_id": "sciworld_3369"
+  },
+  {
+    "item_id": "sciworld_3370"
+  },
+  {
+    "item_id": "sciworld_3371"
+  },
+  {
+    "item_id": "sciworld_3372"
+  },
+  {
+    "item_id": "sciworld_3373"
+  },
+  {
+    "item_id": "sciworld_3374"
+  },
+  {
+    "item_id": "sciworld_3375"
+  },
+  {
+    "item_id": "sciworld_3250"
+  },
+  {
+    "item_id": "sciworld_3376"
+  },
+  {
+    "item_id": "sciworld_3377"
+  },
+  {
+    "item_id": "sciworld_3378"
+  },
+  {
+    "item_id": "sciworld_3379"
+  },
+  {
+    "item_id": "sciworld_3380"
+  },
+  {
+    "item_id": "sciworld_3381"
+  },
+  {
+    "item_id": "sciworld_3382"
+  },
+  {
+    "item_id": "sciworld_3383"
+  },
+  {
+    "item_id": "sciworld_3384"
+  },
+  {
+    "item_id": "sciworld_3385"
+  },
+  {
+    "item_id": "sciworld_3251"
+  },
+  {
+    "item_id": "sciworld_3252"
+  },
+  {
+    "item_id": "sciworld_3253"
+  },
+  {
+    "item_id": "sciworld_3254"
+  },
+  {
+    "item_id": "sciworld_3255"
+  },
+  {
+    "item_id": "sciworld_3238"
+  },
+  {
+    "item_id": "sciworld_3256"
+  },
+  {
+    "item_id": "sciworld_3257"
+  },
+  {
+    "item_id": "sciworld_3258"
+  },
+  {
+    "item_id": "sciworld_3259"
+  },
+  {
+    "item_id": "sciworld_3260"
+  },
+  {
+    "item_id": "sciworld_3261"
+  },
+  {
+    "item_id": "sciworld_3262"
+  },
+  {
+    "item_id": "sciworld_3263"
+  },
+  {
+    "item_id": "sciworld_3264"
+  },
+  {
+    "item_id": "sciworld_3265"
+  },
+  {
+    "item_id": "sciworld_3239"
+  },
+  {
+    "item_id": "sciworld_3266"
+  },
+  {
+    "item_id": "sciworld_3267"
+  },
+  {
+    "item_id": "sciworld_3268"
+  },
+  {
+    "item_id": "sciworld_3269"
+  },
+  {
+    "item_id": "sciworld_3270"
+  },
+  {
+    "item_id": "sciworld_3271"
+  },
+  {
+    "item_id": "sciworld_3272"
+  },
+  {
+    "item_id": "sciworld_3273"
+  },
+  {
+    "item_id": "sciworld_3274"
+  },
+  {
+    "item_id": "sciworld_3275"
+  },
+  {
+    "item_id": "sciworld_3240"
+  },
+  {
+    "item_id": "sciworld_3276"
+  },
+  {
+    "item_id": "sciworld_3277"
+  },
+  {
+    "item_id": "sciworld_3278"
+  },
+  {
+    "item_id": "sciworld_3279"
+  },
+  {
+    "item_id": "sciworld_3280"
+  },
+  {
+    "item_id": "sciworld_3281"
+  },
+  {
+    "item_id": "sciworld_3282"
+  },
+  {
+    "item_id": "sciworld_3283"
+  },
+  {
+    "item_id": "sciworld_3284"
+  },
+  {
+    "item_id": "sciworld_3285"
+  },
+  {
+    "item_id": "sciworld_3241"
+  },
+  {
+    "item_id": "sciworld_3286"
+  },
+  {
+    "item_id": "sciworld_3287"
+  },
+  {
+    "item_id": "sciworld_3288"
+  },
+  {
+    "item_id": "sciworld_3289"
+  },
+  {
+    "item_id": "sciworld_3290"
+  },
+  {
+    "item_id": "sciworld_3291"
+  },
+  {
+    "item_id": "sciworld_3292"
+  },
+  {
+    "item_id": "sciworld_3293"
+  },
+  {
+    "item_id": "sciworld_3294"
+  },
+  {
+    "item_id": "sciworld_3295"
+  },
+  {
+    "item_id": "sciworld_3242"
+  },
+  {
+    "item_id": "sciworld_3296"
+  },
+  {
+    "item_id": "sciworld_3297"
+  },
+  {
+    "item_id": "sciworld_3298"
+  },
+  {
+    "item_id": "sciworld_3299"
+  },
+  {
+    "item_id": "sciworld_3300"
+  },
+  {
+    "item_id": "sciworld_3301"
+  },
+  {
+    "item_id": "sciworld_3302"
+  },
+  {
+    "item_id": "sciworld_3303"
+  },
+  {
+    "item_id": "sciworld_3304"
+  },
+  {
+    "item_id": "sciworld_3305"
+  },
+  {
+    "item_id": "sciworld_3243"
+  },
+  {
+    "item_id": "sciworld_3306"
+  },
+  {
+    "item_id": "sciworld_3307"
+  },
+  {
+    "item_id": "sciworld_3308"
+  },
+  {
+    "item_id": "sciworld_3309"
+  },
+  {
+    "item_id": "sciworld_3310"
+  },
+  {
+    "item_id": "sciworld_3311"
+  },
+  {
+    "item_id": "sciworld_3312"
+  },
+  {
+    "item_id": "sciworld_3313"
+  },
+  {
+    "item_id": "sciworld_3314"
+  },
+  {
+    "item_id": "sciworld_3315"
+  },
+  {
+    "item_id": "sciworld_3244"
+  },
+  {
+    "item_id": "sciworld_3316"
+  },
+  {
+    "item_id": "sciworld_3317"
+  },
+  {
+    "item_id": "sciworld_3318"
+  },
+  {
+    "item_id": "sciworld_3319"
+  },
+  {
+    "item_id": "sciworld_3320"
+  },
+  {
+    "item_id": "sciworld_3321"
+  },
+  {
+    "item_id": "sciworld_3322"
+  },
+  {
+    "item_id": "sciworld_3323"
+  },
+  {
+    "item_id": "sciworld_3324"
+  },
+  {
+    "item_id": "sciworld_3325"
+  },
+  {
+    "item_id": "sciworld_3245"
+  },
+  {
+    "item_id": "sciworld_3326"
+  },
+  {
+    "item_id": "sciworld_3327"
+  },
+  {
+    "item_id": "sciworld_3328"
+  },
+  {
+    "item_id": "sciworld_3329"
+  },
+  {
+    "item_id": "sciworld_3330"
+  },
+  {
+    "item_id": "sciworld_3331"
+  },
+  {
+    "item_id": "sciworld_3332"
+  },
+  {
+    "item_id": "sciworld_3333"
+  },
+  {
+    "item_id": "sciworld_3334"
+  },
+  {
+    "item_id": "sciworld_3335"
+  },
+  {
+    "item_id": "sciworld_3536"
+  },
+  {
+    "item_id": "sciworld_3537"
+  },
+  {
+    "item_id": "sciworld_3546"
+  },
+  {
+    "item_id": "sciworld_3636"
+  },
+  {
+    "item_id": "sciworld_3637"
+  },
+  {
+    "item_id": "sciworld_3638"
+  },
+  {
+    "item_id": "sciworld_3639"
+  },
+  {
+    "item_id": "sciworld_3640"
+  },
+  {
+    "item_id": "sciworld_3641"
+  },
+  {
+    "item_id": "sciworld_3642"
+  },
+  {
+    "item_id": "sciworld_3643"
+  },
+  {
+    "item_id": "sciworld_3644"
+  },
+  {
+    "item_id": "sciworld_3645"
+  },
+  {
+    "item_id": "sciworld_3547"
+  },
+  {
+    "item_id": "sciworld_3646"
+  },
+  {
+    "item_id": "sciworld_3647"
+  },
+  {
+    "item_id": "sciworld_3648"
+  },
+  {
+    "item_id": "sciworld_3649"
+  },
+  {
+    "item_id": "sciworld_3650"
+  },
+  {
+    "item_id": "sciworld_3651"
+  },
+  {
+    "item_id": "sciworld_3652"
+  },
+  {
+    "item_id": "sciworld_3653"
+  },
+  {
+    "item_id": "sciworld_3654"
+  },
+  {
+    "item_id": "sciworld_3655"
+  },
+  {
+    "item_id": "sciworld_3548"
+  },
+  {
+    "item_id": "sciworld_3656"
+  },
+  {
+    "item_id": "sciworld_3657"
+  },
+  {
+    "item_id": "sciworld_3658"
+  },
+  {
+    "item_id": "sciworld_3659"
+  },
+  {
+    "item_id": "sciworld_3660"
+  },
+  {
+    "item_id": "sciworld_3661"
+  },
+  {
+    "item_id": "sciworld_3662"
+  },
+  {
+    "item_id": "sciworld_3663"
+  },
+  {
+    "item_id": "sciworld_3664"
+  },
+  {
+    "item_id": "sciworld_3665"
+  },
+  {
+    "item_id": "sciworld_3549"
+  },
+  {
+    "item_id": "sciworld_3666"
+  },
+  {
+    "item_id": "sciworld_3667"
+  },
+  {
+    "item_id": "sciworld_3668"
+  },
+  {
+    "item_id": "sciworld_3669"
+  },
+  {
+    "item_id": "sciworld_3670"
+  },
+  {
+    "item_id": "sciworld_3671"
+  },
+  {
+    "item_id": "sciworld_3672"
+  },
+  {
+    "item_id": "sciworld_3673"
+  },
+  {
+    "item_id": "sciworld_3674"
+  },
+  {
+    "item_id": "sciworld_3675"
+  },
+  {
+    "item_id": "sciworld_3550"
+  },
+  {
+    "item_id": "sciworld_3676"
+  },
+  {
+    "item_id": "sciworld_3677"
+  },
+  {
+    "item_id": "sciworld_3678"
+  },
+  {
+    "item_id": "sciworld_3679"
+  },
+  {
+    "item_id": "sciworld_3680"
+  },
+  {
+    "item_id": "sciworld_3681"
+  },
+  {
+    "item_id": "sciworld_3682"
+  },
+  {
+    "item_id": "sciworld_3683"
+  },
+  {
+    "item_id": "sciworld_3684"
+  },
+  {
+    "item_id": "sciworld_3685"
+  },
+  {
+    "item_id": "sciworld_3551"
+  },
+  {
+    "item_id": "sciworld_3552"
+  },
+  {
+    "item_id": "sciworld_3553"
+  },
+  {
+    "item_id": "sciworld_3554"
+  },
+  {
+    "item_id": "sciworld_3555"
+  },
+  {
+    "item_id": "sciworld_3538"
+  },
+  {
+    "item_id": "sciworld_3556"
+  },
+  {
+    "item_id": "sciworld_3557"
+  },
+  {
+    "item_id": "sciworld_3558"
+  },
+  {
+    "item_id": "sciworld_3559"
+  },
+  {
+    "item_id": "sciworld_3560"
+  },
+  {
+    "item_id": "sciworld_3561"
+  },
+  {
+    "item_id": "sciworld_3562"
+  },
+  {
+    "item_id": "sciworld_3563"
+  },
+  {
+    "item_id": "sciworld_3564"
+  },
+  {
+    "item_id": "sciworld_3565"
+  },
+  {
+    "item_id": "sciworld_3539"
+  },
+  {
+    "item_id": "sciworld_3566"
+  },
+  {
+    "item_id": "sciworld_3567"
+  },
+  {
+    "item_id": "sciworld_3568"
+  },
+  {
+    "item_id": "sciworld_3569"
+  },
+  {
+    "item_id": "sciworld_3570"
+  },
+  {
+    "item_id": "sciworld_3571"
+  },
+  {
+    "item_id": "sciworld_3572"
+  },
+  {
+    "item_id": "sciworld_3573"
+  },
+  {
+    "item_id": "sciworld_3574"
+  },
+  {
+    "item_id": "sciworld_3575"
+  },
+  {
+    "item_id": "sciworld_3540"
+  },
+  {
+    "item_id": "sciworld_3576"
+  },
+  {
+    "item_id": "sciworld_3577"
+  },
+  {
+    "item_id": "sciworld_3578"
+  },
+  {
+    "item_id": "sciworld_3579"
+  },
+  {
+    "item_id": "sciworld_3580"
+  },
+  {
+    "item_id": "sciworld_3581"
+  },
+  {
+    "item_id": "sciworld_3582"
+  },
+  {
+    "item_id": "sciworld_3583"
+  },
+  {
+    "item_id": "sciworld_3584"
+  },
+  {
+    "item_id": "sciworld_3585"
+  },
+  {
+    "item_id": "sciworld_3541"
+  },
+  {
+    "item_id": "sciworld_3586"
+  },
+  {
+    "item_id": "sciworld_3587"
+  },
+  {
+    "item_id": "sciworld_3588"
+  },
+  {
+    "item_id": "sciworld_3589"
+  },
+  {
+    "item_id": "sciworld_3590"
+  },
+  {
+    "item_id": "sciworld_3591"
+  },
+  {
+    "item_id": "sciworld_3592"
+  },
+  {
+    "item_id": "sciworld_3593"
+  },
+  {
+    "item_id": "sciworld_3594"
+  },
+  {
+    "item_id": "sciworld_3595"
+  },
+  {
+    "item_id": "sciworld_3542"
+  },
+  {
+    "item_id": "sciworld_3596"
+  },
+  {
+    "item_id": "sciworld_3597"
+  },
+  {
+    "item_id": "sciworld_3598"
+  },
+  {
+    "item_id": "sciworld_3599"
+  },
+  {
+    "item_id": "sciworld_3600"
+  },
+  {
+    "item_id": "sciworld_3601"
+  },
+  {
+    "item_id": "sciworld_3602"
+  },
+  {
+    "item_id": "sciworld_3603"
+  },
+  {
+    "item_id": "sciworld_3604"
+  },
+  {
+    "item_id": "sciworld_3605"
+  },
+  {
+    "item_id": "sciworld_3543"
+  },
+  {
+    "item_id": "sciworld_3606"
+  },
+  {
+    "item_id": "sciworld_3607"
+  },
+  {
+    "item_id": "sciworld_3608"
+  },
+  {
+    "item_id": "sciworld_3609"
+  },
+  {
+    "item_id": "sciworld_3610"
+  },
+  {
+    "item_id": "sciworld_3611"
+  },
+  {
+    "item_id": "sciworld_3612"
+  },
+  {
+    "item_id": "sciworld_3613"
+  },
+  {
+    "item_id": "sciworld_3614"
+  },
+  {
+    "item_id": "sciworld_3615"
+  },
+  {
+    "item_id": "sciworld_3544"
+  },
+  {
+    "item_id": "sciworld_3616"
+  },
+  {
+    "item_id": "sciworld_3617"
+  },
+  {
+    "item_id": "sciworld_3618"
+  },
+  {
+    "item_id": "sciworld_3619"
+  },
+  {
+    "item_id": "sciworld_3620"
+  },
+  {
+    "item_id": "sciworld_3621"
+  },
+  {
+    "item_id": "sciworld_3622"
+  },
+  {
+    "item_id": "sciworld_3623"
+  },
+  {
+    "item_id": "sciworld_3624"
+  },
+  {
+    "item_id": "sciworld_3625"
+  },
+  {
+    "item_id": "sciworld_3545"
+  },
+  {
+    "item_id": "sciworld_3626"
+  },
+  {
+    "item_id": "sciworld_3627"
+  },
+  {
+    "item_id": "sciworld_3628"
+  },
+  {
+    "item_id": "sciworld_3629"
+  },
+  {
+    "item_id": "sciworld_3630"
+  },
+  {
+    "item_id": "sciworld_3631"
+  },
+  {
+    "item_id": "sciworld_3632"
+  },
+  {
+    "item_id": "sciworld_3633"
+  },
+  {
+    "item_id": "sciworld_3634"
+  },
+  {
+    "item_id": "sciworld_3635"
+  },
+  {
+    "item_id": "sciworld_4168"
+  },
+  {
+    "item_id": "sciworld_4169"
+  },
+  {
+    "item_id": "sciworld_4178"
+  },
+  {
+    "item_id": "sciworld_4179"
+  },
+  {
+    "item_id": "sciworld_4180"
+  },
+  {
+    "item_id": "sciworld_4181"
+  },
+  {
+    "item_id": "sciworld_4182"
+  },
+  {
+    "item_id": "sciworld_4183"
+  },
+  {
+    "item_id": "sciworld_4184"
+  },
+  {
+    "item_id": "sciworld_4185"
+  },
+  {
+    "item_id": "sciworld_4170"
+  },
+  {
+    "item_id": "sciworld_4171"
+  },
+  {
+    "item_id": "sciworld_4172"
+  },
+  {
+    "item_id": "sciworld_4173"
+  },
+  {
+    "item_id": "sciworld_4174"
+  },
+  {
+    "item_id": "sciworld_4175"
+  },
+  {
+    "item_id": "sciworld_4176"
+  },
+  {
+    "item_id": "sciworld_4177"
+  },
+  {
+    "item_id": "sciworld_4204"
+  },
+  {
+    "item_id": "sciworld_4205"
+  },
+  {
+    "item_id": "sciworld_4214"
+  },
+  {
+    "item_id": "sciworld_4215"
+  },
+  {
+    "item_id": "sciworld_4216"
+  },
+  {
+    "item_id": "sciworld_4217"
+  },
+  {
+    "item_id": "sciworld_4218"
+  },
+  {
+    "item_id": "sciworld_4219"
+  },
+  {
+    "item_id": "sciworld_4220"
+  },
+  {
+    "item_id": "sciworld_4221"
+  },
+  {
+    "item_id": "sciworld_4206"
+  },
+  {
+    "item_id": "sciworld_4207"
+  },
+  {
+    "item_id": "sciworld_4208"
+  },
+  {
+    "item_id": "sciworld_4209"
+  },
+  {
+    "item_id": "sciworld_4210"
+  },
+  {
+    "item_id": "sciworld_4211"
+  },
+  {
+    "item_id": "sciworld_4212"
+  },
+  {
+    "item_id": "sciworld_4213"
+  },
+  {
+    "item_id": "sciworld_4136"
+  },
+  {
+    "item_id": "sciworld_4137"
+  },
+  {
+    "item_id": "sciworld_4146"
+  },
+  {
+    "item_id": "sciworld_4147"
+  },
+  {
+    "item_id": "sciworld_4148"
+  },
+  {
+    "item_id": "sciworld_4149"
+  },
+  {
+    "item_id": "sciworld_4150"
+  },
+  {
+    "item_id": "sciworld_4151"
+  },
+  {
+    "item_id": "sciworld_4138"
+  },
+  {
+    "item_id": "sciworld_4139"
+  },
+  {
+    "item_id": "sciworld_4140"
+  },
+  {
+    "item_id": "sciworld_4142"
+  },
+  {
+    "item_id": "sciworld_4143"
+  },
+  {
+    "item_id": "sciworld_4240"
+  },
+  {
+    "item_id": "sciworld_4241"
+  },
+  {
+    "item_id": "sciworld_4250"
+  },
+  {
+    "item_id": "sciworld_4251"
+  },
+  {
+    "item_id": "sciworld_4252"
+  },
+  {
+    "item_id": "sciworld_4253"
+  },
+  {
+    "item_id": "sciworld_4254"
+  },
+  {
+    "item_id": "sciworld_4255"
+  },
+  {
+    "item_id": "sciworld_4256"
+  },
+  {
+    "item_id": "sciworld_4257"
+  },
+  {
+    "item_id": "sciworld_4258"
+  },
+  {
+    "item_id": "sciworld_4259"
+  },
+  {
+    "item_id": "sciworld_4242"
+  },
+  {
+    "item_id": "sciworld_4260"
+  },
+  {
+    "item_id": "sciworld_4261"
+  },
+  {
+    "item_id": "sciworld_4262"
+  },
+  {
+    "item_id": "sciworld_4263"
+  },
+  {
+    "item_id": "sciworld_4264"
+  },
+  {
+    "item_id": "sciworld_4265"
+  },
+  {
+    "item_id": "sciworld_4266"
+  },
+  {
+    "item_id": "sciworld_4267"
+  },
+  {
+    "item_id": "sciworld_4268"
+  },
+  {
+    "item_id": "sciworld_4269"
+  },
+  {
+    "item_id": "sciworld_4243"
+  },
+  {
+    "item_id": "sciworld_4270"
+  },
+  {
+    "item_id": "sciworld_4271"
+  },
+  {
+    "item_id": "sciworld_4272"
+  },
+  {
+    "item_id": "sciworld_4273"
+  },
+  {
+    "item_id": "sciworld_4274"
+  },
+  {
+    "item_id": "sciworld_4275"
+  },
+  {
+    "item_id": "sciworld_4276"
+  },
+  {
+    "item_id": "sciworld_4277"
+  },
+  {
+    "item_id": "sciworld_4278"
+  },
+  {
+    "item_id": "sciworld_4279"
+  },
+  {
+    "item_id": "sciworld_4244"
+  },
+  {
+    "item_id": "sciworld_4280"
+  },
+  {
+    "item_id": "sciworld_4281"
+  },
+  {
+    "item_id": "sciworld_4282"
+  },
+  {
+    "item_id": "sciworld_4283"
+  },
+  {
+    "item_id": "sciworld_4284"
+  },
+  {
+    "item_id": "sciworld_4285"
+  },
+  {
+    "item_id": "sciworld_4286"
+  },
+  {
+    "item_id": "sciworld_4287"
+  },
+  {
+    "item_id": "sciworld_4288"
+  },
+  {
+    "item_id": "sciworld_4289"
+  },
+  {
+    "item_id": "sciworld_4245"
+  },
+  {
+    "item_id": "sciworld_4290"
+  },
+  {
+    "item_id": "sciworld_4291"
+  },
+  {
+    "item_id": "sciworld_4292"
+  },
+  {
+    "item_id": "sciworld_4293"
+  },
+  {
+    "item_id": "sciworld_4294"
+  },
+  {
+    "item_id": "sciworld_4295"
+  },
+  {
+    "item_id": "sciworld_4296"
+  },
+  {
+    "item_id": "sciworld_4297"
+  },
+  {
+    "item_id": "sciworld_4298"
+  },
+  {
+    "item_id": "sciworld_4299"
+  },
+  {
+    "item_id": "sciworld_4246"
+  },
+  {
+    "item_id": "sciworld_4300"
+  },
+  {
+    "item_id": "sciworld_4301"
+  },
+  {
+    "item_id": "sciworld_4247"
+  },
+  {
+    "item_id": "sciworld_4248"
+  },
+  {
+    "item_id": "sciworld_4249"
+  },
+  {
+    "item_id": "sciworld_4490"
+  },
+  {
+    "item_id": "sciworld_4491"
+  },
+  {
+    "item_id": "sciworld_4500"
+  },
+  {
+    "item_id": "sciworld_4501"
+  },
+  {
+    "item_id": "sciworld_4502"
+  },
+  {
+    "item_id": "sciworld_4503"
+  },
+  {
+    "item_id": "sciworld_4504"
+  },
+  {
+    "item_id": "sciworld_4505"
+  },
+  {
+    "item_id": "sciworld_4506"
+  },
+  {
+    "item_id": "sciworld_4507"
+  },
+  {
+    "item_id": "sciworld_4508"
+  },
+  {
+    "item_id": "sciworld_4509"
+  },
+  {
+    "item_id": "sciworld_4492"
+  },
+  {
+    "item_id": "sciworld_4510"
+  },
+  {
+    "item_id": "sciworld_4511"
+  },
+  {
+    "item_id": "sciworld_4512"
+  },
+  {
+    "item_id": "sciworld_4513"
+  },
+  {
+    "item_id": "sciworld_4514"
+  },
+  {
+    "item_id": "sciworld_4515"
+  },
+  {
+    "item_id": "sciworld_4516"
+  },
+  {
+    "item_id": "sciworld_4517"
+  },
+  {
+    "item_id": "sciworld_4518"
+  },
+  {
+    "item_id": "sciworld_4519"
+  },
+  {
+    "item_id": "sciworld_4493"
+  },
+  {
+    "item_id": "sciworld_4520"
+  },
+  {
+    "item_id": "sciworld_4521"
+  },
+  {
+    "item_id": "sciworld_4522"
+  },
+  {
+    "item_id": "sciworld_4523"
+  },
+  {
+    "item_id": "sciworld_4524"
+  },
+  {
+    "item_id": "sciworld_4525"
+  },
+  {
+    "item_id": "sciworld_4526"
+  },
+  {
+    "item_id": "sciworld_4527"
+  },
+  {
+    "item_id": "sciworld_4528"
+  },
+  {
+    "item_id": "sciworld_4529"
+  },
+  {
+    "item_id": "sciworld_4494"
+  },
+  {
+    "item_id": "sciworld_4530"
+  },
+  {
+    "item_id": "sciworld_4531"
+  },
+  {
+    "item_id": "sciworld_4532"
+  },
+  {
+    "item_id": "sciworld_4533"
+  },
+  {
+    "item_id": "sciworld_4534"
+  },
+  {
+    "item_id": "sciworld_4535"
+  },
+  {
+    "item_id": "sciworld_4536"
+  },
+  {
+    "item_id": "sciworld_4537"
+  },
+  {
+    "item_id": "sciworld_4538"
+  },
+  {
+    "item_id": "sciworld_4539"
+  },
+  {
+    "item_id": "sciworld_4495"
+  },
+  {
+    "item_id": "sciworld_4540"
+  },
+  {
+    "item_id": "sciworld_4541"
+  },
+  {
+    "item_id": "sciworld_4542"
+  },
+  {
+    "item_id": "sciworld_4543"
+  },
+  {
+    "item_id": "sciworld_4544"
+  },
+  {
+    "item_id": "sciworld_4545"
+  },
+  {
+    "item_id": "sciworld_4546"
+  },
+  {
+    "item_id": "sciworld_4547"
+  },
+  {
+    "item_id": "sciworld_4548"
+  },
+  {
+    "item_id": "sciworld_4549"
+  },
+  {
+    "item_id": "sciworld_4496"
+  },
+  {
+    "item_id": "sciworld_4550"
+  },
+  {
+    "item_id": "sciworld_4551"
+  },
+  {
+    "item_id": "sciworld_4497"
+  },
+  {
+    "item_id": "sciworld_4498"
+  },
+  {
+    "item_id": "sciworld_4499"
+  },
+  {
+    "item_id": "sciworld_4365"
+  },
+  {
+    "item_id": "sciworld_4366"
+  },
+  {
+    "item_id": "sciworld_4375"
+  },
+  {
+    "item_id": "sciworld_4376"
+  },
+  {
+    "item_id": "sciworld_4377"
+  },
+  {
+    "item_id": "sciworld_4378"
+  },
+  {
+    "item_id": "sciworld_4379"
+  },
+  {
+    "item_id": "sciworld_4380"
+  },
+  {
+    "item_id": "sciworld_4381"
+  },
+  {
+    "item_id": "sciworld_4382"
+  },
+  {
+    "item_id": "sciworld_4383"
+  },
+  {
+    "item_id": "sciworld_4384"
+  },
+  {
+    "item_id": "sciworld_4367"
+  },
+  {
+    "item_id": "sciworld_4385"
+  },
+  {
+    "item_id": "sciworld_4386"
+  },
+  {
+    "item_id": "sciworld_4387"
+  },
+  {
+    "item_id": "sciworld_4388"
+  },
+  {
+    "item_id": "sciworld_4389"
+  },
+  {
+    "item_id": "sciworld_4390"
+  },
+  {
+    "item_id": "sciworld_4391"
+  },
+  {
+    "item_id": "sciworld_4392"
+  },
+  {
+    "item_id": "sciworld_4393"
+  },
+  {
+    "item_id": "sciworld_4394"
+  },
+  {
+    "item_id": "sciworld_4368"
+  },
+  {
+    "item_id": "sciworld_4395"
+  },
+  {
+    "item_id": "sciworld_4396"
+  },
+  {
+    "item_id": "sciworld_4397"
+  },
+  {
+    "item_id": "sciworld_4398"
+  },
+  {
+    "item_id": "sciworld_4399"
+  },
+  {
+    "item_id": "sciworld_4400"
+  },
+  {
+    "item_id": "sciworld_4401"
+  },
+  {
+    "item_id": "sciworld_4402"
+  },
+  {
+    "item_id": "sciworld_4403"
+  },
+  {
+    "item_id": "sciworld_4404"
+  },
+  {
+    "item_id": "sciworld_4369"
+  },
+  {
+    "item_id": "sciworld_4405"
+  },
+  {
+    "item_id": "sciworld_4406"
+  },
+  {
+    "item_id": "sciworld_4407"
+  },
+  {
+    "item_id": "sciworld_4408"
+  },
+  {
+    "item_id": "sciworld_4409"
+  },
+  {
+    "item_id": "sciworld_4410"
+  },
+  {
+    "item_id": "sciworld_4411"
+  },
+  {
+    "item_id": "sciworld_4412"
+  },
+  {
+    "item_id": "sciworld_4413"
+  },
+  {
+    "item_id": "sciworld_4414"
+  },
+  {
+    "item_id": "sciworld_4370"
+  },
+  {
+    "item_id": "sciworld_4415"
+  },
+  {
+    "item_id": "sciworld_4416"
+  },
+  {
+    "item_id": "sciworld_4417"
+  },
+  {
+    "item_id": "sciworld_4418"
+  },
+  {
+    "item_id": "sciworld_4419"
+  },
+  {
+    "item_id": "sciworld_4420"
+  },
+  {
+    "item_id": "sciworld_4421"
+  },
+  {
+    "item_id": "sciworld_4422"
+  },
+  {
+    "item_id": "sciworld_4423"
+  },
+  {
+    "item_id": "sciworld_4424"
+  },
+  {
+    "item_id": "sciworld_4371"
+  },
+  {
+    "item_id": "sciworld_4425"
+  },
+  {
+    "item_id": "sciworld_4426"
+  },
+  {
+    "item_id": "sciworld_4372"
+  },
+  {
+    "item_id": "sciworld_4373"
+  },
+  {
+    "item_id": "sciworld_4374"
+  },
+  {
+    "item_id": "sciworld_4615"
+  },
+  {
+    "item_id": "sciworld_4616"
+  },
+  {
+    "item_id": "sciworld_4617"
+  },
+  {
+    "item_id": "sciworld_4618"
+  },
+  {
+    "item_id": "sciworld_4619"
+  },
+  {
+    "item_id": "sciworld_4620"
+  },
+  {
+    "item_id": "sciworld_4629"
+  },
+  {
+    "item_id": "sciworld_4630"
+  },
+  {
+    "item_id": "sciworld_4631"
+  },
+  {
+    "item_id": "sciworld_4632"
+  }
+]
