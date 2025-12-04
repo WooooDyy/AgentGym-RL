@@ -16,6 +16,7 @@ Generate responses given a dataset of prompts
 """
 from collections import defaultdict
 import json
+from logging import getLogger, INFO
 import ray
 import numpy as np
 import hydra
@@ -40,6 +41,10 @@ from verl.single_controller.ray import RayClassWithInitArgs, RayResourcePool, Ra
 from verl.utils.agentgym.client import init_env_client
 
 
+logger = getLogger(__name__)
+logger.setLevel(INFO)
+
+
 @hydra.main(config_path='config', config_name='generation', version_base=None)
 def main(config):
     from pprint import pprint
@@ -62,6 +67,7 @@ def main(config):
     category_map = {}
     for category_file in category_files:
         path = os.path.join(config.data.path, category_file)
+        print(f'{path = }')
         with open(path, "r") as f:
             datas = json.load(f)
             for data in datas:
@@ -72,7 +78,27 @@ def main(config):
         tokenizer.pad_token = tokenizer.eos_token
 
     ray_cls_with_init = RayClassWithInitArgs(cls=ray.remote(ActorRolloutRefWorker), config=config, role='rollout')
-    resource_pool = RayResourcePool(process_on_nodes=[config.trainer.n_gpus_per_node] * config.trainer.nnodes)
+    resource_pool_name = ''
+    max_colocate_count = 1
+    # resource_pool = RayResourcePool(process_on_nodes=[config.trainer.n_gpus_per_node] * config.trainer.nnodes)
+    # resource_pool = RayResourcePool(process_on_nodes=process_on_nodes, use_gpu=True, n_gpus_per_node=self.n_gpus_per_node, name_prefix=resource_pool_name, max_colocate_count=max_colocate_count, detached=False)
+    resource_pool = RayResourcePool(process_on_nodes=[(n_gpus_per_node := config.trainer.n_gpus_per_node)] * config.trainer.nnodes, use_gpu=True, n_gpus_per_node=n_gpus_per_node, name_prefix=resource_pool_name, max_colocate_count=max_colocate_count, detached=False)
+    # class RayResourcePool(ResourcePool):
+
+    # def __init__(self,
+    #             #  process_on_nodes: List[int] = None,
+    #              process_on_nodes: list[int] | None,
+    #             #  use_gpu: bool = True,
+    #              use_gpu: bool,
+    #              n_gpus_per_node: int,
+    #             #  name_prefix: str = "",
+    #              name_prefix: str,
+    #             max_colocate_count: int = 5,
+    # max_colocate_count: int,
+    #             #  detached=False) -> None:
+    #              detached: bool) -> None:
+    # resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping, n_gpus_per_node=config.trainer.max_colocate_countmax_colocate_count)
+
     wg = RayWorkerGroup(resource_pool=resource_pool, ray_cls_with_init=ray_cls_with_init)
     wg.init_model()
 
@@ -84,12 +110,16 @@ def main(config):
     output_lst = [[] for _ in range(config.data.n_samples)]
     env_client = init_env_client(config.agentgym)
 
+    logger.warning(f'{total_samples = }, {config_batch_size = }, {num_batch = }, {dp_size = }')
+
     for batch_idx in range(num_batch):
         print(f'[{batch_idx+1}/{num_batch}] Start to process.')
         start_idx = batch_idx * config_batch_size
         end_idx = min(total_samples, start_idx + config_batch_size)
         batch_item_ids = item_ids[start_idx: end_idx]
         prompt_with_chat_template = ["<|im_start|>system\nYou are Qwen, created by Alibaba Cloud. You are a helpful assistant.<|im_end|>\n<|im_start|>user\n" + env_client.conversation_start[0]["value"] + "<|im_end|>\n<|im_start|>assistant\n" + env_client.conversation_start[1]["value"] + "<|im_end|>" for _ in range(len(batch_item_ids))]
+        if not prompt_with_chat_template:
+            raise ValueError(f'No prompts found in the batch. {batch_idx = }, {start_idx = }, {end_idx = }')
         messages = [[{"role": "user", "content": env_client.conversation_start[0]["value"]},
                      {"role": "assistant", "content": env_client.conversation_start[1]["value"]}] for _ in range(len(batch_item_ids))]
 
@@ -137,7 +167,7 @@ def main(config):
     print(f"Avg@{config.data.n_samples}: {np.mean(output_np)}")
     print(f"Pass@{config.data.n_samples}: {np.mean(np.max(output_np, axis=-1) > 0)}")
     print("============Sub Task Evaluation============")
-    
+
     category_success_bucket = defaultdict(list)
     for item_id, score in zip(item_ids, output_lst):
         category = category_map[item_id]
