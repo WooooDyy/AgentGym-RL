@@ -18,7 +18,6 @@ export max_response_length=4096 # orginally 8192
 export gpu_memory_utilization=0.5 # originally 0.95
 
 # ckpt_path="global_step_150/actor"
-ckpt_path="${HOME}/agentgym_rl/AgentGym-RL/saves/3b_n8/global_step_125/actor"
 model_path=${ckpt_path}/huggingface
 
 # cd AgentGym-RL/scripts
