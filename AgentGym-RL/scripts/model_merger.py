@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from typing import List, Tuple, Dict
-import re
-import os
-import torch
 import argparse
-from transformers import AutoConfig, AutoModelForCausalLM, AutoModelForTokenClassification
 from concurrent.futures import ThreadPoolExecutor
+import os
+import re
+from typing import List, Tuple, Dict
+import torch
 from torch.distributed._tensor import DTensor, Shard, Placement
+from transformers import AutoConfig, AutoModelForCausalLM, AutoModelForTokenClassification
 
 
 def merge_by_placement(tensors: List[torch.Tensor], placement: Placement):
@@ -48,11 +48,11 @@ if __name__ == '__main__':
     for filename in os.listdir(local_dir):
         match = re.match(r"model_world_size_(\d+)_rank_0\.pt", filename)
         if match:
-            world_size = match.group(1)  
-            break  
+            world_size = match.group(1)
+            break
     assert world_size, "No model file with the proper format"
-        
-    state_dict = torch.load(os.path.join(local_dir, f'model_world_size_{world_size}_rank_{rank}.pt'), map_location='cpu')
+
+    state_dict = torch.load(os.path.join(local_dir, f'model_world_size_{world_size}_rank_{rank}.pt'), map_location='cpu', weights_only=False)
     pivot_key = sorted(list(state_dict.keys()))[0]
     weight = state_dict[pivot_key]
     assert isinstance(weight, torch.distributed._tensor.DTensor)
@@ -78,8 +78,8 @@ if __name__ == '__main__':
 
     print(f'Processing model shards with {total_shards} {mesh_shape} in total')
 
-    model_state_dict_lst = []
-    model_state_dict_lst.append(state_dict)
+    model_state_dict_lst = [state_dict]
+    # model_state_dict_lst.append(state_dict)
     model_state_dict_lst.extend([""] * (total_shards - 1))
 
     def process_one_shard(rank):
@@ -144,7 +144,7 @@ if __name__ == '__main__':
         raise NotImplementedError(f'Unknown architecture {config["architectures"]}')
 
     with torch.device('meta'):
-        model = auto_model.from_config(config, torch_dtype=torch.bfloat16)
+        model = auto_model.from_config(config, torch_dtype=torch.bfloat16, attn_implementation='flash_attention_2')
     model.to_empty(device='cpu')
 
     print(f'Saving model to {hf_path}')
@@ -161,10 +161,3 @@ if __name__ == '__main__':
             repo_id=args.hf_upload_path,
             repo_type="model"
         )
-    
-    
-
-
-
-
-

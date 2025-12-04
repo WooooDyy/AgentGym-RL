@@ -1,6 +1,6 @@
 trainer:
   nnodes: 1
-  n_gpus_per_node: 8
+  n_gpus_per_node: 1
 
 data:
   path: null
