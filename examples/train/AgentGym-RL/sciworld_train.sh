@@ -26,7 +26,6 @@ export RAY_BACKEND_LOG_LEVEL="debug"
 # export VLLM_GC_DEBUG=1
 
 # export CUDA_VISIBLE_DEVICES="0,1"
-export CUDA_VISIBLE_DEVICES="0,1,2,3"
 # gpu_memory_utilization=0.7
 export gpu_memory_utilization=0.5 # 0.5 works.
 # gpu_memory_utilization=0.40 # 0.7
@@ -42,20 +41,19 @@ export n_gpus_per_node="${NUM_GPUS}" # NOTE: needs to match num gpus
 
 # export TMPDIR="${HOME}/tmp"
 # export RAY_TMPDIR="${HOME}/tmp"
-export TMPDIR="/scratch/${USER}/tmp"
-export RAY_TMPDIR="/scratch/${USER}/tmp"
-export TRITON_HOME="/scratch/${USER}"
+# export TMPDIR="/scratch/${USER}/tmp"
+# export RAY_TMPDIR="/scratch/${USER}/tmp"
+# export TRITON_HOME="/scratch/${USER}"
 
 task_name="sciworld"
 
-cd AgentGym-RL
 # source activate
 # conda activate agentgym-rl
 export VLLM_ATTENTION_BACKEND="XFORMERS"
 # export WANDB_BASE_URL="https://api.bandw.top"
 export WANDB_BASE_URL="https://api.wandb.ai"
 
-export env_server_url="http://localhost:36001"
+export env_server_url="http://localhost:${PORT}"
 
 # start training
 # wandb login xxx
@@ -86,7 +84,7 @@ ppo_inner_epochs=1
 
 total_epoches=10
 
-model_save_dir="saves"
+model_save_dir="AgentGym-RL/saves"
 mkdir -p ${model_save_dir}
 model_save_path=${model_save_dir}/${exp_name}
 
@@ -96,11 +94,11 @@ mkdir -p ${model_save_path}
 
 # HYDRA_FULL_ERROR=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=online python3 -m verl.agent_trainer.main_ppo  \
 # HYDRA_FULL_ERROR=1 WANDB_MODE=online python -m verl.agent_trainer.main_ppo  \
-HYDRA_FULL_ERROR=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=online python -m verl.agent_trainer.main_ppo  \
+HYDRA_FULL_ERROR=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=online ${PYTHON_BIN} -m verl.agent_trainer.main_ppo  \
     algorithm.adv_estimator=grpo \
     algorithm.rounds_ctrl.type=fixed \
     algorithm.rounds_ctrl.rounds=20 \
-    data.train_file=AgentItemId/${task_name}_train.json \
+    data.train_file=AgentGym-RL/AgentItemId/${task_name}_train.json \
     data.train_batch_size=${train_batch_size} \
     data.max_prompt_length=1024 \
     data.max_response_length=4096 \

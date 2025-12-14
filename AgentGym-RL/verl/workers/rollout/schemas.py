@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Literal
+from typing import List, Literal, Optional
 from transformers import PreTrainedTokenizer
 import torch
 
@@ -43,7 +43,7 @@ class RolloutHandler:
         prompt_loss_mask: List[int],
         response_loss_mask: List[int],
         max_response_len: int = 8192,
-        max_model_len: int = 32768   
+        max_model_len: int = 32768
     ):
         self.messages = messages
         self.task_name = task_name
@@ -63,7 +63,7 @@ class RolloutHandler:
         self.prompt_loss_mask = prompt_loss_mask
         self.response_loss_mask = response_loss_mask
         self.max_response_len = max_response_len
-        self.max_model_len = max_model_len  
+        self.max_model_len = max_model_len
         self.format_config: dict = {
             "qwen": {
                 "assistat_prefix_msg": "\n<|im_start|>assistant\n",
@@ -73,13 +73,40 @@ class RolloutHandler:
             }
         }
 
-    def get_generation_prompt(self, tokenizer: PreTrainedTokenizer) -> List[int]:
+    def get_generation_prompt(self, tokenizer: PreTrainedTokenizer, memory_examples: Optional[List[dict]] = None) -> List[int]:
+        """
+        Generate prompt with optional memory examples injected before current conversation.
+
+        Args:
+            tokenizer: Tokenizer for encoding
+            memory_examples: Optional list of few-shot examples from memory bank
+                            Format: [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}, ...]
+
+        Returns:
+            Tokenized prompt with memory examples prepended
+        """
         conversations = [
             msg.to_dict() for msg in self.messages
         ]
+
+        # Inject memory examples before current conversation if provided
+        if memory_examples and len(memory_examples) > 0:
+            # Find system message if it exists
+            system_msg = None
+            current_conv = conversations
+            if conversations and conversations[0].get("role") == "system":
+                system_msg = conversations[0]
+                current_conv = conversations[1:]
+
+            # Build conversation with memory examples
+            if system_msg:
+                conversations = [system_msg] + memory_examples + current_conv
+            else:
+                conversations = memory_examples + current_conv
+
         return tokenizer.apply_chat_template(conversations, add_generation_prompt=True, tokenize=True)
-    
-    
+
+
     def add_assistant_message(
         self,
         tokenizer: PreTrainedTokenizer,
@@ -116,9 +143,9 @@ class RolloutHandler:
         _position_ids = [pos_id + last_position_ids for pos_id in _delta_position_ids]
         self.loss_mask += _loss_mask
         self.position_ids += _position_ids
-        assert len(self.input_ids) == len(self.attention_mask) == len(self.position_ids) == len(self.loss_mask), f"""Rollout Handler has different length of {len(self.input_ids)=}, 
+        assert len(self.input_ids) == len(self.attention_mask) == len(self.position_ids) == len(self.loss_mask), f"""Rollout Handler has different length of {len(self.input_ids)=},
             {len(self.attention_mask)=}, {len(self.position_ids)=}, {len(self.loss_mask)=}"""
-        
+
     def add_user_message(
         self,
         tokenizer: PreTrainedTokenizer,
@@ -159,7 +186,7 @@ class RolloutHandler:
         self.position_ids += _position_ids
         assert len(self.input_ids) == len(self.attention_mask) == len(self.position_ids) == len(self.loss_mask), f"""Rollout Handler has different length of {len(self.input_ids)=},
             {len(self.attention_mask)=}, {len(self.position_ids)=}, {len(self.loss_mask)=}"""
-        
+
     def truncate_output_ids(self) -> None:
         self.input_ids = self.input_ids[: self.max_model_len]
         self.attention_mask = self.attention_mask[: self.max_model_len]

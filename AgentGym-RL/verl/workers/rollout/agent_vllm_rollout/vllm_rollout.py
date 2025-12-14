@@ -30,7 +30,7 @@ import json
 from logging import getLogger
 import os
 import time
-from typing import List
+from typing import List, Optional
 from omegaconf import DictConfig
 from tensordict import TensorDict
 import torch
@@ -46,6 +46,7 @@ from verl.third_party.vllm import LLM, vllm_version, parallel_state as vllm_ps
 from verl.utils.model import compute_position_id_with_mask
 from verl.utils.torch_functional import pad_sequence_to_length
 from verl.utils.agentgym.client import init_env_client
+from verl.utils.memory import MemoryBank
 from verl.workers.rollout.base import BaseRollout
 from verl.workers.rollout.schemas import RolloutHandler, Message, _pre_process_inputs
 
@@ -131,6 +132,38 @@ class vLLMRollout(BaseRollout):
         self.pad_token_id = tokenizer.pad_token_id
 
         self.tokenizer = tokenizer
+
+        # Initialize memory bank if enabled
+        self.memory_enabled = rollout_config.get('memory', {}).get('enabled', False)
+        self.memory_bank: Optional[MemoryBank] = None
+        if self.memory_enabled:
+            memory_config = rollout_config.get('memory', {})
+            self.memory_k = memory_config.get('k', 3)
+            self.memory_min_reward = memory_config.get('min_reward', 0.5)
+            self.memory_encoder = memory_config.get('encoder', 'sentence-transformers/all-MiniLM-L6-v2')
+            self.memory_task_specific = memory_config.get('task_specific', True)
+            self.memory_save_path = memory_config.get('save_path', None)
+
+            # Initialize memory bank
+            self.memory_bank = MemoryBank(
+                encoder_name=self.memory_encoder,
+                device='cuda' if torch.cuda.is_available() else 'cpu',
+                min_reward=self.memory_min_reward,
+                task_specific=self.memory_task_specific,
+            )
+
+            # Load existing memory bank if path provided
+            if self.memory_save_path and os.path.exists(self.memory_save_path + '.pkl'):
+                try:
+                    self.memory_bank = MemoryBank.load(self.memory_save_path)
+                    LOGGER.info(f"Loaded memory bank from {self.memory_save_path} with {len(self.memory_bank)} experiences")
+                except Exception as e:
+                    LOGGER.warning(f"Failed to load memory bank from {self.memory_save_path}: {e}")
+
+            LOGGER.info(f"Memory bank initialized: k={self.memory_k}, min_reward={self.memory_min_reward}, "
+                       f"task_specific={self.memory_task_specific}, encoder={self.memory_encoder}")
+        else:
+            LOGGER.info("Memory bank disabled")
 
 
     @contextmanager
@@ -231,8 +264,20 @@ class vLLMRollout(BaseRollout):
         rounds = 0
         task_rounds = [0] * batch_size
         rollout_bar = tqdm(total = max_rounds, desc="Running rounds", disable=torch.distributed.get_rank() != 0)
+
+        # Track experiences for memory storage
+        step_experiences: List[List[tuple]] = [[] for _ in range(batch_size)]  # Store (obs_text, action) for each agent
+
         def agent_step(i, idx):
             content = self.tokenizer.decode(response_ids[i], skip_special_tokens=True)
+
+            # Store observation before action for memory
+            if self.memory_enabled and len(rollout_handler_ls[idx].messages) > 0:
+                last_msg = rollout_handler_ls[idx].messages[-1]
+                if last_msg.role == 'user':
+                    obs_text = last_msg.content
+                    step_experiences[idx].append((obs_text, content))
+
             rollout_handler_ls[idx].add_assistant_message(self.tokenizer, content)
             task_rounds[idx] += 1
             try:
@@ -243,19 +288,57 @@ class vLLMRollout(BaseRollout):
                     step_output.done,
                 )
                 rollout_handler_ls[idx].add_user_message(self.tokenizer, state)
+
+                # Store successful experiences in memory bank when episode is done
+                if self.memory_enabled and rollout_handler_ls[idx].done:
+                    for obs_text, action in step_experiences[idx]:
+                        self.memory_bank.add(
+                            obs_text=obs_text,
+                            action=action,
+                            reward=rollout_handler_ls[idx].score,
+                            task_name=rollout_handler_ls[idx].task_name,
+                            item_id=rollout_handler_ls[idx].item_id,
+                        )
+                    step_experiences[idx] = []  # Clear after storing
+
                 return step_output.done
             except Exception as e:
                 rollout_handler_ls[idx].score = 0
                 rollout_handler_ls[idx].done = True
                 LOGGER.info(f"Rollou step Error: {e} item id = {rollout_handler_ls[idx].item_id}")
+                step_experiences[idx] = []  # Clear on error
                 return True
         while rounds < max_rounds and not all_done_flag:
-            # get generation prompt
+            # get generation prompt with memory retrieval
             generation_prompt_idxs = []
             not_done_idxs = []
             for idx, rollout_handler in enumerate(rollout_handler_ls):
                 if not rollout_handler.done:
-                    generation_prompt_idxs.append(rollout_handler.get_generation_prompt(self.tokenizer))
+                    # Retrieve similar experiences from memory if enabled
+                    memory_examples = None
+                    if self.memory_enabled and self.memory_bank is not None:
+                        # Get current observation (last user message)
+                        if len(rollout_handler.messages) > 0 and rollout_handler.messages[-1].role == 'user':
+                            current_obs = rollout_handler.messages[-1].content
+                            try:
+                                retrieved_exps = self.memory_bank.retrieve(
+                                    query_text=current_obs,
+                                    k=self.memory_k,
+                                    task_name=rollout_handler.task_name if self.memory_task_specific else None,
+                                )
+                                if retrieved_exps:
+                                    memory_examples = self.memory_bank.format_as_examples(
+                                        retrieved_exps,
+                                        self.tokenizer,
+                                        format_style='chat',
+                                    )
+                            except Exception as e:
+                                LOGGER.warning(f"Memory retrieval failed: {e}")
+
+                    # Generate prompt with memory examples
+                    generation_prompt_idxs.append(
+                        rollout_handler.get_generation_prompt(self.tokenizer, memory_examples=memory_examples)
+                    )
                     not_done_idxs.append(idx)
 
             rollout_bar.set_description(f"Rounds {rounds + 1}/{max_rounds} | Active agents per gpu: {len(not_done_idxs)}")
@@ -385,6 +468,14 @@ class vLLMRollout(BaseRollout):
         if self.config.free_cache_engine:
             self.inference_engine.free_cache_engine()
             LOGGER.info(f'vLLMRollout.generate_sequences: Freed vLLM cache engine if applicable.')
+
+        # Save memory bank if enabled
+        if self.memory_enabled and self.memory_bank is not None and self.memory_save_path:
+            try:
+                self.memory_bank.save(self.memory_save_path)
+                LOGGER.info(f"Saved memory bank to {self.memory_save_path} with {len(self.memory_bank)} experiences")
+            except Exception as e:
+                LOGGER.warning(f"Failed to save memory bank: {e}")
 
         LOGGER.info(f'vLLMRollout.generate_sequences: Completed rollout for all agents.')
         # breakpoint()

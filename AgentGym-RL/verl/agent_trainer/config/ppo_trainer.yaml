@@ -105,6 +105,15 @@ actor_rollout_ref:
     n: 1 # > 1 for grpo
     send_interval: 1 # # interval when sending request
     rollout_log_dir: null # Directory for storing rollout trajectories.
+    # memory configuration for retrieval-based episodic memory
+    memory:
+      enabled: false  # set to true to enable memory bank
+      k: 3  # number of similar experiences to retrieve as few-shot examples
+      min_reward: 0.5  # minimum reward threshold for storing experiences (only successful experiences)
+      encoder: "sentence-transformers/all-MiniLM-L6-v2"  # sentence-transformer model for encoding observations
+      task_specific: true  # if true, only retrieve from same task; if false, enable cross-task retrieval
+      save_path: null  # path to save/load memory bank (e.g., "memory_bank/sciworld")
+
 
 critic:
   rollout_n: ${actor_rollout_ref.rollout.n}

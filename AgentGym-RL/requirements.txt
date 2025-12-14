@@ -3,7 +3,9 @@ accelerate
 codetiming
 datasets
 dill
+faiss-cpu
 flash-attn
+huggingface-hub>=0.30.0,<1.0
 hydra-core
 liger-kernel
 numpy
@@ -13,7 +15,9 @@ pyarrow>=15.0.0
 pybind11
 pylatexenc
 ray
+sentence-transformers
 tensordict<0.6
+torch>=2.4.0,<2.6.0
 transformers
 vllm<=0.6.3
 wandb

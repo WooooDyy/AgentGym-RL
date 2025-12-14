@@ -55,7 +55,7 @@ rm -f $FLASH_ATTENTION_NAME
 pip install -e AgentGym-RL
 pip install -e AgentGym/agentenv
 pip install -e AgentGym/agentenv-sciworld
-pip install vllm==0.6.3 transformers==4.51.3 tokenizers
+pip install vllm==0.6.3 transformers==4.51.3 tokenizers peft==0.17.1
 
 # Use scratch for models
 export DIRPATH_SAVES_SCRATCH="/scratch/${USER}/agentgym_rl_AgentGym-RL_saves"
@@ -92,5 +92,9 @@ scp -r AgentGym-RL/AgentItemId riv:~/agentgym_rl/AgentGym-RL
 #     __version_tuple__ = (0, 0, __version__)
 
 
-conda remove gcc gxx libstdcxx-ng # nope. Need to module load gcc/14
-pip install click==8.0.1 # click 8.3* breaks ray
+# conda remove gcc gxx libstdcxx-ng # nope. Need to module load gcc/14
+pip install click==8.0.1 weave # click 8.3* breaks ray
+conda install -c pytorch -c nvidia -c rapidsai -c conda-forge libnvjitlink faiss-gpu-cuvs=1.13.1
+bash examples/eval/sciworld_eval.sh |& tee log_eval_512gb_80gb_3b_n8.log
+pip install faiss-gpu-cu12 sentence_transformers
+bash scripts/local/train/train_3b_memory.sh
