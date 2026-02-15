@@ -8,7 +8,7 @@ AgentGym-RL is a new framework to train LLM agents for **multi-turn** interactiv
 ![](./assets/main_performance.jpg)
 
 ## 🔔 News
-
+- **🏆[2026-02-06]** Our paper has been accepted to ICLR 2026 as an Oral presentation!
 - **🎉[2025-09-10]** You can develop your custom environment to AgentGym and perform RL! The tutorial is [here](https://github.com/WooooDyy/AgentGym/blob/main/docs/tutorials/en/05-2nd-Development.md).
 - **🥳[2025-09-10]** Our paper is released on arXiv: [AgentGym-RL: Training LLM Agents for Long-Horizon Decision Making through Multi-Turn Reinforcement Learning](https://arxiv.org/abs/2509.08755)
 - **🍺[2025-09-10]** Our RL dataset and benchmark are available on Hugging Face: [AgentGym-RL-Data-ID](https://huggingface.co/datasets/AgentGym/AgentGym-RL-Data-ID)
