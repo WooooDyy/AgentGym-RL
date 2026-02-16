@@ -123,6 +123,12 @@ Moreover, ScalingInter-RL demonstrates more **stable and effcient** training dyn
 
 We recommend using CUDA 12.4, PyTorch 2.4, and Python 3.10. First, install the requirements using the following command:
 ```sh
+
+git clone https://github.com/WooooDyy/AgentGym-RL.git
+cd AgentGym-RL
+git submodule update --init --recursive
+
+
 echo "Preparing environment for agentgym-rl..."
 conda create -n agentgym-rl python==3.10 -y
 conda activate agentgym-rl
@@ -134,8 +140,10 @@ wget -q $FLASH_ATTENTION_URL -O $FLASH_ATTENTION_NAME
 pip3 install $FLASH_ATTENTION_NAME
 rm -f $FLASH_ATTENTION_NAME
 # for RL
+
 cd AgentGym-RL
 pip3 install -e .
+cd ..
 # for agentgym
 echo "Preparing environment for agentenv..."
 cd AgentGym/agentenv
