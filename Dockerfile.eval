@@ -1,0 +1,52 @@
+# Evaluation Dockerfile for AgentGym-RL
+# Lightweight image for running evaluations against environment servers
+#
+# Usage:
+#   docker build -f Dockerfile.eval -t agentgym/eval:latest .
+#   docker compose --profile eval up
+
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    wget \
+    git \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy agentenv core package
+COPY AgentGym/agentenv /app/agentenv
+RUN cd /app/agentenv && pip install -e .
+
+# Copy environment-specific client packages
+# SearchQA
+COPY AgentGym/agentenv-searchqa /app/agentenv-searchqa
+RUN cd /app/agentenv-searchqa && pip install -e . || true
+
+# BabyAI  
+COPY AgentGym/agentenv-babyai /app/agentenv-babyai
+RUN cd /app/agentenv-babyai && pip install -e . || true
+
+# SciWorld
+COPY AgentGym/agentenv-sciworld /app/agentenv-sciworld
+RUN cd /app/agentenv-sciworld && pip install -e . || true
+
+# Install additional dependencies for evaluation
+RUN pip install \
+    transformers \
+    jsonlines \
+    tqdm \
+    openai \
+    httpx \
+    aiohttp
+
+# Create eval directory
+RUN mkdir -p /app/eval_results
+
+WORKDIR /app
+
+# Default: show help
+CMD ["python", "-c", "print('AgentGym Evaluation Container. Mount your eval scripts and run.')"]

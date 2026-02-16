@@ -1,0 +1,183 @@
+# Docker Compose configuration for AgentGym-RL
+# Provides reproducible virtual environments for training, evaluation, and utilities
+#
+# Quick Start:
+#   docker compose --profile build up base    # Build base image
+#   docker compose --profile train up -d      # Start training environment
+#   docker compose --profile eval up          # Run evaluation
+#
+# For detailed usage, see DOCKER.md
+
+services:
+  # ============================================================================
+  # BASE IMAGES (build targets)
+  # ============================================================================
+  
+  base:
+    build:
+      context: .
+      dockerfile: docker/base.Dockerfile
+    image: agentgym-rl/base:latest
+    profiles: ["build"]
+  
+  # ============================================================================
+  # TRAINING SERVICES
+  # ============================================================================
+  
+  train:
+    build:
+      context: .
+      dockerfile: docker/train.Dockerfile
+    image: agentgym-rl/train:latest
+    container_name: agentgym-rl-train
+    profiles: ["train"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - WANDB_API_KEY=${WANDB_API_KEY:-}
+      - WANDB_MODE=${WANDB_MODE:-offline}
+      - VLLM_USE_MODELSCOPE=0
+      - VLLM_WORKER_MULTIPROC_METHOD=spawn
+      - VLLM_ATTENTION_BACKEND=XFORMERS
+      - PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+    volumes:
+      - ./models:/workspace/models
+      - ./saves:/workspace/saves
+      - ./data:/workspace/data
+      - ./AgentItemId:/workspace/AgentItemId
+      - ./AgentEval:/workspace/AgentEval
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+    shm_size: '16gb'
+    command: /bin/bash
+
+  # ============================================================================
+  # SCRIPTS/UTILITIES SERVICES  
+  # ============================================================================
+  
+  scripts:
+    build:
+      context: .
+      dockerfile: docker/scripts.Dockerfile
+    image: agentgym-rl/scripts:latest
+    container_name: agentgym-rl-scripts
+    profiles: ["scripts"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    stdin_open: true
+    tty: true
+
+  model-merger:
+    image: agentgym-rl/scripts:latest
+    container_name: agentgym-rl-model-merger
+    profiles: ["model-merger"]
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    volumes:
+      - ./saves:/workspace/saves
+      - ./models:/workspace/models
+    working_dir: /workspace
+    environment:
+      - LOCAL_DIR=${LOCAL_DIR:-saves/checkpoint}
+      - SAVE_DIR=${SAVE_DIR:-}
+      - HF_UPLOAD_PATH=${HF_UPLOAD_PATH:-}
+    command: >
+      python AgentGym-RL/scripts/model_merger.py
+      --local_dir ${LOCAL_DIR:-saves/checkpoint}
+
+  formatter:
+    image: agentgym-rl/scripts:latest
+    container_name: agentgym-rl-formatter
+    profiles: ["formatter"]
+    volumes:
+      - ./AgentGym-RL:/workspace/AgentGym-RL
+    working_dir: /workspace/AgentGym-RL
+    command: bash scripts/format.sh
+
+  # ============================================================================
+  # ENVIRONMENT SERVERS
+  # ============================================================================
+
+  env-server:
+    build:
+      context: ./AgentGym/agentenv-${ENV:-searchqa}
+      dockerfile: Dockerfile
+    image: agentgym/${ENV:-searchqa}:latest
+    container_name: agentgym-${ENV:-searchqa}
+    profiles: ["${ENV:-searchqa}", "env"]
+    ports:
+      - "${ENV_PORT:-36001}:${ENV_PORT:-36001}"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - SEARCHQA_FAISS_GPU=${SEARCHQA_FAISS_GPU:-false}
+    volumes:
+      - env-data:/app/data
+      - ./AgentGym/agentenv-${ENV:-searchqa}/retrieve_data:/app/retrieve_data
+    command: ${ENV:-searchqa} --host 0.0.0.0 --port ${ENV_PORT:-36001}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${ENV_PORT:-36001}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    restart: unless-stopped
+
+  # ============================================================================
+  # EVALUATION SERVICES
+  # ============================================================================
+
+  eval-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.eval
+    image: agentgym/eval:latest
+    container_name: agentgym-eval-${ENV:-searchqa}
+    depends_on:
+      env-server:
+        condition: service_healthy
+        required: false
+    profiles: ["eval"]
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL:-https://api.openai.com/v1}
+      - MODEL_NAME=${MODEL_NAME:-gpt-4o-mini}
+      - ENV=${ENV:-searchqa}
+      - ENV_PORT=${ENV_PORT:-36001}
+      - ENV_SERVER_BASE=${ENV_SERVER_BASE:-http://env-server:36001}
+      - MAX_ROUND=${MAX_ROUND:-10}
+      - INFERENCE_FILE=${INFERENCE_FILE:-${ENV:-searchqa}_eval_sample.json}
+    volumes:
+      - ./${ENV:-searchqa}:/app/${ENV:-searchqa}
+      - eval-results:/app/${ENV:-searchqa}/eval_results_${ENV:-searchqa}
+    working_dir: /app/${ENV:-searchqa}
+    command: >
+      python eval_${ENV:-searchqa}.py
+      --inference_file ${INFERENCE_FILE:-${ENV:-searchqa}_eval_sample.json}
+      --output_dir eval_results_${ENV:-searchqa}
+      --model ${MODEL_NAME:-gpt-4o-mini}
+      --max_round ${MAX_ROUND:-10}
+      --env_server_base ${ENV_SERVER_BASE:-http://env-server:${ENV_PORT:-36001}}
+
+volumes:
+  env-data:
+  eval-results:
