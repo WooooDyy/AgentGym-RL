@@ -15,7 +15,7 @@ AgentGym-RL is a new framework to train LLM agents for **multi-turn** interactiv
 
 ## 🌟 Overview
 
-Developing autonomous LLM agents capable of making a series of intelligent decisioiins to solve complex, real-world tasks is a fast-evolving frontier. Merely relying on human demonstration for behaviour cloning can make agents competent for tasks, but rarely leads to genuine breakthoughs. As Richard Sutton emphasizes, it is the knowledge, skills and experience acquired through exploration and interaction with the environment that truly drives agents forward. Therefore, a promising approach is to train these agents using Reinforcement Learning.
+Developing autonomous LLM agents capable of making a series of intelligent decisions to solve complex, real-world tasks is a fast-evolving frontier. Merely relying on human demonstration for behaviour cloning can make agents competent for tasks, but rarely leads to genuine breakthroughs. As Richard Sutton emphasizes, it is the knowledge, skills and experience acquired through exploration and interaction with the environment that truly drives agents forward. Therefore, a promising approach is to train these agents using Reinforcement Learning.
 
 Most existing studies remain limited to single-turn tasks like math and coding. Recent attempts to extend RL to train LLM agents with multi-turn capabilities face notable challenges:
 
@@ -138,6 +138,8 @@ cd AgentGym-RL
 pip3 install -e .
 # for agentgym
 echo "Preparing environment for agentenv..."
+git submodule init
+git submodule update
 cd AgentGym/agentenv
 pip3 install -e .
 pip3 install transformers==4.51.3
