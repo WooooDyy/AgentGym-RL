@@ -73,7 +73,7 @@ def _is_float(num: str) -> bool:
 def _is_int(x: float) -> bool:
     try:
         return abs(x - int(round(x))) <= 1e-7
-    except:
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
@@ -86,7 +86,7 @@ def _str_is_int(x: str) -> bool:
         x = _strip_properly_formatted_commas(x)
         x = float(x)
         return abs(x - int(round(x))) <= 1e-7
-    except:
+    except (ValueError, TypeError, OverflowError):
         return False
 
 
