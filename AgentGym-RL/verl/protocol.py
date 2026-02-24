@@ -34,7 +34,7 @@ __all__ = ['DataProto', 'union_tensor_dict']
 
 try:
     tensordict.set_lazy_legacy(False).set()
-except:
+except (AttributeError, ImportError):
     pass
 
 

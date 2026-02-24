@@ -103,7 +103,7 @@ if __name__ == '__main__':
         for model_state_dict in model_state_dict_lst:
             try:
                 tensor = model_state_dict.pop(key)
-            except:
+            except KeyError:
                 print("-"*30)
                 print(model_state_dict)
             if isinstance(tensor, DTensor):
