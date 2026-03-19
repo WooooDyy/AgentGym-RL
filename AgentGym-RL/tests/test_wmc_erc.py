@@ -135,18 +135,23 @@ class TestApplyWmcErc(unittest.TestCase):
     def test_observation_mask_drives_h_wm_and_wm_nll(self):
         response_mask = torch.tensor([[1, 1, 1, 0, 0]], dtype=torch.float32)
         advantages = torch.ones(1, 5, dtype=torch.float32)
-        old_log_probs = torch.tensor([[np.log(0.5), np.log(0.5), np.log(0.5), np.log(0.4), np.log(0.9)]], dtype=torch.float32)
-        entropys = torch.tensor([[1.0, 1.0, 1.0, 3.0, 8.0]], dtype=torch.float32)
+        old_log_probs = torch.tensor([[np.log(0.5), np.log(0.5), np.log(0.5), np.log(0.2), np.log(0.9)]], dtype=torch.float32)
+        entropys = torch.tensor([[1.0, 1.0, 1.0, 7.0, 8.0]], dtype=torch.float32)
         attention_mask = torch.tensor([[1, 1, 1, 1, 0]], dtype=torch.float32)
-        batch = self._make_batch(advantages, response_mask, old_log_probs, attention_mask)
+        explicit_observation_mask = torch.tensor([[0, 0, 0, 1, 0]], dtype=torch.float32)
+        batch = self._make_batch(advantages,
+                                 response_mask,
+                                 old_log_probs,
+                                 attention_mask,
+                                 observation_mask=explicit_observation_mask)
 
         config = {"enable": True, "mu_base": 10.0, "mu_exp": 10.0, "eta_wm": 1.0, "lambda_wm": 0.0, "clipping_type": "batch"}
         running_stats = {"initialized": False}
 
         _, metrics = apply_wmc_erc(batch, entropys, config, running_stats)
 
-        self.assertAlmostEqual(metrics["wmc_erc/batch_h_bar"], 3.0, places=5)
-        self.assertAlmostEqual(metrics["wmc_erc/wm_nll"], -np.log(0.4), places=5)
+        self.assertAlmostEqual(metrics["wmc_erc/batch_h_bar"], 7.0, places=5)
+        self.assertAlmostEqual(metrics["wmc_erc/wm_nll"], -np.log(0.2), places=5)
 
 
 if __name__ == "__main__":

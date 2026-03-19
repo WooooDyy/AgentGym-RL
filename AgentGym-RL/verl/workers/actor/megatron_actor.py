@@ -24,6 +24,7 @@ from megatron.core.pipeline_parallel import get_forward_backward_func
 
 from verl import DataProto
 from verl.agent_trainer.ppo import core_algos
+from verl.agent_trainer.ppo.world_model_loss import compute_world_model_loss
 from verl.utils.megatron.pipeline_parallel import compute_transformers_input_shapes, make_batch_generator
 from verl.utils.megatron.tensor_parallel import vocab_parallel_entropy, vocab_parallel_log_probs_from_logits
 from verl.utils.py_functional import append_to_dict
@@ -109,8 +110,7 @@ class MegatronPPOActor(BasePPOActor):
         temperature = data.meta_info["temperature"]
         return_entropy = data.meta_info.get("return_entropy", False)
 
-        select_keys = ["responses", "input_ids", "attention_mask", "position_ids"]
-        batch = data.select(batch_keys=select_keys).batch
+        batch = data.select(batch_keys=["responses", "input_ids", "attention_mask", "position_ids"]).batch
         batch_size = batch.batch_size[0]
         response_length = batch["responses"].shape[1]
 
@@ -221,12 +221,12 @@ class MegatronPPOActor(BasePPOActor):
                     metric_dict["actor/kl_coef"] = self.config.kl_loss_coef
 
                 if world_model_coeff > 0:
-                    response_length_local = response_mask.shape[1]
-                    observation_mask = micro_batch["attention_mask"][:, -response_length_local:].float() * (
-                        1.0 - response_mask.float()
-                    )
-                    if observation_mask.any().item():
-                        wm_sft_loss = -verl_F.masked_mean(log_prob, observation_mask)
+                    explicit_observation_mask = micro_batch["observation_mask"] if "observation_mask" in micro_batch.keys() else None
+                    wm_sft_loss, _ = compute_world_model_loss(log_prob=log_prob,
+                                                              attention_mask=micro_batch["attention_mask"],
+                                                              response_mask=response_mask,
+                                                              observation_mask=explicit_observation_mask)
+                    if wm_sft_loss is not None:
                         policy_loss = policy_loss + world_model_coeff * wm_sft_loss
                         metric_dict["actor/wm_sft_loss"] = wm_sft_loss.detach().item()
                         metric_dict["actor/world_model_coeff"] = world_model_coeff

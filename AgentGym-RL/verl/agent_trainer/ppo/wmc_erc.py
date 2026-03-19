@@ -11,6 +11,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 import torch
 
+from verl.agent_trainer.ppo.world_model_loss import compute_observation_mask
 import verl.utils.torch_functional as verl_F
 
 
@@ -159,9 +160,10 @@ def apply_wmc_erc(
     old_log_probs = batch.batch["old_log_probs"]
     advantages = batch.batch["advantages"]
 
-    response_length = advantages.shape[1]
-    attention_mask_response = batch.batch["attention_mask"][:, -response_length:]
-    observation_mask = attention_mask_response * (1.0 - response_mask)
+    explicit_observation_mask = batch.batch["observation_mask"] if "observation_mask" in batch.batch.keys() else None
+    observation_mask = compute_observation_mask(attention_mask=batch.batch["attention_mask"],
+                                                response_mask=response_mask,
+                                                observation_mask=explicit_observation_mask)
 
     turn_boundaries = compute_turn_boundaries(response_mask)
     s_star = compute_s_star(old_log_probs, entropys, response_mask, turn_boundaries)

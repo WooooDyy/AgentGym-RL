@@ -24,6 +24,7 @@ from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
 
 from verl import DataProto
 from verl.agent_trainer.ppo import core_algos
+from verl.agent_trainer.ppo.world_model_loss import compute_world_model_loss
 from verl.workers.agent_actor import BasePPOActor
 from verl.utils.py_functional import append_to_dict
 from verl.utils.torch_functional import logprobs_from_logits, masked_mean
@@ -220,6 +221,8 @@ class DataParallelPPOActor(BasePPOActor):
         select_keys = ['input_ids', 'attention_mask', 'position_ids', 'old_log_probs', 'advantages', 'responses', 'response_mask']
         if self.config.use_kl_loss:
             select_keys.append('ref_log_prob')
+        if world_model_coeff > 0 and 'observation_mask' in data.batch.keys():
+            select_keys.append('observation_mask')
         batch = data.select(batch_keys=select_keys).batch
 
         # Split to make minibatch iterator for updating the actor
@@ -276,10 +279,12 @@ class DataParallelPPOActor(BasePPOActor):
                     metrics['actor/kl_coef'] = self.config.kl_loss_coef
 
                 if world_model_coeff > 0:
-                    response_length = response_mask.shape[1]
-                    observation_mask = data['attention_mask'][:, -response_length:].float() * (1.0 - response_mask.float())
-                    if observation_mask.any().item():
-                        wm_sft_loss = -verl_F.masked_mean(log_prob, observation_mask)
+                    explicit_observation_mask = data['observation_mask'] if 'observation_mask' in data.keys() else None
+                    wm_sft_loss, _ = compute_world_model_loss(log_prob=log_prob,
+                                                              attention_mask=data['attention_mask'],
+                                                              response_mask=response_mask,
+                                                              observation_mask=explicit_observation_mask)
+                    if wm_sft_loss is not None:
                         policy_loss = policy_loss + world_model_coeff * wm_sft_loss
                         metrics['actor/wm_sft_loss'] = wm_sft_loss.detach().item()
                         metrics['actor/world_model_coeff'] = world_model_coeff
