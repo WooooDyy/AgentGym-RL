@@ -488,8 +488,13 @@ class ActorRolloutRefWorker(Worker):
         with self.ulysses_sharding_manager:
             data = self.ulysses_sharding_manager.preprocess_data(data)
             output = self.actor.compute_log_prob(data=data)
-            output = DataProto.from_dict(tensors={'old_log_probs': output},
-                                         meta_info={'temperature': self.config.rollout.temperature})
+            if isinstance(output, tuple):
+                log_probs, entropys = output
+                output = DataProto.from_dict(tensors={'old_log_probs': log_probs, 'entropys': entropys},
+                                             meta_info={'temperature': self.config.rollout.temperature})
+            else:
+                output = DataProto.from_dict(tensors={'old_log_probs': output},
+                                             meta_info={'temperature': self.config.rollout.temperature})
             output = self.ulysses_sharding_manager.postprocess_data(output)
 
         output = output.to('cpu')

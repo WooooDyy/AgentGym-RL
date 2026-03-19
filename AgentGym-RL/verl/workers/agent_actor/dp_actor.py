@@ -150,7 +150,7 @@ class DataParallelPPOActor(BasePPOActor):
         self.actor_optimizer.step()
         return grad_norm
 
-    def compute_log_prob(self, data: DataProto) -> torch.Tensor:
+    def compute_log_prob(self, data: DataProto):
         """Compute the log probability of the responses given input_ids, attention_mask and position_ids
 
         Args:
@@ -166,7 +166,8 @@ class DataParallelPPOActor(BasePPOActor):
                 ``responses``:  tensor of shape [batch_size, response_length]. torch.int64.
 
         Returns:
-            torch.Tensor: the log_prob tensor
+            torch.Tensor or Tuple[torch.Tensor, torch.Tensor]: log_prob tensor and,
+            optionally, entropy tensor over response tokens.
         """
         # set to eval
         self.actor_module.eval()
@@ -174,6 +175,7 @@ class DataParallelPPOActor(BasePPOActor):
         micro_batch_size = data.meta_info['micro_batch_size']
         temperature = data.meta_info['temperature']  # temperature must be in the data.meta_info to avoid slient error
         use_dynamic_bsz = data.meta_info['use_dynamic_bsz']
+        return_entropy = data.meta_info.get('return_entropy', False)
 
         select_keys = ['responses', 'input_ids', 'attention_mask', 'position_ids']
         batch = data.select(batch_keys=select_keys).batch
@@ -186,18 +188,26 @@ class DataParallelPPOActor(BasePPOActor):
             micro_batches = batch.split(micro_batch_size)
 
         log_probs_lst = []
+        entropy_lst = []
         for micro_batch in micro_batches:
             with torch.no_grad():
-                _, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature)
+                entropy, log_probs = self._forward_micro_batch(micro_batch, temperature=temperature)
             log_probs_lst.append(log_probs)
+            if return_entropy:
+                entropy_lst.append(entropy)
         log_probs = torch.concat(log_probs_lst, dim=0)
+        entropys = torch.concat(entropy_lst, dim=0) if return_entropy else None
 
         if use_dynamic_bsz:
             indices = list(itertools.chain.from_iterable(indices))
             assert len(indices) == log_probs.size(0), f"{len(indices)} vs. {log_probs.size()}"
             revert_indices = torch.tensor(get_reverse_idx(indices), dtype=torch.long)
             log_probs = log_probs[revert_indices]
+            if return_entropy:
+                entropys = entropys[revert_indices]
 
+        if return_entropy:
+            return log_probs, entropys
         return log_probs
 
     def update_policy(self, data: DataProto):
@@ -205,6 +215,7 @@ class DataParallelPPOActor(BasePPOActor):
         self.actor_module.train()
 
         temperature = data.meta_info['temperature']  # temperature must be in the data.meta_info to avoid slient error
+        world_model_coeff = self.config.get('world_model_coeff', 0.0)
 
         select_keys = ['input_ids', 'attention_mask', 'position_ids', 'old_log_probs', 'advantages', 'responses', 'response_mask']
         if self.config.use_kl_loss:
@@ -263,6 +274,15 @@ class DataParallelPPOActor(BasePPOActor):
                     policy_loss = policy_loss + kl_loss * self.config.kl_loss_coef
                     metrics['actor/kl_loss'] = kl_loss.detach().item()
                     metrics['actor/kl_coef'] = self.config.kl_loss_coef
+
+                if world_model_coeff > 0:
+                    response_length = response_mask.shape[1]
+                    observation_mask = data['attention_mask'][:, -response_length:].float() * (1.0 - response_mask.float())
+                    if observation_mask.any().item():
+                        wm_sft_loss = -verl_F.masked_mean(log_prob, observation_mask)
+                        policy_loss = policy_loss + world_model_coeff * wm_sft_loss
+                        metrics['actor/wm_sft_loss'] = wm_sft_loss.detach().item()
+                        metrics['actor/world_model_coeff'] = world_model_coeff
 
                 if self.config.use_dynamic_bsz:
                     # relative to the dynamic bsz

@@ -15,7 +15,7 @@
 The base class for Actor
 """
 from abc import ABC, abstractmethod
-from typing import Iterable, Dict
+from typing import Iterable, Dict, Tuple, Union
 
 from verl import DataProto
 import torch
@@ -36,7 +36,7 @@ class BasePPOActor(ABC):
         self.config = config
 
     @abstractmethod
-    def compute_log_prob(self, data: DataProto) -> torch.Tensor:
+    def compute_log_prob(self, data: DataProto) -> Union[torch.Tensor, Tuple[torch.Tensor, torch.Tensor]]:
         """Compute logits given a batch of data.
 
         Args:
@@ -44,7 +44,8 @@ class BasePPOActor(ABC):
                 ```attention_mask``` and ```position_ids```.
 
         Returns:
-            DataProto: a DataProto containing the key ```log_probs```
+            torch.Tensor or Tuple[torch.Tensor, torch.Tensor]: response-token
+            log probabilities and, optionally, response-token entropies.
 
 
         """
