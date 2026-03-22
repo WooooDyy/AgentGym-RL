@@ -31,7 +31,7 @@ total_epoches=60
 
 model_save_dir="saves"
 mkdir -p ${model_save_dir}
-exp_name="grpo_${pure_agent_model_name}"
+exp_name="wmc_erc_${pure_agent_model_name}"
 model_save_path=${model_save_dir}/${exp_name}
 
 mkdir -p ${model_save_path}
@@ -62,6 +62,14 @@ HYDRA_FULL_ERROR=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=o
     actor_rollout_ref.actor.ppo_micro_batch_size_per_gpu=${ppo_micro_batch_size_per_gpu} \
     actor_rollout_ref.rollout.rollout_log_dir=${model_save_path}/executer_logs \
     algorithm.kl_ctrl.kl_coef=${kl_coef} \
+    wmc_erc.enable=True \
+    wmc_erc.mu_base=1.0 \
+    wmc_erc.mu_exp=2.0 \
+    wmc_erc.eta_wm=3.0 \
+    wmc_erc.lambda_wm=1.0 \
+    wmc_erc.clipping_type=global \
+    wmc_erc.clipping_method=mask \
+    wmc_erc.momentum=0.9 \
     trainer.default_local_dir=${model_save_path} \
     trainer.project_name=agentgym-textcraft \
     trainer.experiment_name=${exp_name} \
