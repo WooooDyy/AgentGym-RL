@@ -815,6 +815,7 @@ class RayPPOTrainer(object):
                         batch.meta_info['return_entropy'] = bool(self.wmc_erc_config and self.wmc_erc_config.get('enable', False))
                         old_log_prob = self.actor_rollout_wg.compute_log_prob(batch)
                         batch = batch.union(old_log_prob)
+                        batch.meta_info['return_entropy'] = False
 
                     if self.use_reference_policy:
                         # compute reference log_prob
