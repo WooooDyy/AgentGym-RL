@@ -112,6 +112,7 @@ def compute_dynamic_mask(
     s_bar: float,
     sigma: float,
     clipping_method: str = "mask",
+    h_bar: float = None,
 ) -> List[List[float]]:
     """Compute per-turn dynamic entropy mask or soft clipping coefficient."""
     mask_per_sample: List[List[float]] = []
@@ -133,6 +134,24 @@ def compute_dynamic_mask(
 
             if clipping_method == "mask":
                 m_t = 1.0 if diff <= threshold else 0.0
+            elif clipping_method == "sigmoid":
+                dh = np.clip(h_t - h_bar, -2.0, 2.0)
+                tau = sigma * 0.2 + 1e-8
+                delta = s_t - s_bar
+                if delta > 0:
+                    width = mu_base * np.exp(-lambda_wm * dh) * sigma
+                    m_t = 1.0 / (1.0 + np.exp(max(-500, min(500, (delta - width) / tau))))
+                else:
+                    width = mu_exp * np.exp(lambda_wm * dh) * sigma
+                    m_t = 1.0 / (1.0 + np.exp(max(-500, min(500, (-delta - width) / tau))))
+            elif clipping_method == "gaussian":
+                dh = np.clip(h_t - h_bar, -2.0, 2.0)
+                delta = s_t - s_bar
+                if delta > 0:
+                    width = mu_base * np.exp(-lambda_wm * dh) * sigma
+                else:
+                    width = mu_exp * np.exp(lambda_wm * dh) * sigma
+                m_t = np.exp(-0.5 * delta ** 2 / (width ** 2 + 1e-8))
             else:
                 m_t = min(1.0, threshold / (diff + 1e-8))
 
@@ -211,11 +230,15 @@ def apply_wmc_erc(
         s_bar=use_s_bar,
         sigma=use_s_std,
         clipping_method=clipping_method,
+        h_bar=float(running_stats["h_bar"]),
     )
 
     for sample_idx, sample_turns in enumerate(turn_boundaries):
         for turn_idx, (start, end) in enumerate(sample_turns):
-            advantages[sample_idx, start:end] *= mask[sample_idx][turn_idx]
+            m_t = mask[sample_idx][turn_idx]
+            turn_adv = advantages[sample_idx, start:end]
+            scale = torch.where(turn_adv >= 0, m_t, np.sqrt(m_t))
+            advantages[sample_idx, start:end] = turn_adv * scale
     batch.batch["advantages"] = advantages
 
     all_m = [coef for sample_mask in mask for coef in sample_mask]
