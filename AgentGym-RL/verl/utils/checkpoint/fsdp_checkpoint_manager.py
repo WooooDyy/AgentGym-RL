@@ -93,7 +93,13 @@ class FSDPCheckpointManager(BaseCheckpointManager):
         if self.lr_scheduler is not None:
             self.lr_scheduler.load_state_dict(lr_scheduler_state_dict)
 
-    def save_checkpoint(self, local_path: str, global_step: int, remove_previous_ckpt=False, *args, **kwargs):
+    def save_checkpoint(self,
+                        local_path: str,
+                        global_step: int,
+                        remove_previous_ckpt=False,
+                        max_ckpt_to_keep=None,
+                        *args,
+                        **kwargs):
         # record the previous global step
         self.previous_global_step = global_step
 
@@ -146,4 +152,9 @@ class FSDPCheckpointManager(BaseCheckpointManager):
 
         torch.distributed.barrier()
 
+        if remove_previous_ckpt:
+            self.saved_local_paths.clear()
+
+        self.saved_local_paths.append(local_path)
+        self.trim_old_local_paths(max_ckpt_to_keep=max_ckpt_to_keep)
         self.previous_save_local_path = local_path

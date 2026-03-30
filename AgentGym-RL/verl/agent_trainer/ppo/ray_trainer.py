@@ -634,7 +634,8 @@ class RayPPOTrainer(object):
         self.actor_rollout_wg.save_checkpoint(actor_local_path,
                                               actor_remote_path,
                                               self.global_steps,
-                                              remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save)
+                                              remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save,
+                                              max_ckpt_to_keep=self.config.trainer.max_local_ckpt_to_keep)
 
         if self.use_critic:
             critic_local_path = os.path.join(local_global_step_folder, 'critic')
@@ -643,7 +644,8 @@ class RayPPOTrainer(object):
             self.critic_wg.save_checkpoint(critic_local_path,
                                            critic_remote_path,
                                            self.global_steps,
-                                           remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save)
+                                           remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save,
+                                           max_ckpt_to_keep=self.config.trainer.max_local_ckpt_to_keep)
 
         # save dataloader
         dataloader_local_path = os.path.join(local_global_step_folder, 'data.pt')

@@ -204,6 +204,7 @@ trainer:
   critic_warmup: 0
   default_hdfs_dir: null
   remove_previous_ckpt_in_save: False
+  max_local_ckpt_to_keep: null
   del_local_ckpt_after_load: False
   default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
   storage_mode: local

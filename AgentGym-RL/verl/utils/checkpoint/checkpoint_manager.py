@@ -13,6 +13,7 @@
 # limitations under the License.
 import os
 import shutil
+from collections import deque
 from filelock import FileLock
 import tempfile
 
@@ -43,6 +44,7 @@ class BaseCheckpointManager:
                  lr_scheduler: torch.optim.lr_scheduler.LRScheduler, tokenizer: PreTrainedTokenizer):
         self.previous_global_step = None
         self.previous_save_local_path = None
+        self.saved_local_paths = deque()
 
         self.model = model
         self.optimizer = optimizer
@@ -70,6 +72,20 @@ class BaseCheckpointManager:
 
         # remove previous local_path
         shutil.rmtree(abs_path, ignore_errors=True)
+        self.saved_local_paths = deque(
+            path for path in self.saved_local_paths
+            if os.path.abspath(path) != abs_path
+        )
+
+    def trim_old_local_paths(self, max_ckpt_to_keep: int | None):
+        if max_ckpt_to_keep is None or max_ckpt_to_keep <= 0:
+            return
+
+        while len(self.saved_local_paths) > max_ckpt_to_keep:
+            old_path = self.saved_local_paths.popleft()
+            abs_path = os.path.abspath(old_path)
+            print(f'Checkpoint manager remove old local path: {abs_path}')
+            shutil.rmtree(abs_path, ignore_errors=True)
 
     @staticmethod
     def local_mkdir(path):
