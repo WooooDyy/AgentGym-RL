@@ -150,6 +150,10 @@ class TestApplyWmcErc(unittest.TestCase):
 
         _, metrics = apply_wmc_erc(batch, entropys, config, running_stats)
 
+        self.assertIn("wmc_erc/s_star_mean", metrics)
+        self.assertIn("wmc_erc/s_star_std", metrics)
+        self.assertIn("wmc_erc/h_wm_mean", metrics)
+        self.assertIn("wmc_erc/num_masked_turns", metrics)
         self.assertAlmostEqual(metrics["wmc_erc/batch_h_bar"], 7.0, places=5)
         self.assertAlmostEqual(metrics["wmc_erc/wm_nll"], -np.log(0.2), places=5)
 

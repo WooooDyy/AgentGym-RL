@@ -113,7 +113,7 @@ def compute_dynamic_mask(
     sigma: float,
     clipping_method: str = "mask",
 ) -> List[List[float]]:
-    """Compute per-turn dynamic entropy mask or soft clipping coefficient."""
+    """Compute per-turn dynamic entropy mask or clipping coefficient."""
     mask_per_sample: List[List[float]] = []
 
     for sample_idx in range(len(s_star_per_sample)):
@@ -233,7 +233,12 @@ def apply_wmc_erc(
     env_count = env_mask.sum()
     wm_nll = (-(old_log_probs * env_mask).sum() / (env_count + 1e-8)).item() if env_count > 0 else 0.0
 
+    num_masked_turns = sum(1 for coef in all_m if coef == 0.0)
+
     metrics = {
+        "wmc_erc/s_star_mean": float(np.mean(all_s)) if all_s else 0.0,
+        "wmc_erc/s_star_std": float(np.std(all_s)) if all_s else 0.0,
+        "wmc_erc/h_wm_mean": float(np.mean(all_h)) if all_h else 0.0,
         "wmc_erc/batch_s_bar": float(batch_s_bar),
         "wmc_erc/batch_s_std": float(batch_s_std),
         "wmc_erc/batch_h_bar": float(batch_h_bar),
@@ -241,6 +246,7 @@ def apply_wmc_erc(
         "wmc_erc/running_s_std": float(running_stats["s_std"]),
         "wmc_erc/running_h_bar": float(running_stats["h_bar"]),
         "wmc_erc/mask_ratio": float(np.mean(all_m)) if all_m else 1.0,
+        "wmc_erc/num_masked_turns": num_masked_turns,
         "wmc_erc/num_violated_turns": sum(1 for coef in all_m if coef < 1.0),
         "wmc_erc/num_collapsing_violated": num_collapsing_violated,
         "wmc_erc/num_exploration_violated": num_exploration_violated,
