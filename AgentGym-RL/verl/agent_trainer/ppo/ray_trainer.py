@@ -32,6 +32,7 @@ from verl.single_controller.base import Worker
 from verl.single_controller.ray import RayResourcePool, RayWorkerGroup, RayClassWithInitArgs
 from verl.single_controller.ray.base import create_colocated_worker_cls
 from verl.agent_trainer.ppo import core_algos
+from verl.agent_trainer.ppo.wmc_erc import apply_wmc_erc
 from verl.utils.seqlen_balancing import get_seqlen_balanced_partitions, log_seqlen_unbalance
 from verl.utils.checkpoint.checkpoint_manager import find_latest_ckpt_path
 from verl.utils.agent_dataset.rl_dataset import RLHFDataset, collate_fn
@@ -403,6 +404,8 @@ class RayPPOTrainer(object):
         self.resource_pool_manager = resource_pool_manager
         self.use_reference_policy = Role.RefPolicy in role_worker_mapping
         self.ray_worker_group_cls = ray_worker_group_cls
+        self.wmc_erc_config = OmegaConf.select(config, 'wmc_erc', default=None)
+        self.wmc_erc_running_stats = {'initialized': False}
 
         # define KL control
         if self.use_reference_policy:
@@ -631,7 +634,8 @@ class RayPPOTrainer(object):
         self.actor_rollout_wg.save_checkpoint(actor_local_path,
                                               actor_remote_path,
                                               self.global_steps,
-                                              remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save)
+                                              remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save,
+                                              max_ckpt_to_keep=self.config.trainer.max_local_ckpt_to_keep)
 
         if self.use_critic:
             critic_local_path = os.path.join(local_global_step_folder, 'critic')
@@ -640,7 +644,8 @@ class RayPPOTrainer(object):
             self.critic_wg.save_checkpoint(critic_local_path,
                                            critic_remote_path,
                                            self.global_steps,
-                                           remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save)
+                                           remove_previous_ckpt=self.config.trainer.remove_previous_ckpt_in_save,
+                                           max_ckpt_to_keep=self.config.trainer.max_local_ckpt_to_keep)
 
         # save dataloader
         dataloader_local_path = os.path.join(local_global_step_folder, 'data.pt')
@@ -809,8 +814,10 @@ class RayPPOTrainer(object):
 
                     # recompute old_log_probs
                     with _timer('old_log_prob', timing_raw):
+                        batch.meta_info['return_entropy'] = bool(self.wmc_erc_config and self.wmc_erc_config.get('enable', False))
                         old_log_prob = self.actor_rollout_wg.compute_log_prob(batch)
                         batch = batch.union(old_log_prob)
+                        batch.meta_info['return_entropy'] = False
 
                     if self.use_reference_policy:
                         # compute reference log_prob
@@ -844,6 +851,15 @@ class RayPPOTrainer(object):
                                                   gamma=self.config.algorithm.gamma,
                                                   lam=self.config.algorithm.lam,
                                                   num_repeat=self.config.actor_rollout_ref.rollout.n)
+
+                        if self.wmc_erc_config and self.wmc_erc_config.get('enable', False) and 'entropys' in batch.batch.keys():
+                            batch, wmc_metrics = apply_wmc_erc(batch=batch,
+                                                               entropys=batch.batch['entropys'],
+                                                               wmc_erc_config=self.wmc_erc_config,
+                                                               running_stats=self.wmc_erc_running_stats)
+                            metrics.update(wmc_metrics)
+                        if 'entropys' in batch.batch.keys():
+                            batch.batch.pop('entropys')
 
                     # update critic
                     if self.use_critic:

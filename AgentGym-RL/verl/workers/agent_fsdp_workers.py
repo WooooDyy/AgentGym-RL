@@ -488,8 +488,13 @@ class ActorRolloutRefWorker(Worker):
         with self.ulysses_sharding_manager:
             data = self.ulysses_sharding_manager.preprocess_data(data)
             output = self.actor.compute_log_prob(data=data)
-            output = DataProto.from_dict(tensors={'old_log_probs': output},
-                                         meta_info={'temperature': self.config.rollout.temperature})
+            if isinstance(output, tuple):
+                log_probs, entropys = output
+                output = DataProto.from_dict(tensors={'old_log_probs': log_probs, 'entropys': entropys},
+                                             meta_info={'temperature': self.config.rollout.temperature})
+            else:
+                output = DataProto.from_dict(tensors={'old_log_probs': output},
+                                             meta_info={'temperature': self.config.rollout.temperature})
             output = self.ulysses_sharding_manager.postprocess_data(output)
 
         output = output.to('cpu')
@@ -536,7 +541,12 @@ class ActorRolloutRefWorker(Worker):
         return output
 
     @register(dispatch_mode=Dispatch.ONE_TO_ALL)
-    def save_checkpoint(self, local_path, hdfs_path=None, global_step=0, remove_previous_ckpt=False):
+    def save_checkpoint(self,
+                        local_path,
+                        hdfs_path=None,
+                        global_step=0,
+                        remove_previous_ckpt=False,
+                        max_ckpt_to_keep=None):
         # only support save and load ckpt for actor
         assert self._is_actor
         import torch
@@ -548,7 +558,8 @@ class ActorRolloutRefWorker(Worker):
         self.checkpoint_manager.save_checkpoint(local_path=local_path,
                                                 hdfs_path=hdfs_path,
                                                 global_step=global_step,
-                                                remove_previous_ckpt=remove_previous_ckpt)
+                                                remove_previous_ckpt=remove_previous_ckpt,
+                                                max_ckpt_to_keep=max_ckpt_to_keep)
 
         torch.distributed.barrier()
         if self._is_offload_param:
@@ -815,7 +826,12 @@ class CriticWorker(Worker):
         return output
 
     @register(dispatch_mode=Dispatch.ONE_TO_ALL)
-    def save_checkpoint(self, local_path, hdfs_path=None, global_step=0, remove_previous_ckpt=False):
+    def save_checkpoint(self,
+                        local_path,
+                        hdfs_path=None,
+                        global_step=0,
+                        remove_previous_ckpt=False,
+                        max_ckpt_to_keep=None):
         import torch
         if self._is_offload_param:
             load_fsdp_param_and_grad(module=self.critic_module,
@@ -825,7 +841,8 @@ class CriticWorker(Worker):
         self.checkpoint_manager.save_checkpoint(local_path=local_path,
                                                 hdfs_path=hdfs_path,
                                                 global_step=global_step,
-                                                remove_previous_ckpt=remove_previous_ckpt)
+                                                remove_previous_ckpt=remove_previous_ckpt,
+                                                max_ckpt_to_keep=max_ckpt_to_keep)
 
         torch.distributed.barrier()
         if self._is_offload_param:

@@ -388,10 +388,12 @@ class ActorRolloutRefWorker(MegatronWorker):
         if self._is_offload_param:
             load_megatron_param_and_grad(self.ref_module, torch.cuda.current_device(), self._is_offload_grad)
 
-        micro_batch_size = self.config.rollout.log_prob_micro_batch_size_per_gpu
+        micro_batch_size = self.config.ref.log_prob_micro_batch_size_per_gpu
         data.meta_info['micro_batch_size'] = micro_batch_size
         data.meta_info['temperature'] = self.config.rollout.temperature
         output = self.ref_policy.compute_log_prob(data=data)
+        if isinstance(output, tuple):
+            output = output[0]
         output = DataProto.from_dict(tensors={'ref_log_prob': output})
         output = output.to('cpu')
         if self._is_offload_param:
@@ -407,8 +409,14 @@ class ActorRolloutRefWorker(MegatronWorker):
         # we should always recompute old_log_probs when it is HybridEngine
         output.meta_info['micro_batch_size'] = self.config.rollout.log_prob_micro_batch_size_per_gpu
         output.meta_info['temperature'] = self.config.rollout.temperature
-        old_log_probs = self.actor.compute_log_prob(data=output)
-        output.batch['old_log_probs'] = old_log_probs
+        output = self.actor.compute_log_prob(data=output)
+        if isinstance(output, tuple):
+            log_probs, entropys = output
+            output = DataProto.from_dict(tensors={'old_log_probs': log_probs, 'entropys': entropys},
+                                         meta_info={'temperature': self.config.rollout.temperature})
+        else:
+            output = DataProto.from_dict(tensors={'old_log_probs': output},
+                                         meta_info={'temperature': self.config.rollout.temperature})
         output = output.to('cpu')
         # clear kv cache
         torch.cuda.empty_cache()

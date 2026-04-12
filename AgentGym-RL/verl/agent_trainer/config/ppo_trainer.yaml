@@ -32,6 +32,7 @@ actor_rollout_ref:
     use_kl_loss: False # True for GRPO
     kl_loss_coef: 0.001 # for grpo
     kl_loss_type: low_var_kl # for grpo
+    world_model_coeff: 0.0 # > 0 to add observation-token SFT auxiliary loss
     ppo_epochs: 1
     shuffle: False
     ulysses_sequence_parallel_size: 1 # sp size
@@ -176,6 +177,16 @@ algorithm:
     type: fixed
     kl_coef: 0.001
 
+wmc_erc:
+  enable: False
+  mu_base: 1.0
+  mu_exp: 2.0
+  eta_wm: 1.0
+  lambda_wm: 1.0
+  clipping_type: batch
+  clipping_method: mask
+  momentum: 0.9
+
 trainer:
   total_epochs: 30
   total_training_steps: null
@@ -193,6 +204,7 @@ trainer:
   critic_warmup: 0
   default_hdfs_dir: null
   remove_previous_ckpt_in_save: False
+  max_local_ckpt_to_keep: null
   del_local_ckpt_after_load: False
   default_local_dir: checkpoints/${trainer.project_name}/${trainer.experiment_name}
   storage_mode: local

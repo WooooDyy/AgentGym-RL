@@ -26,12 +26,13 @@ train_batch_size=32
 ppo_mini_batch_size=8
 ppo_micro_batch_size_per_gpu=1
 ppo_inner_epochs=2
+world_model_coeff=1e-4
 
 total_epoches=60
 
 model_save_dir="saves"
 mkdir -p ${model_save_dir}
-exp_name="grpo_${pure_agent_model_name}"
+exp_name="wm_loss_${pure_agent_model_name}"
 model_save_path=${model_save_dir}/${exp_name}
 
 mkdir -p ${model_save_path}
@@ -51,6 +52,7 @@ HYDRA_FULL_ERROR=1 PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True WANDB_MODE=o
     actor_rollout_ref.actor.use_kl_loss=True \
     actor_rollout_ref.actor.kl_loss_coef=0.001 \
     actor_rollout_ref.actor.kl_loss_type=low_var_kl \
+    actor_rollout_ref.actor.world_model_coeff=${world_model_coeff} \
     actor_rollout_ref.rollout.gpu_memory_utilization=0.5 \
     actor_rollout_ref.rollout.n=${rollout_sample_num} \
     actor_rollout_ref.rollout.max_model_len=32768 \
